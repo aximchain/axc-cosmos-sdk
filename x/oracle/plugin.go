@@ -6,7 +6,7 @@ import (
 )
 
 func RegisterUpgradeBeginBlocker(keeper Keeper) {
-	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchBscUpgrade, func(ctx sdk.Context) {
+	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchAxcUpgrade, func(ctx sdk.Context) {
 		keeper.SetParams(ctx, types.Params{ConsensusNeeded: types.DefaultConsensusNeeded})
 	})
 

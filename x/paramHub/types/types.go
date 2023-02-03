@@ -58,7 +58,7 @@ var (
 		"side_redelegate":       {},
 		"side_undelegate":       {},
 
-		"bsc_submit_evidence": {},
+		"axc_submit_evidence": {},
 		"side_chain_unjail":   {},
 
 		"side_submit_proposal": {},

@@ -46,7 +46,7 @@ func createTestInput(t *testing.T, isCheckTx bool) (sdk.Context, Keeper) {
 func TestKeeper(t *testing.T) {
 	sourceChainID := sdk.ChainID(0x0001)
 
-	destChainName := "bsc"
+	destChainName := "axc"
 	destChainID := sdk.ChainID(0x000f)
 
 	channelName := "transfer"

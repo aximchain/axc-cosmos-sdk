@@ -6,8 +6,8 @@ import (
 	"math/big"
 	"strconv"
 
-	"github.com/cosmos/cosmos-sdk/bsc"
-	"github.com/cosmos/cosmos-sdk/bsc/rlp"
+	"github.com/cosmos/cosmos-sdk/axc"
+	"github.com/cosmos/cosmos-sdk/axc/rlp"
 	"github.com/cosmos/cosmos-sdk/pubsub"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/fees"
@@ -146,8 +146,8 @@ func (k Keeper) DistributeInBreathBlock(ctx sdk.Context, sideChainId string) sdk
 	var rewardSum int64
 
 	bondDenom := k.BondDenom(ctx)
-	// force getting FeeFromBscToBcRatio from bc context
-	feeFromBscToBcRatio := k.FeeFromBscToBcRatio(ctx.WithSideChainKeyPrefix(nil))
+	// force getting FeeFromAxcToBcRatio from bc context
+	feeFromAxcToBcRatio := k.FeeFromAxcToBcRatio(ctx.WithSideChainKeyPrefix(nil))
 	avgFeeForBcVals := sdk.ZeroDec()
 	if sdk.IsUpgrade(sdk.BEP159) && sideChainId == types.ChainIDForBeaconChain {
 		feeForAllBcValsCoins := k.BankKeeper.GetCoins(ctx, FeeForAllBcValsAccAddr)
@@ -164,7 +164,7 @@ func (k Keeper) DistributeInBreathBlock(ctx sdk.Context, sideChainId string) sdk
 		if sdk.IsUpgrade(sdk.BEP159) {
 			if sideChainId != types.ChainIDForBeaconChain {
 				// split a portion of fees to BC validators
-				feeToBC := totalRewardDec.Mul(feeFromBscToBcRatio)
+				feeToBC := totalRewardDec.Mul(feeFromAxcToBcRatio)
 				if feeToBC.RawInt() > 0 {
 					_, err := k.BankKeeper.SendCoins(ctx, validator.DistributionAddr, FeeForAllBcValsAccAddr, sdk.Coins{sdk.NewCoin(bondDenom, feeToBC.RawInt())})
 					if err != nil {
@@ -446,20 +446,20 @@ func crossDistributeReward(k Keeper, ctx sdk.Context, rewardCAoB sdk.AccAddress,
 	if relayFee.Tokens.AmountOf(denom) >= amount {
 		return sdk.Events{}, sdk.ErrInternal("not enough funds to cover relay fee")
 	}
-	bscRelayFee := bsc.ConvertBCAmountToBSCAmount(relayFee.Tokens.AmountOf(denom))
+	axcRelayFee := axc.ConvertBCAmountToAXCAmount(relayFee.Tokens.AmountOf(denom))
 
-	bscTransferAmount := new(big.Int).Sub(bsc.ConvertBCAmountToBSCAmount(amount), bscRelayFee)
+	axcTransferAmount := new(big.Int).Sub(axc.ConvertBCAmountToAXCAmount(amount), axcRelayFee)
 	delAddr := types.GetStakeCAoB(rewardCAoB.Bytes(), types.RewardCAoBSalt)
-	delBscAddrAcc := types.GetStakeCAoB(delAddr.Bytes(), types.DelegateCAoBSalt)
-	delBscAddr := hex.EncodeToString(delBscAddrAcc.Bytes())
-	recipient, err := sdk.NewSmartChainAddress(delBscAddr)
+	delAxcAddrAcc := types.GetStakeCAoB(delAddr.Bytes(), types.DelegateCAoBSalt)
+	delAxcAddr := hex.EncodeToString(delAxcAddrAcc.Bytes())
+	recipient, err := sdk.NewSmartChainAddress(delAxcAddr)
 	if err != nil {
 		return sdk.Events{}, err
 	}
 
 	transferPackage := types.CrossStakeDistributeRewardSynPackage{
 		EventType: types.CrossStakeTypeDistributeReward,
-		Amount:    bscTransferAmount,
+		Amount:    axcTransferAmount,
 		Recipient: recipient,
 	}
 	encodedPackage, err := rlp.EncodeToBytes(transferPackage)
@@ -468,7 +468,7 @@ func crossDistributeReward(k Keeper, ctx sdk.Context, rewardCAoB sdk.AccAddress,
 	}
 
 	sendSeq, sdkErr := k.ibcKeeper.CreateRawIBCPackageByIdWithFee(ctx.DepriveSideChainKeyPrefix(), k.DestChainId, types.CrossStakeChannelID, sdk.SynCrossChainPackageType,
-		encodedPackage, *bscRelayFee)
+		encodedPackage, *axcRelayFee)
 	if sdkErr != nil {
 		return sdk.Events{}, sdkErr
 	}

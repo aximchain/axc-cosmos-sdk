@@ -153,22 +153,22 @@ func createSideTestInput(t *testing.T, defaults Params) (sdk.Context, sdk.Contex
 	paramsKeeper := params.NewKeeper(cdc, keyParams, tkeyParams)
 
 	scKeeper := sidechain.NewKeeper(keySideChain, paramsKeeper.Subspace(sidechain.DefaultParamspace), cdc)
-	bscStorePrefix := []byte{0x99}
-	scKeeper.SetSideChainIdAndStorePrefix(ctx, "bsc", bscStorePrefix)
+	axcStorePrefix := []byte{0x99}
+	scKeeper.SetSideChainIdAndStorePrefix(ctx, "axc", axcStorePrefix)
 	scKeeper.SetParams(ctx, sidechain.DefaultParams())
 
 	ibcKeeper := ibc.NewKeeper(keyIbc, paramsKeeper.Subspace(ibc.DefaultParamspace), ibc.DefaultCodespace, scKeeper)
 	// set up IBC chainID for BBC
 	scKeeper.SetSrcChainID(sdk.ChainID(1))
-	err = scKeeper.RegisterDestChain("bsc", sdk.ChainID(1))
+	err = scKeeper.RegisterDestChain("axc", sdk.ChainID(1))
 	require.Nil(t, err)
-	storePrefix := scKeeper.GetSideChainStorePrefix(ctx, "bsc")
+	storePrefix := scKeeper.GetSideChainStorePrefix(ctx, "axc")
 	ibcKeeper.SetParams(ctx.WithSideChainKeyPrefix(storePrefix), ibc.Params{RelayerFee: ibc.DefaultRelayerFeeParam})
 
 	sk := stake.NewKeeper(cdc, keyStake, keyStakeReward, tkeyStake, ck, nil, paramsKeeper.Subspace(stake.DefaultParamspace), stake.DefaultCodespace, sdk.ChainID(0), "")
 	sk.SetupForSideChain(&scKeeper, &ibcKeeper)
 	genesis := stake.DefaultGenesisState()
-	sideCtx := ctx.WithSideChainKeyPrefix(bscStorePrefix)
+	sideCtx := ctx.WithSideChainKeyPrefix(axcStorePrefix)
 	sk.SetParams(sideCtx, stake.DefaultParams())
 	sk.SetPool(sideCtx, stake.Pool{
 		LooseTokens: sdk.NewDec(5e15),
@@ -197,7 +197,7 @@ func createSideTestInput(t *testing.T, defaults Params) (sdk.Context, sdk.Contex
 	})
 
 	sdk.UpgradeMgr.Height = 1
-	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchBscUpgrade, 1)
+	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchAxcUpgrade, 1)
 
 	return ctx, sideCtx, ck, sk, paramstore, keeper
 }
@@ -245,7 +245,7 @@ func newTestMsgCreateSideValidator(address sdk.ValAddress, sideConsAddr, sideFee
 		DelegatorAddr: sdk.AccAddress(address),
 		ValidatorAddr: address,
 		Delegation:    sdk.NewCoin("steak", amt),
-		SideChainId:   "bsc",
+		SideChainId:   "axc",
 		SideConsAddr:  sideConsAddr,
 		SideFeeAddr:   sideFeeAddr,
 	}
@@ -256,7 +256,7 @@ func newTestMsgSideUnDelegate(delAddr sdk.AccAddress, valAddr sdk.ValAddress, am
 		DelegatorAddr: delAddr,
 		ValidatorAddr: valAddr,
 		Amount:        sdk.NewCoin("steak", amount),
-		SideChainId:   "bsc",
+		SideChainId:   "axc",
 	}
 }
 

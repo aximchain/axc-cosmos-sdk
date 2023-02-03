@@ -32,11 +32,11 @@ const (
 
 	flagTssHome   = "tss-home"
 	flagTssVault  = "tss-vault"
-	flagTssPubkey = "tss-pubkey" // TODO: this is a workaround for skipping input password in the end of keygen to invoke bnbcli
+	flagTssPubkey = "tss-pubkey" // TODO: this is a workaround for skipping input password in the end of keygen to invoke axccli
 	// In future, depending on how tss cli looks like we may
 	// 1. keep public key public in tss vault OR
-	// 2. make tss client independently have all functions of bnbcli OR
-	// 3. make tss client directly can write bnbcli's keystore db
+	// 2. make tss client independently have all functions of axccli OR
+	// 3. make tss client directly can write axccli's keystore db
 )
 
 func addKeyCommand() *cobra.Command {

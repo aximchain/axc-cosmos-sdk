@@ -11,7 +11,7 @@ import (
 func TestMigratePowerRankKey(t *testing.T) {
 	ctx, _, k := CreateTestInput(t, false, 0)
 
-	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchBscUpgrade, 10)
+	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchAxcUpgrade, 10)
 	sdk.UpgradeMgr.SetHeight(9)
 
 	valPubKey := PKs[0]

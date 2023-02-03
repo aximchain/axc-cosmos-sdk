@@ -1,9 +1,10 @@
 package slashing
 
 import (
-	"github.com/cosmos/cosmos-sdk/bsc/rlp"
 	"testing"
 	"time"
+
+	"github.com/cosmos/cosmos-sdk/axc/rlp"
 
 	"github.com/stretchr/testify/require"
 
@@ -31,7 +32,7 @@ func TestSideChainSlashDowntime(t *testing.T) {
 	stake.EndBreatheBlock(ctx, stakeKeeper)
 
 	sideHeight := uint64(100)
-	sideChainId := "bsc"
+	sideChainId := "axc"
 	sideTimestamp := ctx.BlockHeader().Time.Add(-6 * 60 * 60 * time.Second)
 	claim := SideDowntimeSlashPackage{
 		SideConsAddr:  sideConsAddr,

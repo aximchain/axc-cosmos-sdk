@@ -56,7 +56,7 @@ func EndBreatheBlock(ctx sdk.Context, k keeper.Keeper) (validatorUpdates []abci.
 		storeValidatorsWithHeight(ctx, newVals, k)
 	}
 
-	if sdk.IsUpgrade(sdk.LaunchBscUpgrade) && k.ScKeeper != nil {
+	if sdk.IsUpgrade(sdk.LaunchAxcUpgrade) && k.ScKeeper != nil {
 		// distribute sidechain rewards
 		sideChainIds, storePrefixes := k.ScKeeper.GetAllSideChainPrefixes(ctx)
 		for i := range storePrefixes {

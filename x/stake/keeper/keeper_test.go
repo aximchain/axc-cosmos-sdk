@@ -17,7 +17,7 @@ func TestParams(t *testing.T) {
 	expParams.BaseProposerRewardRatio = sdk.ZeroDec()
 	expParams.BonusProposerRewardRatio = sdk.ZeroDec()
 	expParams.MaxStakeSnapshots = uint16(0)
-	expParams.FeeFromBscToBcRatio = sdk.ZeroDec()
+	expParams.FeeFromAxcToBcRatio = sdk.ZeroDec()
 
 	//check that the empty keeper loads the default
 	resParams := keeper.GetParams(ctx)

@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/bsc"
+	"os"
+
+	"github.com/cosmos/cosmos-sdk/axc"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -14,7 +16,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"os"
 )
 
 const (
@@ -25,10 +26,10 @@ const (
 )
 
 // GetCmdSubmitEvidence implements the submit evidence command handler.
-func GetCmdBscSubmitEvidence(cdc *codec.Codec) *cobra.Command {
+func GetCmdAxcSubmitEvidence(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "bsc-submit-evidence",
-		Short: "submit evidence against the malicious validator on bsc",
+		Use:   "axc-submit-evidence",
+		Short: "submit evidence against the malicious validator on axc",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			txBldr := authtxb.NewTxBuilderFromCLI().WithCodec(cdc)
 			cliCtx := context.NewCLIContext().
@@ -60,7 +61,7 @@ func GetCmdBscSubmitEvidence(cdc *codec.Codec) *cobra.Command {
 				evidenceBytes = []byte(txStr)
 			}
 
-			headers := make([]bsc.Header, 0)
+			headers := make([]axc.Header, 0)
 			err = json.Unmarshal(evidenceBytes, &headers)
 			if err != nil {
 				return err
@@ -70,7 +71,7 @@ func GetCmdBscSubmitEvidence(cdc *codec.Codec) *cobra.Command {
 				return errors.New(fmt.Sprintf("must have 2 headers exactly"))
 			}
 
-			msg := slashing.NewMsgBscSubmitEvidence(from, headers)
+			msg := slashing.NewMsgAxcSubmitEvidence(from, headers)
 
 			return utils.GenerateOrBroadcastMsgs(txBldr, cliCtx, []sdk.Msg{msg})
 		},

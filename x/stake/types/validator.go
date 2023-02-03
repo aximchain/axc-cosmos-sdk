@@ -13,7 +13,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
-const ChainIDForBeaconChain string = "bbc" // short for BNB Beacon Chain
+const ChainIDForBeaconChain string = "abc" // short for AXC Beacon Chain
 
 // Validator defines the total amount of bond shares and their exchange rate to
 // coins. Accumulation of interest is modelled as an in increase in the

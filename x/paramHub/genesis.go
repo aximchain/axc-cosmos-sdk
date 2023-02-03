@@ -45,7 +45,7 @@ const (
 	ChainUndelegateFee    = 2e5
 
 	// slashing fee
-	BscSubmitEvidenceFee = 10e8
+	AxcSubmitEvidenceFee = 10e8
 	SideChainUnjail      = 1e8
 	Unjail               = 1e8
 
@@ -80,8 +80,8 @@ const (
 	MiniListingFee = 8e8
 
 	// Cross stake fee
-	CrossDistributeRewardRelayFee      = 6e5 // 0.006 BNB
-	CrossDistributeUndelegatedRelayFee = 6e5 // 0.006 BNB
+	CrossDistributeRewardRelayFee      = 6e5 // 0.006 AXC
+	CrossDistributeUndelegatedRelayFee = 6e5 // 0.006 AXC
 )
 
 var DefaultGenesisState = param.GenesisState{

@@ -214,7 +214,7 @@ func (kb dbKeybase) List() ([]Info, error) {
 			info, err := readInfo(iter.Value())
 			if err != nil {
 				name := nameFromInfoKey(key)
-				return nil, fmt.Errorf("cannot read %s, please use a compatible bnbcli", name)
+				return nil, fmt.Errorf("cannot read %s, please use a compatible axccli", name)
 			}
 			res = append(res, info)
 		}

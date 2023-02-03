@@ -74,8 +74,8 @@ func (k Keeper) BonusProposerRewardRatio(ctx sdk.Context) (res sdk.Dec) {
 	return
 }
 
-func (k Keeper) FeeFromBscToBcRatio(ctx sdk.Context) (res sdk.Dec) {
-	k.paramstore.GetIfExists(ctx, types.KeyFeeFromBscToBcRatio, &res)
+func (k Keeper) FeeFromAxcToBcRatio(ctx sdk.Context) (res sdk.Dec) {
+	k.paramstore.GetIfExists(ctx, types.KeyFeeFromAxcToBcRatio, &res)
 	return
 }
 
@@ -90,12 +90,12 @@ func (k Keeper) GetParams(ctx sdk.Context) (res types.Params) {
 	res.BaseProposerRewardRatio = k.BaseProposerRewardRatio(ctx)
 	res.BonusProposerRewardRatio = k.BonusProposerRewardRatio(ctx)
 	res.MaxStakeSnapshots = k.MaxStakeSnapshots(ctx)
-	res.FeeFromBscToBcRatio = k.FeeFromBscToBcRatio(ctx)
+	res.FeeFromAxcToBcRatio = k.FeeFromAxcToBcRatio(ctx)
 	return
 }
 
 // in order to be compatible with before
-type paramBeforeBscUpgrade struct {
+type paramBeforeAxcUpgrade struct {
 	UnbondingTime time.Duration `json:"unbonding_time"`
 
 	MaxValidators uint16 `json:"max_validators"` // maximum number of validators
@@ -103,7 +103,7 @@ type paramBeforeBscUpgrade struct {
 }
 
 // Implements params.ParamSet
-func (p *paramBeforeBscUpgrade) KeyValuePairs() params.KeyValuePairs {
+func (p *paramBeforeAxcUpgrade) KeyValuePairs() params.KeyValuePairs {
 	return params.KeyValuePairs{
 		{types.KeyUnbondingTime, &p.UnbondingTime},
 		{types.KeyMaxValidators, &p.MaxValidators},
@@ -161,7 +161,7 @@ func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
 	k.paramstore.Set(ctx, types.KeyUnbondingTime, params.UnbondingTime)
 	k.paramstore.Set(ctx, types.KeyMaxValidators, params.MaxValidators)
 	k.paramstore.Set(ctx, types.KeyBondDenom, params.BondDenom)
-	if sdk.IsUpgrade(sdk.LaunchBscUpgrade) {
+	if sdk.IsUpgrade(sdk.LaunchAxcUpgrade) {
 		if ctx.ChainID() == sdk.ChainIdGanges {
 			k.paramstore.Set(ctx, types.KeyMaxValidators, uint16(11))
 			k.paramstore.Set(ctx, types.KeyMinSelfDelegation, int64(5000000000000))
@@ -178,6 +178,6 @@ func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
 		k.paramstore.Set(ctx, types.KeyMaxStakeSnapshots, params.MaxStakeSnapshots)
 		k.paramstore.Set(ctx, types.KeyBaseProposerRewardRatio, params.BaseProposerRewardRatio)
 		k.paramstore.Set(ctx, types.KeyBonusProposerRewardRatio, params.BonusProposerRewardRatio)
-		k.paramstore.Set(ctx, types.KeyFeeFromBscToBcRatio, params.FeeFromBscToBcRatio)
+		k.paramstore.Set(ctx, types.KeyFeeFromAxcToBcRatio, params.FeeFromAxcToBcRatio)
 	}
 }

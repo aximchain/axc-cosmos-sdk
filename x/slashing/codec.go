@@ -8,7 +8,7 @@ import (
 func RegisterCodec(cdc *codec.Codec) {
 	cdc.RegisterConcrete(MsgUnjail{}, "cosmos-sdk/MsgUnjail", nil)
 	cdc.RegisterConcrete(MsgSideChainUnjail{}, "cosmos-sdk/MsgSideChainUnjail", nil)
-	cdc.RegisterConcrete(MsgBscSubmitEvidence{}, "cosmos-sdk/MsgBscSubmitEvidence", nil)
+	cdc.RegisterConcrete(MsgAxcSubmitEvidence{}, "cosmos-sdk/MsgAxcSubmitEvidence", nil)
 	cdc.RegisterConcrete(&Params{}, "params/SlashParamSet", nil)
 }
 

@@ -14,8 +14,8 @@ const (
 )
 
 var (
-	// bnb prefix address:  bnb1v8vkkymvhe2sf7gd2092ujc6hweta38xadu2pj
-	// tbnb prefix address: tbnb1v8vkkymvhe2sf7gd2092ujc6hweta38xnc4wpr
+	// axc prefix address:  axc1v8vkkymvhe2sf7gd2092ujc6hweta38xadu2pj
+	// taxc prefix address: taxc1v8vkkymvhe2sf7gd2092ujc6hweta38xnc4wpr
 	PegAccount = AccAddress(crypto.AddressHash([]byte("BinanceChainPegAccount")))
 )
 

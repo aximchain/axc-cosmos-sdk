@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/bsc"
+	"github.com/cosmos/cosmos-sdk/axc"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/sidechain/types"
@@ -17,7 +17,7 @@ const (
 	MsgRoute                 = "slashing"
 	TypeMsgUnjail            = "unjail"
 	TypeMsgSideChainUnjail   = "side_chain_unjail"
-	TypeMsgBscSubmitEvidence = "bsc_submit_evidence"
+	TypeMsgAxcSubmitEvidence = "axc_submit_evidence"
 )
 
 // verify interface at compile time
@@ -34,7 +34,7 @@ func NewMsgUnjail(validatorAddr sdk.ValAddress) MsgUnjail {
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgUnjail) Route() string { return MsgRoute }
 func (msg MsgUnjail) Type() string  { return TypeMsgUnjail }
 func (msg MsgUnjail) GetSigners() []sdk.AccAddress {
@@ -80,7 +80,7 @@ func NewMsgSideChainUnjail(validatorAddr sdk.ValAddress, sideChainId string) Msg
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgSideChainUnjail) Route() string { return MsgRoute }
 func (msg MsgSideChainUnjail) Type() string  { return TypeMsgSideChainUnjail }
 func (msg MsgSideChainUnjail) GetSigners() []sdk.AccAddress {
@@ -110,30 +110,30 @@ func (msg MsgSideChainUnjail) GetInvolvedAddresses() []sdk.AccAddress {
 
 //__________________________________________________________________
 
-// MsgBscSubmitEvidence - struct for submitting evidence for bsc
-var _ sdk.Msg = &MsgBscSubmitEvidence{}
+// MsgAxcSubmitEvidence - struct for submitting evidence for axc
+var _ sdk.Msg = &MsgAxcSubmitEvidence{}
 
-type MsgBscSubmitEvidence struct {
+type MsgAxcSubmitEvidence struct {
 	Submitter sdk.AccAddress `json:"submitter"`
-	Headers   []bsc.Header   `json:"headers"`
+	Headers   []axc.Header   `json:"headers"`
 }
 
-func NewMsgBscSubmitEvidence(submitter sdk.AccAddress, headers []bsc.Header) MsgBscSubmitEvidence {
-	return MsgBscSubmitEvidence{
+func NewMsgAxcSubmitEvidence(submitter sdk.AccAddress, headers []axc.Header) MsgAxcSubmitEvidence {
+	return MsgAxcSubmitEvidence{
 		Submitter: submitter,
 		Headers:   headers,
 	}
 }
 
-func (MsgBscSubmitEvidence) Route() string {
+func (MsgAxcSubmitEvidence) Route() string {
 	return MsgRoute
 }
 
-func (MsgBscSubmitEvidence) Type() string {
-	return TypeMsgBscSubmitEvidence
+func (MsgAxcSubmitEvidence) Type() string {
+	return TypeMsgAxcSubmitEvidence
 }
 
-func (msg MsgBscSubmitEvidence) ValidateBasic() sdk.Error {
+func (msg MsgAxcSubmitEvidence) ValidateBasic() sdk.Error {
 	if len(msg.Submitter) != sdk.AddrLen {
 		return sdk.ErrInvalidAddress(fmt.Sprintf("Expected delegator address length is %d, actual length is %d", sdk.AddrLen, len(msg.Submitter)))
 	}
@@ -166,7 +166,7 @@ func (msg MsgBscSubmitEvidence) ValidateBasic() sdk.Error {
 	return nil
 }
 
-func headerEmptyCheck(header bsc.Header) sdk.Error {
+func headerEmptyCheck(header axc.Header) sdk.Error {
 
 	if header.Number == 0 {
 		return ErrInvalidEvidence(DefaultCodespace, "header number can not be zero ")
@@ -181,15 +181,15 @@ func headerEmptyCheck(header bsc.Header) sdk.Error {
 	return nil
 }
 
-func (msg MsgBscSubmitEvidence) GetSignBytes() []byte {
+func (msg MsgAxcSubmitEvidence) GetSignBytes() []byte {
 	bz := MsgCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg MsgBscSubmitEvidence) GetSigners() []sdk.AccAddress {
+func (msg MsgAxcSubmitEvidence) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Submitter}
 }
 
-func (msg MsgBscSubmitEvidence) GetInvolvedAddresses() []sdk.AccAddress {
+func (msg MsgAxcSubmitEvidence) GetInvolvedAddresses() []sdk.AccAddress {
 	return msg.GetSigners()
 }

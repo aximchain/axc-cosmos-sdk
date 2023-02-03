@@ -83,7 +83,7 @@ type RefundError uint32
 
 const (
 	DecodeFailed      RefundError = 100
-	WithdrawBNBFailed RefundError = 101
+	WithdrawAXCFailed RefundError = 101
 )
 
 type CrossStakeRefundPackage struct {

@@ -33,7 +33,7 @@ func RegisterUpgradeBeginBlocker(paramHub *ParamHub) {
 		}
 		paramHub.UpdateFeeParams(ctx, swapFeeParams)
 	})
-	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchBscUpgrade, func(ctx sdk.Context) {
+	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchAxcUpgrade, func(ctx sdk.Context) {
 		if ctx.ChainID() == sdk.ChainIdGanges {
 			updateFeeParams := []param.FeeParam{
 				&param.FixedFeeParams{MsgType: "side_create_validator", Fee: CreateSideChainValidatorFee, FeeFor: sdk.FeeForProposer},
@@ -42,7 +42,7 @@ func RegisterUpgradeBeginBlocker(paramHub *ParamHub) {
 				&param.FixedFeeParams{MsgType: "side_redelegate", Fee: SideChainRedelegateFee, FeeFor: sdk.FeeForProposer},
 				&param.FixedFeeParams{MsgType: "side_undelegate", Fee: SideChainUndelegateFee, FeeFor: sdk.FeeForProposer},
 
-				&param.FixedFeeParams{MsgType: "bsc_submit_evidence", Fee: BscSubmitEvidenceFee, FeeFor: sdk.FeeForProposer},
+				&param.FixedFeeParams{MsgType: "axc_submit_evidence", Fee: AxcSubmitEvidenceFee, FeeFor: sdk.FeeForProposer},
 				&param.FixedFeeParams{MsgType: "side_chain_unjail", Fee: SideChainUnjail, FeeFor: sdk.FeeForProposer},
 
 				&param.FixedFeeParams{MsgType: "side_submit_proposal", Fee: SideProposeFee, FeeFor: sdk.FeeForProposer},
@@ -54,7 +54,7 @@ func RegisterUpgradeBeginBlocker(paramHub *ParamHub) {
 				&param.FixedFeeParams{MsgType: "crossTransferOut", Fee: 1e6, FeeFor: sdk.FeeForProposer},
 				&param.FixedFeeParams{MsgType: "oracleClaim", Fee: sdk.ZeroFee, FeeFor: sdk.FeeFree},
 
-				// Following fees are charged on BC, and received at BSC, they are still fees in a broad sense, so still
+				// Following fees are charged on BC, and received at AXC, they are still fees in a broad sense, so still
 				// decide to put it here, rather than in paramset.
 				&param.FixedFeeParams{MsgType: "crossBindRelayFee", Fee: CrossBindRelayFee, FeeFor: sdk.FeeForProposer},
 				&param.FixedFeeParams{MsgType: "crossUnbindRelayFee", Fee: CrossUnbindRelayFee, FeeFor: sdk.FeeForProposer},
@@ -69,7 +69,7 @@ func RegisterUpgradeBeginBlocker(paramHub *ParamHub) {
 				&param.FixedFeeParams{MsgType: "side_redelegate", Fee: SideChainRedelegateFee, FeeFor: sdk.FeeForProposer},
 				&param.FixedFeeParams{MsgType: "side_undelegate", Fee: SideChainUndelegateFee, FeeFor: sdk.FeeForProposer},
 
-				&param.FixedFeeParams{MsgType: "bsc_submit_evidence", Fee: BscSubmitEvidenceFee, FeeFor: sdk.FeeForProposer},
+				&param.FixedFeeParams{MsgType: "axc_submit_evidence", Fee: AxcSubmitEvidenceFee, FeeFor: sdk.FeeForProposer},
 				&param.FixedFeeParams{MsgType: "side_chain_unjail", Fee: SideChainUnjail, FeeFor: sdk.FeeForProposer},
 
 				&param.FixedFeeParams{MsgType: "side_submit_proposal", Fee: SideProposeFee, FeeFor: sdk.FeeForProposer},
@@ -81,7 +81,7 @@ func RegisterUpgradeBeginBlocker(paramHub *ParamHub) {
 				&param.FixedFeeParams{MsgType: "crossTransferOut", Fee: CrossTransferOutFee, FeeFor: sdk.FeeForProposer},
 				&param.FixedFeeParams{MsgType: "oracleClaim", Fee: sdk.ZeroFee, FeeFor: sdk.FeeFree},
 
-				// Following fees are charged on BC, and received at BSC, they are still fees in a broad sense, so still
+				// Following fees are charged on BC, and received at AXC, they are still fees in a broad sense, so still
 				// decide to put it here, rather than in paramset.
 				&param.FixedFeeParams{MsgType: "crossBindRelayFee", Fee: CrossBindRelayFee, FeeFor: sdk.FeeForProposer},
 				&param.FixedFeeParams{MsgType: "crossUnbindRelayFee", Fee: CrossUnbindRelayFee, FeeFor: sdk.FeeForProposer},
@@ -162,7 +162,7 @@ func init() {
 		"side_delegate":                      fees.FixedFeeCalculatorGen,
 		"side_redelegate":                    fees.FixedFeeCalculatorGen,
 		"side_undelegate":                    fees.FixedFeeCalculatorGen,
-		"bsc_submit_evidence":                fees.FixedFeeCalculatorGen,
+		"axc_submit_evidence":                fees.FixedFeeCalculatorGen,
 		"side_chain_unjail":                  fees.FixedFeeCalculatorGen,
 		"dexList":                            fees.FixedFeeCalculatorGen,
 		"orderNew":                           fees.FixedFeeCalculatorGen,

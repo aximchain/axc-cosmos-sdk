@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/bsc"
-	"github.com/cosmos/cosmos-sdk/bsc/rlp"
+	"github.com/cosmos/cosmos-sdk/axc"
+	"github.com/cosmos/cosmos-sdk/axc/rlp"
 	"github.com/cosmos/cosmos-sdk/pubsub"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/fees"
@@ -828,19 +828,19 @@ func (k Keeper) crossDistributeUndelegated(ctx sdk.Context, delAddr sdk.AccAddre
 	if relayFee.Tokens.AmountOf(denom) >= amount {
 		return sdk.Events{}, sdk.ErrInternal("not enough funds to cover relay fee")
 	}
-	bscRelayFee := bsc.ConvertBCAmountToBSCAmount(relayFee.Tokens.AmountOf(denom))
-	bscTransferAmount := new(big.Int).Sub(bsc.ConvertBCAmountToBSCAmount(amount), bscRelayFee)
+	axcRelayFee := axc.ConvertBCAmountToAXCAmount(relayFee.Tokens.AmountOf(denom))
+	axcTransferAmount := new(big.Int).Sub(axc.ConvertBCAmountToAXCAmount(amount), axcRelayFee)
 
-	delBscAddrAcc := types.GetStakeCAoB(delAddr.Bytes(), types.DelegateCAoBSalt)
-	delBscAddr := hex.EncodeToString(delBscAddrAcc.Bytes())
-	recipient, err := sdk.NewSmartChainAddress(delBscAddr)
+	delAxcAddrAcc := types.GetStakeCAoB(delAddr.Bytes(), types.DelegateCAoBSalt)
+	delAxcAddr := hex.EncodeToString(delAxcAddrAcc.Bytes())
+	recipient, err := sdk.NewSmartChainAddress(delAxcAddr)
 	if err != nil {
 		return sdk.Events{}, sdk.ErrInternal(err.Error())
 	}
 
 	transferPackage := types.CrossStakeDistributeUndelegatedSynPackage{
 		EventType: types.CrossStakeTypeDistributeUndelegated,
-		Amount:    bscTransferAmount,
+		Amount:    axcTransferAmount,
 		Recipient: recipient,
 		Validator: valAddr,
 	}
@@ -850,7 +850,7 @@ func (k Keeper) crossDistributeUndelegated(ctx sdk.Context, delAddr sdk.AccAddre
 	}
 
 	sendSeq, sdkErr := k.ibcKeeper.CreateRawIBCPackageByIdWithFee(ctx.DepriveSideChainKeyPrefix(), k.DestChainId, types.CrossStakeChannelID,
-		sdk.SynCrossChainPackageType, encodedPackage, *bscRelayFee)
+		sdk.SynCrossChainPackageType, encodedPackage, *axcRelayFee)
 	if sdkErr != nil {
 		return sdk.Events{}, sdkErr
 	}

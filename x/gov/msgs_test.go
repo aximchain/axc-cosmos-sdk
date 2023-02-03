@@ -126,7 +126,7 @@ func TestMsgSideChainSubmitProposal(t *testing.T) {
 		sideChainId        string
 		expectPass         bool
 	}{
-		{"Test Proposal", "the purpose of this proposal is to test", gov.ProposalTypeSCParamsChange, addrs[0], coinsPos, 1000 * time.Second, "bsc", true},
+		{"Test Proposal", "the purpose of this proposal is to test", gov.ProposalTypeSCParamsChange, addrs[0], coinsPos, 1000 * time.Second, "axc", true},
 		{"Test Proposal", "the purpose of this proposal is to test", gov.ProposalTypeCSCParamsChange, addrs[0], coinsPos, 1000 * time.Second, "rialto", true},
 		{"Test Proposal", "the purpose of this proposal is to test", gov.ProposalTypeSCParamsChange, addrs[0], coinsPos, 1000 * time.Second, "", false},
 		{"Test Proposal", "the purpose of this proposal is to test", gov.ProposalTypeParameterChange, addrs[0], coinsPos, 1000 * time.Second, "", false},
@@ -151,7 +151,7 @@ func TestMsgSideChainDeposit(t *testing.T) {
 		sideChain     string
 		expectPass    bool
 	}{
-		{0, addrs[0], coinsPos, "bsc", true},
+		{0, addrs[0], coinsPos, "axc", true},
 		{0, addrs[0], coinsPos, "", false},
 	}
 
@@ -175,7 +175,7 @@ func TestMsgSideChainVote(t *testing.T) {
 		sideChain  string
 		expectPass bool
 	}{
-		{0, addrs[0], gov.OptionYes, "bsc", true},
+		{0, addrs[0], gov.OptionYes, "axc", true},
 		{0, addrs[0], gov.OptionYes, "", false},
 	}
 

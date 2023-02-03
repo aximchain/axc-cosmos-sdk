@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/bsc"
+	"github.com/cosmos/cosmos-sdk/axc"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/fees"
 )
 
-func handleMsgBscSubmitEvidence(ctx sdk.Context, msg MsgBscSubmitEvidence, k Keeper) sdk.Result {
-	sideChainId := k.ScKeeper.BscSideChainId(ctx)
+func handleMsgAxcSubmitEvidence(ctx sdk.Context, msg MsgAxcSubmitEvidence, k Keeper) sdk.Result {
+	sideChainId := k.ScKeeper.AxcSideChainId(ctx)
 	sideCtx, err := k.ScKeeper.PrepareCtxForSideChain(ctx, sideChainId)
 	if err != nil {
 		return ErrInvalidSideChainId(DefaultCodespace).Result()
@@ -24,8 +24,8 @@ func handleMsgBscSubmitEvidence(ctx sdk.Context, msg MsgBscSubmitEvidence, k Kee
 
 	header := ctx.BlockHeader()
 
-	var sideConsAddr bsc.Address
-	var sideConsAddr2 bsc.Address
+	var sideConsAddr axc.Address
+	var sideConsAddr2 axc.Address
 	var err2 error
 
 	if sdk.IsUpgrade(sdk.FixDoubleSignChainId) {

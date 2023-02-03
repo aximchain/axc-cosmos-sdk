@@ -133,7 +133,7 @@ func CreateTestInput(t *testing.T, isCheckTx bool, initCoins int64) (sdk.Context
 	ibcKeeper := ibc.NewKeeper(keyIbc, pk.Subspace(ibc.DefaultParamspace), ibc.DefaultCodespace, scKeeper)
 	keeper := NewKeeper(cdc, keyStake, keyStakeReward, tkeyStake, ck, nil, pk.Subspace(DefaultParamspace), types.DefaultCodespace, sdk.ChainID(0), "")
 	keeper.SetPool(ctx, types.InitialPool())
-	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchBscUpgrade, 1)
+	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchAxcUpgrade, 1)
 	sdk.UpgradeMgr.AddUpgradeHeight(sdk.BEP128, 100)
 	sdk.UpgradeMgr.Height = 100
 	params := types.DefaultParams()

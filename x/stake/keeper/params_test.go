@@ -36,7 +36,7 @@ func TestSetParams(t *testing.T) {
 	ctx := sdk.NewContext(ms, abci.Header{ChainID: "foochainid"}, mode, log.NewNopLogger())
 	pk := params.NewKeeper(cdc, keyParams, tkeyParams)
 	k := NewKeeper(cdc, keyStake, keyStakeReward, tkeyStake, nil, nil, pk.Subspace(DefaultParamspace), types.DefaultCodespace, sdk.ChainID(0), "")
-	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchBscUpgrade, 10)
+	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchAxcUpgrade, 10)
 	sdk.UpgradeMgr.AddUpgradeHeight(sdk.BEP128, 100)
 
 	sdk.UpgradeMgr.SetHeight(1)

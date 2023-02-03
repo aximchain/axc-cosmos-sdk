@@ -185,7 +185,7 @@ func (i offlineInfo) GetAddress() types.AccAddress {
 
 // tssInfo is the public information about a tss key
 type tssInfo struct {
-	Name   string        `json:"name"` // alias of this tss vault registered in bnbcli
+	Name   string        `json:"name"` // alias of this tss vault registered in axccli
 	PubKey crypto.PubKey `json:"pubkey"`
 	Home   string        `json:"home"`  // path to home of tss client
 	Vault  string        `json:"vault"` // vault name of tss client

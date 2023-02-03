@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/cosmos/cosmos-sdk/bsc"
+	"github.com/cosmos/cosmos-sdk/axc"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/paramHub/types"
 	param "github.com/cosmos/cosmos-sdk/x/params"
@@ -159,7 +159,7 @@ func (k Keeper) GetRelayerFeeParam(ctx sdk.Context, destChainName string) (relat
 	sideChainCtx := ctx.WithSideChainKeyPrefix(storePrefix)
 	var relayerFeeParam int64
 	k.paramSpace.Get(sideChainCtx, ParamRelayerFee, &relayerFeeParam)
-	relaterFee = bsc.ConvertBCAmountToBSCAmount(relayerFeeParam)
+	relaterFee = axc.ConvertBCAmountToAXCAmount(relayerFeeParam)
 	return
 }
 

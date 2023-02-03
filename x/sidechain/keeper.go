@@ -225,7 +225,7 @@ func (k *Keeper) incrSequence(ctx sdk.Context, destChainID sdk.ChainID, channelI
 }
 
 func EndBlock(ctx sdk.Context, k Keeper) {
-	if sdk.IsUpgrade(sdk.LaunchBscUpgrade) && k.govKeeper != nil {
+	if sdk.IsUpgrade(sdk.LaunchAxcUpgrade) && k.govKeeper != nil {
 		chanPermissions := k.getLastChanPermissionChanges(ctx)
 		// should in reverse order
 		for j := len(chanPermissions) - 1; j >= 0; j-- {

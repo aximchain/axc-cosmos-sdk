@@ -18,7 +18,7 @@ func AddCommands(root *cobra.Command, cdc *codec.Codec) {
 	slashingCmd.AddCommand(
 		client.PostCommands(
 			GetCmdUnjail(cdc),
-			GetCmdBscSubmitEvidence(cdc),
+			GetCmdAxcSubmitEvidence(cdc),
 			GetCmdSideChainUnjail(cdc),
 		)...)
 

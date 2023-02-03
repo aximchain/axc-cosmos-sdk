@@ -150,7 +150,7 @@ const (
 	QueryDelegatorValidator            = querier.QueryDelegatorValidator
 	QueryPool                          = querier.QueryPool
 	QueryParameters                    = querier.QueryParameters
-	QueryCrossStakeInfo                = querier.QueryCrossStakeInfoByBscAddress
+	QueryCrossStakeInfo                = querier.QueryCrossStakeInfoByAxcAddress
 
 	Topic = types.Topic
 )

@@ -789,14 +789,14 @@ func GetCmdQuerySideParams(storeName string, cdc *codec.Codec) *cobra.Command {
 	return cmd
 }
 
-// GetCmdQueryCrossStakeInfoByBscAddress implements the cross stake reward query command.
-func GetCmdQueryCrossStakeInfoByBscAddress(cdc *codec.Codec) *cobra.Command {
+// GetCmdQueryCrossStakeInfoByAxcAddress implements the cross stake reward query command.
+func GetCmdQueryCrossStakeInfoByAxcAddress(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "cross-stake-info",
-		Short: "Query the cross stake info by BSC address",
+		Short: "Query the cross stake info by AXC address",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			bscAddress, err := sdk.NewSmartChainAddress(args[0])
+			axcAddress, err := sdk.NewSmartChainAddress(args[0])
 			if err != nil {
 				return err
 			}
@@ -809,7 +809,7 @@ func GetCmdQueryCrossStakeInfoByBscAddress(cdc *codec.Codec) *cobra.Command {
 
 			params := stake.QueryCrossStakeInfoParams{
 				BaseParams: stake.NewBaseParams(sideChainId),
-				BscAddress: bscAddress,
+				AxcAddress: axcAddress,
 			}
 
 			bz, err := json.Marshal(params)

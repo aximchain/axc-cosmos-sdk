@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/bsc/rlp"
+	"github.com/cosmos/cosmos-sdk/axc/rlp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/gov"
@@ -115,7 +115,7 @@ func (keeper *Keeper) EndBreatheBlock(ctx sdk.Context) {
 	if feeChange != nil {
 		keeper.notifyOnUpdate(ctx, feeChange)
 	}
-	if sdk.IsUpgrade(sdk.LaunchBscUpgrade) {
+	if sdk.IsUpgrade(sdk.LaunchAxcUpgrade) {
 		_, storePrefixes := keeper.ScKeeper.GetAllSideChainPrefixes(ctx)
 		for i := range storePrefixes {
 			sideChainCtx := ctx.WithSideChainKeyPrefix(storePrefixes[i])
@@ -133,7 +133,7 @@ func (keeper *Keeper) EndBreatheBlock(ctx sdk.Context) {
 func (keeper *Keeper) EndBlock(ctx sdk.Context) {
 	log := keeper.Logger(ctx)
 	log.Info("Sync params proposals.")
-	if sdk.IsUpgrade(sdk.LaunchBscUpgrade) && keeper.ScKeeper != nil {
+	if sdk.IsUpgrade(sdk.LaunchAxcUpgrade) && keeper.ScKeeper != nil {
 		sideChainIds, storePrefixes := keeper.ScKeeper.GetAllSideChainPrefixes(ctx)
 		for idx := range storePrefixes {
 			sideChainCtx := ctx.WithSideChainKeyPrefix(storePrefixes[idx])

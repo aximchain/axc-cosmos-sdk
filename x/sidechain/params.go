@@ -9,7 +9,7 @@ import (
 const DefaultParamspace = "sidechain"
 
 var (
-	KeyBscSideChainId = []byte("BscSideChainId")
+	KeyAxcSideChainId = []byte("AxcSideChainId")
 )
 
 // ParamTypeTable for sidechain module
@@ -18,25 +18,25 @@ func ParamTypeTable() params.TypeTable {
 }
 
 type Params struct {
-	BscSideChainId string `json:"bsc_side_chain_id"`
+	AxcSideChainId string `json:"axc_side_chain_id"`
 }
 
 // Implements params.ParamStruct
 func (p *Params) KeyValuePairs() params.KeyValuePairs {
 	return params.KeyValuePairs{
-		{KeyBscSideChainId, &p.BscSideChainId},
+		{KeyAxcSideChainId, &p.AxcSideChainId},
 	}
 }
 
 // Default parameters used by Cosmos Hub
 func DefaultParams() Params {
 	return Params{
-		BscSideChainId: "bsc",
+		AxcSideChainId: "axc",
 	}
 }
 
-func (k Keeper) BscSideChainId(ctx sdk.Context) (sideChainId string) {
-	k.paramspace.Get(ctx, KeyBscSideChainId, &sideChainId)
+func (k Keeper) AxcSideChainId(ctx sdk.Context) (sideChainId string) {
+	k.paramspace.Get(ctx, KeyAxcSideChainId, &sideChainId)
 	return
 }
 

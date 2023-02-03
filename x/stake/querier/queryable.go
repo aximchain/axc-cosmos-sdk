@@ -30,7 +30,7 @@ const (
 	QueryTopValidators                 = "topValidators"
 	QueryAllValidatorsCount            = "allValidatorsCount"
 	QueryAllUnJailValidatorsCount      = "allUnJailValidatorsCount"
-	QueryCrossStakeInfoByBscAddress    = "crossStakeInfoByBscAddress"
+	QueryCrossStakeInfoByAxcAddress    = "crossStakeInfoByAxcAddress"
 )
 
 // creates a querier for staking REST endpoints
@@ -156,13 +156,13 @@ func NewQuerier(k keep.Keeper, cdc *codec.Codec) sdk.Querier {
 				return res, err
 			}
 			return queryAllUnJailValidatorsCount(ctx, cdc, k)
-		case QueryCrossStakeInfoByBscAddress:
+		case QueryCrossStakeInfoByAxcAddress:
 			p := new(QueryCrossStakeInfoParams)
 			ctx, err = RequestPrepare(ctx, k, req, p)
 			if err != nil {
 				return res, err
 			}
-			return queryCrossStakeInfoByBscAddress(ctx, cdc, p, k)
+			return queryCrossStakeInfoByAxcAddress(ctx, cdc, p, k)
 		default:
 			return nil, sdk.ErrUnknownRequest("unknown stake query endpoint")
 		}
@@ -248,7 +248,7 @@ type QueryRedelegationParams struct {
 // defines the params for 'custom/stake/crossStakeInfo'
 type QueryCrossStakeInfoParams struct {
 	BaseParams
-	BscAddress sdk.SmartChainAddress
+	AxcAddress sdk.SmartChainAddress
 }
 
 func queryValidators(ctx sdk.Context, cdc *codec.Codec, k keep.Keeper) (res []byte, err sdk.Error) {
@@ -462,11 +462,11 @@ func queryAllUnJailValidatorsCount(ctx sdk.Context, cdc *codec.Codec, k keep.Kee
 	return res, nil
 }
 
-func queryCrossStakeInfoByBscAddress(ctx sdk.Context, cdc *codec.Codec, params *QueryCrossStakeInfoParams, k keep.Keeper) ([]byte, sdk.Error) {
-	if params.BscAddress.IsEmpty() {
+func queryCrossStakeInfoByAxcAddress(ctx sdk.Context, cdc *codec.Codec, params *QueryCrossStakeInfoParams, k keep.Keeper) ([]byte, sdk.Error) {
+	if params.AxcAddress.IsEmpty() {
 		return []byte{}, sdk.ErrInternal("invalid side chain address")
 	}
-	delCAoB := types.GetStakeCAoB(params.BscAddress[:], types.DelegateCAoBSalt)
+	delCAoB := types.GetStakeCAoB(params.AxcAddress[:], types.DelegateCAoBSalt)
 	rewardCAoB := types.GetStakeCAoB(delCAoB.Bytes(), types.RewardCAoBSalt)
 	reward := k.BankKeeper.GetCoins(ctx, rewardCAoB).AmountOf(k.BondDenom(ctx))
 	csResponse := types.NewCrossStakeInfoResponse(delCAoB, rewardCAoB, reward)
