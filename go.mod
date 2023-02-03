@@ -1,4 +1,4 @@
-module github.com/aximchain/axc-cosmos-sdk
+module github.com/cosmos/cosmos-sdk
 
 go 1.17
 
