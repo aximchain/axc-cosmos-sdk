@@ -23,7 +23,7 @@ var (
 	ParamStoreKeyTallyParams   = []byte("tallyparams")
 
 	// Will hold deposit of both BC chain and side chain.
-	DepositedCoinsAccAddr = sdk.AccAddress(crypto.AddressHash([]byte("BinanceChainDepositedCoins")))
+	DepositedCoinsAccAddr = sdk.AccAddress(crypto.AddressHash([]byte("AximchainDepositedCoins")))
 )
 
 // Type declaration for parameters

@@ -3,11 +3,10 @@ package keeper
 import (
 	"time"
 
-	"github.com/tendermint/tendermint/crypto"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/tendermint/tendermint/crypto"
 )
 
 // Default parameter namespace
@@ -17,8 +16,8 @@ const (
 
 var (
 	FeeCollectorAddr       = sdk.AccAddress(crypto.AddressHash([]byte("FeeCollector")))
-	DelegationAccAddr      = sdk.AccAddress(crypto.AddressHash([]byte("BinanceChainStakeDelegation")))
-	FeeForAllBcValsAccAddr = sdk.AccAddress(crypto.AddressHash([]byte("BinanceChainStakeFeeForAllBcVals")))
+	DelegationAccAddr      = sdk.AccAddress(crypto.AddressHash([]byte("AximchainStakeDelegation")))
+	FeeForAllBcValsAccAddr = sdk.AccAddress(crypto.AddressHash([]byte("AximchainStakeFeeForAllBcVals")))
 )
 
 // ParamTable for stake module
@@ -162,14 +161,8 @@ func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
 	k.paramstore.Set(ctx, types.KeyMaxValidators, params.MaxValidators)
 	k.paramstore.Set(ctx, types.KeyBondDenom, params.BondDenom)
 	if sdk.IsUpgrade(sdk.LaunchAxcUpgrade) {
-		if ctx.ChainID() == sdk.ChainIdGanges {
-			k.paramstore.Set(ctx, types.KeyMaxValidators, uint16(11))
-			k.paramstore.Set(ctx, types.KeyMinSelfDelegation, int64(5000000000000))
-			k.paramstore.Set(ctx, types.KeyMinDelegationChange, params.MinDelegationChange)
-		} else {
-			k.paramstore.Set(ctx, types.KeyMinSelfDelegation, params.MinSelfDelegation)
-			k.paramstore.Set(ctx, types.KeyMinDelegationChange, params.MinDelegationChange)
-		}
+		k.paramstore.Set(ctx, types.KeyMinSelfDelegation, params.MinSelfDelegation)
+		k.paramstore.Set(ctx, types.KeyMinDelegationChange, params.MinDelegationChange)
 	}
 	if sdk.IsUpgrade(sdk.BEP128) {
 		k.paramstore.Set(ctx, types.KeyRewardDistributionBatchSize, params.RewardDistributionBatchSize)

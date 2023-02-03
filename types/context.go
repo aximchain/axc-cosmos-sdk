@@ -8,10 +8,6 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 )
 
-const (
-	ChainIdGanges = "Binance-Chain-Ganges"
-)
-
 type Context struct {
 	ctx                context.Context
 	ms                 MultiStore

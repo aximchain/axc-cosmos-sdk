@@ -145,7 +145,7 @@ func (s Subspace) Set(ctx sdk.Context, key []byte, param interface{}) {
 // Get to ParamSet
 func (s Subspace) GetParamSet(ctx sdk.Context, ps ParamSet) {
 	for _, pair := range ps.KeyValuePairs() {
-		s.GetIfExists(ctx, pair.Key, pair.Value)
+		s.Get(ctx, pair.Key, pair.Value)
 	}
 }
 
