@@ -6,17 +6,15 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
-
-	"github.com/tendermint/tendermint/libs/cli"
-
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/sidechain"
-	"github.com/cosmos/cosmos-sdk/x/stake"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake"
 	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"github.com/tendermint/tendermint/libs/cli"
 )
 
 func GetCmdQuerySideValidator(storeName string, cdc *codec.Codec) *cobra.Command {
@@ -789,11 +787,11 @@ func GetCmdQuerySideParams(storeName string, cdc *codec.Codec) *cobra.Command {
 	return cmd
 }
 
-// GetCmdQueryCrossStakeInfoByAxcAddress implements the cross stake reward query command.
-func GetCmdQueryCrossStakeInfoByAxcAddress(cdc *codec.Codec) *cobra.Command {
+// GetCmdQueryCrossStakeRewardByAxcAddress implements the cross stake reward query command.
+func GetCmdQueryCrossStakeRewardByAxcAddress(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "cross-stake-info",
-		Short: "Query the cross stake info by AXC address",
+		Use:   "cross-stake-reward",
+		Short: "Query the cross stake reward balance by AXC address",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			axcAddress, err := sdk.NewSmartChainAddress(args[0])
@@ -807,7 +805,7 @@ func GetCmdQueryCrossStakeInfoByAxcAddress(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			params := stake.QueryCrossStakeInfoParams{
+			params := stake.QueryCrossStakeRewardParams{
 				BaseParams: stake.NewBaseParams(sideChainId),
 				AxcAddress: axcAddress,
 			}
@@ -817,25 +815,12 @@ func GetCmdQueryCrossStakeInfoByAxcAddress(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			response, err := cliCtx.QueryWithData("custom/stake/"+stake.QueryCrossStakeInfo, bz)
+			response, err := cliCtx.QueryWithData("custom/stake/"+stake.QueryCrossStakeReward, bz)
 			if err != nil {
 				return err
 			}
 
-			switch viper.Get(cli.OutputFlag) {
-			case "text":
-				var csResp types.CrossStakeInfoResponse
-				if err = cdc.UnmarshalJSON(response, &csResp); err != nil {
-					return err
-				}
-				resp, err := csResp.HumanReadableString()
-				if err != nil {
-					return err
-				}
-				fmt.Println(resp)
-			case "json":
-				fmt.Println(string(response))
-			}
+			fmt.Println("The reward balance of specified side chain address on BC is:", string(response))
 
 			return nil
 		},

@@ -3,37 +3,37 @@ package stake
 
 import (
 	"github.com/cosmos/cosmos-sdk/x/stake/keeper"
-	"github.com/cosmos/cosmos-sdk/x/stake/querier"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/querier"
 	"github.com/cosmos/cosmos-sdk/x/stake/types"
 )
 
 type (
-	Keeper                     = keeper.Keeper
-	Validator                  = types.Validator
-	Description                = types.Description
-	Commission                 = types.Commission
-	Delegation                 = types.Delegation
-	UnbondingDelegation        = types.UnbondingDelegation
-	Redelegation               = types.Redelegation
-	Params                     = types.Params
-	Pool                       = types.Pool
-	MsgCreateValidator         = types.MsgCreateValidator
-	MsgCreateValidatorOpen     = types.MsgCreateValidatorOpen
-	MsgRemoveValidator         = types.MsgRemoveValidator
-	MsgCreateValidatorProposal = types.MsgCreateValidatorProposal
-	MsgEditValidator           = types.MsgEditValidator
-	MsgDelegate                = types.MsgDelegate
-	MsgBeginUnbonding          = types.MsgBeginUnbonding
-	MsgRedelegate              = types.MsgRedelegate
-	MsgUndelegate              = types.MsgUndelegate
-	GenesisState               = types.GenesisState
-	QueryDelegatorParams       = querier.QueryDelegatorParams
-	QueryValidatorParams       = querier.QueryValidatorParams
-	QueryBondsParams           = querier.QueryBondsParams
-	QueryCrossStakeInfoParams  = querier.QueryCrossStakeInfoParams
-	CreateValidatorJsonMsg     = types.CreateValidatorJsonMsg
-	QueryTopValidatorsParams   = querier.QueryTopValidatorsParams
-	BaseParams                 = querier.BaseParams
+	Keeper                      = keeper.Keeper
+	Validator                   = types.Validator
+	Description                 = types.Description
+	Commission                  = types.Commission
+	Delegation                  = types.Delegation
+	UnbondingDelegation         = types.UnbondingDelegation
+	Redelegation                = types.Redelegation
+	Params                      = types.Params
+	Pool                        = types.Pool
+	MsgCreateValidator          = types.MsgCreateValidator
+	MsgCreateValidatorOpen      = types.MsgCreateValidatorOpen
+	MsgRemoveValidator          = types.MsgRemoveValidator
+	MsgCreateValidatorProposal  = types.MsgCreateValidatorProposal
+	MsgEditValidator            = types.MsgEditValidator
+	MsgDelegate                 = types.MsgDelegate
+	MsgBeginUnbonding           = types.MsgBeginUnbonding
+	MsgRedelegate               = types.MsgRedelegate
+	MsgUndelegate               = types.MsgUndelegate
+	GenesisState                = types.GenesisState
+	QueryDelegatorParams        = querier.QueryDelegatorParams
+	QueryValidatorParams        = querier.QueryValidatorParams
+	QueryBondsParams            = querier.QueryBondsParams
+	CreateValidatorJsonMsg      = types.CreateValidatorJsonMsg
+	QueryTopValidatorsParams    = querier.QueryTopValidatorsParams
+	BaseParams                  = querier.BaseParams
+	QueryCrossStakeRewardParams = querier.QueryCrossStakeRewardParams
 
 	MsgCreateSideChainValidator = types.MsgCreateSideChainValidator
 	MsgEditSideChainValidator   = types.MsgEditSideChainValidator
@@ -150,7 +150,7 @@ const (
 	QueryDelegatorValidator            = querier.QueryDelegatorValidator
 	QueryPool                          = querier.QueryPool
 	QueryParameters                    = querier.QueryParameters
-	QueryCrossStakeInfo                = querier.QueryCrossStakeInfoByAxcAddress
+	QueryCrossStakeReward              = querier.QueryCrossStakeRewardByAxcAddress
 
 	Topic = types.Topic
 )
