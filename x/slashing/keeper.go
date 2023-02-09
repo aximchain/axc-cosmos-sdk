@@ -9,17 +9,17 @@ import (
 	"github.com/tendermint/tendermint/crypto"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	"github.com/cosmos/cosmos-sdk/axc/rlp"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/pubsub"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/fees"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/paramHub/types"
-	param "github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
-	sTypes "github.com/cosmos/cosmos-sdk/x/sidechain/types"
-	stake "github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/pubsub"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/types/fees"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank"
+	"github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
+	param "github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
+	sTypes "github.com/aximchain/axc-cosmos-sdk/x/sidechain/types"
+	stake "github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 )
 
 // Keeper of the slashing store

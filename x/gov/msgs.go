@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // name to identify transaction types
@@ -18,7 +18,7 @@ const (
 
 var _, _, _ sdk.Msg = MsgSubmitProposal{}, MsgDeposit{}, MsgVote{}
 
-//-----------------------------------------------------------
+// -----------------------------------------------------------
 type ListTradingPairParams struct {
 	BaseAssetSymbol  string    `json:"base_asset_symbol"`  // base asset symbol
 	QuoteAssetSymbol string    `json:"quote_asset_symbol"` // quote asset symbol
@@ -27,7 +27,7 @@ type ListTradingPairParams struct {
 	ExpireTime       time.Time `json:"expire_time"`        // expire time
 }
 
-//-----------------------------------------------------------
+// -----------------------------------------------------------
 type DelistTradingPairParams struct {
 	BaseAssetSymbol  string `json:"base_asset_symbol"`  // base asset symbol
 	QuoteAssetSymbol string `json:"quote_asset_symbol"` // quote asset symbol
@@ -35,7 +35,7 @@ type DelistTradingPairParams struct {
 	IsExecuted       bool   `json:"is_executed"`        // is this proposal executed
 }
 
-//-----------------------------------------------------------
+// -----------------------------------------------------------
 // MsgSubmitProposal
 type MsgSubmitProposal struct {
 	Title          string         `json:"title"`           //  Title of the proposal
@@ -57,7 +57,7 @@ func NewMsgSubmitProposal(title string, description string, proposalType Proposa
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgSubmitProposal) Route() string { return MsgRoute }
 func (msg MsgSubmitProposal) Type() string  { return "submit_proposal" }
 
@@ -120,7 +120,7 @@ func (msg MsgSubmitProposal) GetInvolvedAddresses() []sdk.AccAddress {
 	return msg.GetSigners()
 }
 
-//-----------------------------------------------------------
+// -----------------------------------------------------------
 // MsgDeposit
 type MsgDeposit struct {
 	ProposalID int64          `json:"proposal_id"` // ID of the proposal
@@ -185,7 +185,7 @@ func (msg MsgDeposit) GetInvolvedAddresses() []sdk.AccAddress {
 	return msg.GetSigners()
 }
 
-//-----------------------------------------------------------
+// -----------------------------------------------------------
 // MsgVote
 type MsgVote struct {
 	ProposalID int64          `json:"proposal_id"` // ID of the proposal

@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	keys "github.com/cosmos/cosmos-sdk/crypto/keys"
+	"github.com/aximchain/axc-cosmos-sdk/client"
+	keys "github.com/aximchain/axc-cosmos-sdk/crypto/keys"
 	"github.com/gorilla/mux"
 
-	"github.com/cosmos/cosmos-sdk/crypto/keys/keyerror"
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys/keyerror"
 	"github.com/spf13/cobra"
 )
 

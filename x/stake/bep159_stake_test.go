@@ -6,15 +6,15 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/ibc"
-	"github.com/cosmos/cosmos-sdk/x/mock"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
-	stake "github.com/cosmos/cosmos-sdk/x/stake/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/auth"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
+	"github.com/aximchain/axc-cosmos-sdk/x/ibc"
+	"github.com/aximchain/axc-cosmos-sdk/x/mock"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
+	stake "github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	"github.com/stretchr/testify/require"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/crypto"
@@ -84,14 +84,14 @@ func getNewStakeMockApp(t *testing.T) (*mock.App, Keeper, []Account) {
 	govKeeper := gov.NewKeeper(mApp.Cdc, keyGov, paramsKeeper, paramsKeeper.Subspace(gov.DefaultParamSpace), bankKeeper, keeper, mApp.RegisterCodespace(DefaultCodespace), nil)
 	keeper.SetupForSideChain(&scKeeper, &ibcKeeper)
 
-	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchAxcUpgrade, 6)
+	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchAscUpgrade, 6)
 	sdk.UpgradeMgr.AddUpgradeHeight(sdk.BEP128, 7)
 	sdk.UpgradeMgr.AddUpgradeHeight(sdk.BEP159, 8)
 	sdk.UpgradeMgr.AddUpgradeHeight(sdk.BEP159Phase2, 8)
-	AxcChainId := "axc"
-	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchAxcUpgrade, func(ctx sdk.Context) {
+	AscChainId := "axc"
+	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchAscUpgrade, func(ctx sdk.Context) {
 		MigratePowerRankKey(ctx, keeper)
-		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, AxcChainId)
+		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, AscChainId)
 		newCtx := ctx.WithSideChainKeyPrefix(storePrefix)
 		keeper.SetParams(newCtx, stake.Params{
 			UnbondingTime:       60 * 60 * 24 * 7 * time.Second, // 7 days
@@ -105,7 +105,7 @@ func getNewStakeMockApp(t *testing.T) (*mock.App, Keeper, []Account) {
 		})
 	})
 	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.BEP128, func(ctx sdk.Context) {
-		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, AxcChainId)
+		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, AscChainId)
 		// init new param RewardDistributionBatchSize
 		newCtx := ctx.WithSideChainKeyPrefix(storePrefix)
 		params := keeper.GetParams(newCtx)
@@ -113,7 +113,7 @@ func getNewStakeMockApp(t *testing.T) (*mock.App, Keeper, []Account) {
 		keeper.SetParams(newCtx, params)
 	})
 	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.BEP159, func(ctx sdk.Context) {
-		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, AxcChainId)
+		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, AscChainId)
 		newCtx := ctx.WithSideChainKeyPrefix(storePrefix)
 		params := keeper.GetParams(newCtx)
 		params.MaxStakeSnapshots = 30

@@ -48,7 +48,7 @@ func main() {
 
 	// prepare and add flags
 	rootDir := os.ExpandEnv("$HOME/.basecoind")
-	executor := cli.PrepareBaseCmd(rootCmd, "BC", rootDir)
+	executor := cli.PrepareBaseCmd(rootCmd, "FC", rootDir)
 	executor.Execute()
 }
 

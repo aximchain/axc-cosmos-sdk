@@ -3,12 +3,13 @@ package client
 import (
 	"bufio"
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/types"
+	"os"
+	"path"
+
+	"github.com/aximchain/axc-cosmos-sdk/types"
 	"github.com/mitchellh/go-homedir"
 	"github.com/pelletier/go-toml"
 	"github.com/spf13/cobra"
-	"os"
-	"path"
 )
 
 type cliConfig struct {

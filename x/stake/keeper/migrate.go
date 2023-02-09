@@ -3,8 +3,8 @@ package keeper
 import (
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 )
 
 func MigratePowerRankKey(ctx sdk.Context, keeper Keeper) {
@@ -37,7 +37,7 @@ func MigrateValidators(ctx sdk.Context, k Keeper) {
 
 	for ; iterator.Valid(); iterator.Next() {
 		validator := types.MustUnmarshalValidator(k.cdc, iterator.Value())
-		validator.DistributionAddr = types.GenerateDistributionAddr(validator.OperatorAddr, types.ChainIDForBeaconChain)
+		validator.DistributionAddr = types.GenerateDistributionAddr(validator.OperatorAddr, types.ChainIDForFlashChain)
 		k.SetValidator(ctx, validator)
 		delegation, found := k.GetDelegation(ctx, validator.FeeAddr, validator.OperatorAddr)
 		if !found {

@@ -3,8 +3,8 @@ package cross_stake
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/axc/rlp"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 )
 
 const (
@@ -13,13 +13,13 @@ const (
 	CrossStakeErrBadDelegation     uint8 = 3
 )
 
-type CrossStakeSynPackageFromAXC struct {
+type CrossStakeSynPackageFromASC struct {
 	EventType   types.CrossStakeEventType
 	ParamsBytes []byte
 }
 
 func DeserializeCrossStakeSynPackage(serializedPackage []byte) (interface{}, error) {
-	var pack1 CrossStakeSynPackageFromAXC
+	var pack1 CrossStakeSynPackageFromASC
 	err := rlp.DecodeBytes(serializedPackage, &pack1)
 	if err != nil {
 		return nil, err

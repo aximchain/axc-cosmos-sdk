@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/params"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
 )
 
 var (
@@ -56,7 +56,8 @@ type Prophecy struct {
 }
 
 // DBProphecy is what the prophecy becomes when being saved to the database.
-//  Tendermint/Amino does not support maps so we must serialize those variables into bytes.
+//
+//	Tendermint/Amino does not support maps so we must serialize those variables into bytes.
 type DBProphecy struct {
 	ID              string `json:"id"`
 	Status          Status `json:"status"`

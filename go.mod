@@ -6,7 +6,6 @@ require (
 	github.com/bartekn/go-bip39 v0.0.0-20171116152956-a05967ea095d
 	github.com/bgentry/speakeasy v0.1.0
 	github.com/btcsuite/btcd v0.20.1-beta
-	github.com/cosmos/cosmos-sdk v0.0.0-00010101000000-000000000000
 	github.com/cosmos/go-bip39 v0.0.0-20180819234021-555e2067c45d
 	github.com/go-kit/kit v0.9.0
 	github.com/gorilla/mux v1.7.3
@@ -69,7 +68,6 @@ require (
 )
 
 replace (
-	github.com/cosmos/cosmos-sdk => github.com/aximchain/axc-cosmos-sdk v0.1.2
 	github.com/tendermint/go-amino => github.com/bnb-chain/bnc-go-amino v0.14.1-binance.2
 	github.com/tendermint/iavl => github.com/bnb-chain/bnc-tendermint-iavl v0.12.0-binance.4
 	github.com/tendermint/tendermint => github.com/bnb-chain/bnc-tendermint v0.32.3-binance.7

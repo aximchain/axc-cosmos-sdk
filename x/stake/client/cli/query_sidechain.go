@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
+	"github.com/aximchain/axc-cosmos-sdk/client/context"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
 	"github.com/aximchain/axc-cosmos-sdk/x/stake"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/tendermint/tendermint/libs/cli"
@@ -787,11 +787,11 @@ func GetCmdQuerySideParams(storeName string, cdc *codec.Codec) *cobra.Command {
 	return cmd
 }
 
-// GetCmdQueryCrossStakeRewardByAxcAddress implements the cross stake reward query command.
-func GetCmdQueryCrossStakeRewardByAxcAddress(cdc *codec.Codec) *cobra.Command {
+// GetCmdQueryCrossStakeRewardByAscAddress implements the cross stake reward query command.
+func GetCmdQueryCrossStakeRewardByAscAddress(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "cross-stake-reward",
-		Short: "Query the cross stake reward balance by AXC address",
+		Short: "Query the cross stake reward balance by ASC address",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			axcAddress, err := sdk.NewSmartChainAddress(args[0])
@@ -807,7 +807,7 @@ func GetCmdQueryCrossStakeRewardByAxcAddress(cdc *codec.Codec) *cobra.Command {
 
 			params := stake.QueryCrossStakeRewardParams{
 				BaseParams: stake.NewBaseParams(sideChainId),
-				AxcAddress: axcAddress,
+				AscAddress: axcAddress,
 			}
 
 			bz, err := json.Marshal(params)
@@ -820,7 +820,7 @@ func GetCmdQueryCrossStakeRewardByAxcAddress(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			fmt.Println("The reward balance of specified side chain address on BC is:", string(response))
+			fmt.Println("The reward balance of specified side chain address on FC is:", string(response))
 
 			return nil
 		},

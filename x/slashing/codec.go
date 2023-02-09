@@ -1,14 +1,14 @@
 package slashing
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
 )
 
 // Register concrete types on codec codec
 func RegisterCodec(cdc *codec.Codec) {
 	cdc.RegisterConcrete(MsgUnjail{}, "cosmos-sdk/MsgUnjail", nil)
 	cdc.RegisterConcrete(MsgSideChainUnjail{}, "cosmos-sdk/MsgSideChainUnjail", nil)
-	cdc.RegisterConcrete(MsgAxcSubmitEvidence{}, "cosmos-sdk/MsgAxcSubmitEvidence", nil)
+	cdc.RegisterConcrete(MsgAscSubmitEvidence{}, "cosmos-sdk/MsgAscSubmitEvidence", nil)
 	cdc.RegisterConcrete(&Params{}, "params/SlashParamSet", nil)
 }
 

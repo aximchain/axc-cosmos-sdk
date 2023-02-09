@@ -4,8 +4,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/aximchain/axc-cosmos-sdk/client/context"
+	"github.com/aximchain/axc-cosmos-sdk/x/auth"
 	"github.com/spf13/cobra"
 	amino "github.com/tendermint/go-amino"
 )

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
 )
 
 const (
@@ -43,7 +43,7 @@ var (
 	KeyMaxStakeSnapshots           = []byte("MaxStakeSnapshots")
 	KeyBaseProposerRewardRatio     = []byte("BaseProposerRewardRatio")
 	KeyBonusProposerRewardRatio    = []byte("BonusProposerRewardRatio")
-	KeyFeeFromAxcToBcRatio         = []byte("FeeFromAxcToBcRatio")
+	KeyFeeFromAscToFcRatio         = []byte("FeeFromAscToFcRatio")
 )
 
 var _ params.ParamSet = (*Params)(nil)
@@ -61,10 +61,10 @@ type Params struct {
 	MaxStakeSnapshots        uint16    `json:"max_stake_snapshots"`         // maximum number of stake snapshots, also used as the accumulated stake duration
 	BaseProposerRewardRatio  types.Dec `json:"base_proposer_reward_ratio"`  // the base proposer reward ratio
 	BonusProposerRewardRatio types.Dec `json:"bonus_proposer_reward_ratio"` // the bonus proposer reward ratio
-	FeeFromAxcToBcRatio      types.Dec `json:"fee_from_axc_to_bc_ratio"`    // the fee from axc to bc ratio
+	FeeFromAscToFcRatio      types.Dec `json:"fee_from_asx_to_fc_ratio"`    // the fee from axc to bc ratio
 }
 
-func (p *Params) GetBCParamAttribute() string {
+func (p *Params) GetFCParamAttribute() string {
 	return "staking"
 }
 
@@ -105,8 +105,8 @@ func (p *Params) UpdateCheck() error {
 	if p.BonusProposerRewardRatio.Add(p.BaseProposerRewardRatio).GT(types.OneDec()) {
 		return fmt.Errorf("the base_proposer_reward_ratio + bonus_proposer_reward_ratio should be no greater than 1")
 	}
-	if p.FeeFromAxcToBcRatio.LT(types.ZeroDec()) {
-		return fmt.Errorf("the fee_from_axc_to_bc_ratio should be no less than 0")
+	if p.FeeFromAscToFcRatio.LT(types.ZeroDec()) {
+		return fmt.Errorf("the fee_from_asx_to_fc_ratio should be no less than 0")
 	}
 
 	return nil
@@ -124,7 +124,7 @@ func (p *Params) KeyValuePairs() params.KeyValuePairs {
 		{KeyMaxStakeSnapshots, &p.MaxStakeSnapshots},
 		{KeyBaseProposerRewardRatio, &p.BaseProposerRewardRatio},
 		{KeyBonusProposerRewardRatio, &p.BonusProposerRewardRatio},
-		{KeyFeeFromAxcToBcRatio, &p.FeeFromAxcToBcRatio},
+		{KeyFeeFromAscToFcRatio, &p.FeeFromAscToFcRatio},
 	}
 }
 
@@ -147,7 +147,7 @@ func DefaultParams() Params {
 		MaxStakeSnapshots:           30,
 		BaseProposerRewardRatio:     types.NewDec(1e6),
 		BonusProposerRewardRatio:    types.NewDec(4e6),
-		FeeFromAxcToBcRatio:         types.NewDec(1e7),
+		FeeFromAscToFcRatio:         types.NewDec(1e7),
 	}
 }
 
@@ -165,7 +165,7 @@ func (p Params) HumanReadableString() string {
 	resp += fmt.Sprintf("Max stake snapshots: %d\n", p.MaxStakeSnapshots)
 	resp += fmt.Sprintf("Base proposer reward ratio: %s\n", p.BaseProposerRewardRatio)
 	resp += fmt.Sprintf("Bonus proposer reward ratio: %s\n", p.BonusProposerRewardRatio)
-	resp += fmt.Sprintf("Fee from AXC to BC ratio: %s\n", p.FeeFromAxcToBcRatio)
+	resp += fmt.Sprintf("Fee from ASC to FC ratio: %s\n", p.FeeFromAscToFcRatio)
 	return resp
 }
 

@@ -1,7 +1,7 @@
 package ibc
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 func EndBlocker(ctx sdk.Context, keeper Keeper) {

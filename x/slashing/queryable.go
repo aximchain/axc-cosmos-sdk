@@ -3,9 +3,9 @@ package slashing
 import (
 	"encoding/json"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 

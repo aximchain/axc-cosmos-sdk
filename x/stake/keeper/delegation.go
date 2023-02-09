@@ -7,12 +7,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/axc"
-	"github.com/cosmos/cosmos-sdk/axc/rlp"
-	"github.com/cosmos/cosmos-sdk/pubsub"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/fees"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/asc"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
+	"github.com/aximchain/axc-cosmos-sdk/pubsub"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/types/fees"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
@@ -94,7 +94,7 @@ func (k Keeper) SetDelegation(ctx sdk.Context, delegation types.Delegation) {
 	if k.PbsbServer != nil && ctx.IsDeliverTx() {
 		chainId := ctx.SideChainId()
 		if len(chainId) == 0 {
-			chainId = types.ChainIDForBeaconChain
+			chainId = types.ChainIDForFlashChain
 		}
 		var event pubsub.Event = types.DelegationUpdateEvent{
 			StakeEvent: types.StakeEvent{
@@ -129,7 +129,7 @@ func (k Keeper) RemoveDelegation(ctx sdk.Context, delegation types.Delegation) {
 	if k.PbsbServer != nil && ctx.IsDeliverTx() {
 		chainId := ctx.SideChainId()
 		if len(chainId) == 0 {
-			chainId = types.ChainIDForBeaconChain
+			chainId = types.ChainIDForFlashChain
 		}
 		var event pubsub.Event = types.DelegationRemovedEvent{
 			StakeEvent: types.StakeEvent{
@@ -253,7 +253,7 @@ func (k Keeper) SetUnbondingDelegation(ctx sdk.Context, ubd types.UnbondingDeleg
 	if k.PbsbServer != nil && ctx.IsDeliverTx() {
 		chainId := ctx.SideChainId()
 		if len(chainId) == 0 {
-			chainId = types.ChainIDForBeaconChain
+			chainId = types.ChainIDForFlashChain
 		}
 		var event pubsub.Event = types.UBDUpdateEvent{
 			StakeEvent: types.StakeEvent{
@@ -405,7 +405,7 @@ func (k Keeper) SetRedelegation(ctx sdk.Context, red types.Redelegation) {
 	if k.PbsbServer != nil && ctx.IsDeliverTx() {
 		chainId := ctx.SideChainId()
 		if len(chainId) == 0 {
-			chainId = types.ChainIDForBeaconChain
+			chainId = types.ChainIDForFlashChain
 		}
 		var event pubsub.Event = types.REDUpdateEvent{
 			StakeEvent: types.StakeEvent{
@@ -828,12 +828,12 @@ func (k Keeper) crossDistributeUndelegated(ctx sdk.Context, delAddr sdk.AccAddre
 	if relayFee.Tokens.AmountOf(denom) >= amount {
 		return sdk.Events{}, sdk.ErrInternal("not enough funds to cover relay fee")
 	}
-	axcRelayFee := axc.ConvertBCAmountToAXCAmount(relayFee.Tokens.AmountOf(denom))
-	axcTransferAmount := new(big.Int).Sub(axc.ConvertBCAmountToAXCAmount(amount), axcRelayFee)
+	axcRelayFee := asc.ConvertFCAmountToASCAmount(relayFee.Tokens.AmountOf(denom))
+	axcTransferAmount := new(big.Int).Sub(asc.ConvertFCAmountToASCAmount(amount), axcRelayFee)
 
-	delAxcAddrAcc := types.GetStakeCAoB(delAddr.Bytes(), types.DelegateCAoBSalt)
-	delAxcAddr := hex.EncodeToString(delAxcAddrAcc.Bytes())
-	recipient, err := sdk.NewSmartChainAddress(delAxcAddr)
+	delAscAddrAcc := types.GetStakeCAoB(delAddr.Bytes(), types.DelegateCAoBSalt)
+	delAscAddr := hex.EncodeToString(delAscAddrAcc.Bytes())
+	recipient, err := sdk.NewSmartChainAddress(delAscAddr)
 	if err != nil {
 		return sdk.Events{}, sdk.ErrInternal(err.Error())
 	}

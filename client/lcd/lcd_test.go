@@ -15,21 +15,21 @@ import (
 	"github.com/tendermint/tendermint/p2p"
 	ctypes "github.com/tendermint/tendermint/rpc/core/types"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/keys"
-	"github.com/cosmos/cosmos-sdk/client/rpc"
-	"github.com/cosmos/cosmos-sdk/client/tx"
-	"github.com/cosmos/cosmos-sdk/codec"
-	cryptoKeys "github.com/cosmos/cosmos-sdk/crypto/keys"
-	"github.com/cosmos/cosmos-sdk/crypto/keys/mintkey"
-	"github.com/cosmos/cosmos-sdk/tests"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/version"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	authrest "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/slashing"
-	"github.com/cosmos/cosmos-sdk/x/stake"
+	"github.com/aximchain/axc-cosmos-sdk/client"
+	"github.com/aximchain/axc-cosmos-sdk/client/keys"
+	"github.com/aximchain/axc-cosmos-sdk/client/rpc"
+	"github.com/aximchain/axc-cosmos-sdk/client/tx"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	cryptoKeys "github.com/aximchain/axc-cosmos-sdk/crypto/keys"
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys/mintkey"
+	"github.com/aximchain/axc-cosmos-sdk/tests"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/version"
+	"github.com/aximchain/axc-cosmos-sdk/x/auth"
+	authrest "github.com/aximchain/axc-cosmos-sdk/x/auth/client/rest"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
+	"github.com/aximchain/axc-cosmos-sdk/x/slashing"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake"
 )
 
 func init() {
@@ -657,7 +657,7 @@ func TestUnjail(t *testing.T) {
 	require.Equal(t, true, signingInfo.MissedBlocksCounter == 0)
 }
 
-//_____________________________________________________________________________
+// _____________________________________________________________________________
 // get the account to get the sequence
 func getAccount(t *testing.T, port string, addr sdk.AccAddress) sdk.Account {
 	res, body := Request(t, port, "GET", fmt.Sprintf("/auth/accounts/%s", addr), nil)

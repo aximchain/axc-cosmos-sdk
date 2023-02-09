@@ -7,10 +7,10 @@ import (
 
 	"github.com/pkg/errors"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
-//-----------------------------------------------------------
+// -----------------------------------------------------------
 // Proposal interface
 type Proposal interface {
 	GetProposalID() int64
@@ -61,7 +61,7 @@ func ProposalEqual(proposalA Proposal, proposalB Proposal) bool {
 	return false
 }
 
-//-----------------------------------------------------------
+// -----------------------------------------------------------
 // Text Proposals
 type TextProposal struct {
 	ProposalID   int64         `json:"proposal_id"`   //  ID of the proposal
@@ -108,7 +108,7 @@ func (tp *TextProposal) SetVotingPeriod(votingPeriod time.Duration) {
 	tp.VotingPeriod = votingPeriod
 }
 
-//-----------------------------------------------------------
+// -----------------------------------------------------------
 // ProposalQueue
 type ProposalQueue []int64
 
@@ -118,7 +118,7 @@ type ProposalQueue []int64
 // Type that represents Proposal Type as a byte
 type ProposalKind byte
 
-//nolint
+// nolint
 const (
 	ProposalTypeNil             ProposalKind = 0x00
 	ProposalTypeText            ProposalKind = 0x01
@@ -259,7 +259,7 @@ func (pt ProposalKind) Format(s fmt.State, verb rune) {
 // Type that represents Proposal Status as a byte
 type ProposalStatus byte
 
-//nolint
+// nolint
 const (
 	StatusNil           ProposalStatus = 0x00
 	StatusDepositPeriod ProposalStatus = 0x01
@@ -363,7 +363,7 @@ func (status ProposalStatus) Format(s fmt.State, verb rune) {
 	}
 }
 
-//-----------------------------------------------------------
+// -----------------------------------------------------------
 // Tally Results
 type TallyResult struct {
 	Yes        sdk.Dec `json:"yes"`

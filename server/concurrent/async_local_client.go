@@ -3,9 +3,9 @@ package concurrent
 import (
 	"sync"
 
-	"github.com/cosmos/cosmos-sdk/server/concurrent/pool"
+	"github.com/aximchain/axc-cosmos-sdk/server/concurrent/pool"
 
-	"github.com/tendermint/tendermint/abci/client"
+	abcicli "github.com/tendermint/tendermint/abci/client"
 	"github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
 	"github.com/tendermint/tendermint/libs/log"
@@ -232,7 +232,7 @@ func (app *asyncLocalClient) CheckTxAsync(req types.RequestCheckTx) *abcicli.Req
 	return reqres
 }
 
-//ReCheckTxAsync here still runs synchronously
+// ReCheckTxAsync here still runs synchronously
 func (app *asyncLocalClient) ReCheckTxAsync(req types.RequestCheckTx) *abcicli.ReqRes {
 	app.rwLock.Lock() // wont
 	defer app.rwLock.Unlock()

@@ -4,7 +4,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/tendermint/go-amino"
 
-	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/aximchain/axc-cosmos-sdk/client"
 )
 
 const (

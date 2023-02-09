@@ -3,19 +3,19 @@ package keeper
 import (
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/x/ibc"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
+	"github.com/aximchain/axc-cosmos-sdk/x/ibc"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
 
 	"github.com/stretchr/testify/require"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/crypto"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/mock"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/stake"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
+	"github.com/aximchain/axc-cosmos-sdk/x/mock"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake"
 )
 
 // initialize the mock application for this module
