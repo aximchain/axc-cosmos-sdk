@@ -4,8 +4,8 @@ import (
 	"encoding/binary"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 )
 
 // TODO remove some of these prefixes once have working multistore
@@ -84,7 +84,7 @@ func AddressFromLastValidatorPowerKey(key []byte) []byte {
 // VALUE: validator operator address ([]byte)
 func GetValidatorsByPowerIndexKey(validator types.Validator) []byte {
 	var keyBytes []byte
-	sdk.Upgrade(sdk.LaunchAxcUpgrade, func() {
+	sdk.Upgrade(sdk.LaunchAscUpgrade, func() {
 		keyBytes = getValidatorPowerRank(validator)
 	}, nil, func() {
 		keyBytes = getValidatorPowerRankNew(validator)

@@ -1,8 +1,8 @@
 package oracle
 
 import (
-	"github.com/cosmos/cosmos-sdk/x/oracle/keeper"
-	"github.com/cosmos/cosmos-sdk/x/oracle/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/oracle/keeper"
+	"github.com/aximchain/axc-cosmos-sdk/x/oracle/types"
 )
 
 const (

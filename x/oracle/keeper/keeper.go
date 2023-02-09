@@ -1,17 +1,17 @@
 package keeper
 
 import (
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/pubsub"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/ibc"
-	"github.com/cosmos/cosmos-sdk/x/oracle/metrics"
-	"github.com/cosmos/cosmos-sdk/x/oracle/types"
-	pTypes "github.com/cosmos/cosmos-sdk/x/paramHub/types"
-	param "github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
+	"github.com/aximchain/axc-cosmos-sdk/baseapp"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/pubsub"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank"
+	"github.com/aximchain/axc-cosmos-sdk/x/ibc"
+	"github.com/aximchain/axc-cosmos-sdk/x/oracle/metrics"
+	"github.com/aximchain/axc-cosmos-sdk/x/oracle/types"
+	pTypes "github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
+	param "github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
 )
 
 // Keeper maintains the link to data storage and

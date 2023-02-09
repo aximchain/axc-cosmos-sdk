@@ -1,8 +1,8 @@
 package paramHub
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	param "github.com/cosmos/cosmos-sdk/x/paramHub/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	param "github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
 )
 
 const (
@@ -38,14 +38,14 @@ const (
 	SideChainRedelegateFee      = 3e5
 	SideChainUndelegateFee      = 2e5
 
-	// beacon chain stake fee
+	// Flash Chain stake fee
 	EditChainValidatorFee = 1e8
 	ChainDelegateFee      = 1e5
 	ChainRedelegateFee    = 3e5
 	ChainUndelegateFee    = 2e5
 
 	// slashing fee
-	AxcSubmitEvidenceFee = 10e8
+	AscSubmitEvidenceFee = 10e8
 	SideChainUnjail      = 1e8
 	Unjail               = 1e8
 

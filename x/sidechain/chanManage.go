@@ -4,11 +4,11 @@ import (
 	"encoding/hex"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/axc/rlp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	pTypes "github.com/cosmos/cosmos-sdk/x/paramHub/types"
-	"github.com/cosmos/cosmos-sdk/x/sidechain/types"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
+	pTypes "github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain/types"
 )
 
 const (

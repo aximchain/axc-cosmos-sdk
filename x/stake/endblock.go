@@ -3,9 +3,9 @@ package stake
 import (
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/stake/keeper"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/keeper"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
@@ -56,7 +56,7 @@ func EndBreatheBlock(ctx sdk.Context, k keeper.Keeper) (validatorUpdates []abci.
 		storeValidatorsWithHeight(ctx, newVals, k)
 	}
 
-	if sdk.IsUpgrade(sdk.LaunchAxcUpgrade) && k.ScKeeper != nil {
+	if sdk.IsUpgrade(sdk.LaunchAscUpgrade) && k.ScKeeper != nil {
 		// distribute sidechain rewards
 		sideChainIds, storePrefixes := k.ScKeeper.GetAllSideChainPrefixes(ctx)
 		for i := range storePrefixes {
@@ -87,7 +87,7 @@ func EndBreatheBlock(ctx sdk.Context, k keeper.Keeper) (validatorUpdates []abci.
 			publishCompletedRED(k, completedREDs, sideChainIds[i])
 		}
 		if sdk.IsUpgrade(sdk.BEP159) {
-			// distribute beacon chain rewards
+			// distribute Flash Chain rewards
 			k.DistributeInBreathBlock(ctx, types.ChainIDForBeaconChain)
 		}
 	}

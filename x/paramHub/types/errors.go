@@ -2,7 +2,7 @@
 package types
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 type CodeType = sdk.CodeType
@@ -10,8 +10,8 @@ type CodeType = sdk.CodeType
 const (
 	DefaultCodespace sdk.CodespaceType = 12
 
-	CodeMissSideChainId    CodeType = 101
-	CodeInvalidSideChainId CodeType = 102
+	CodeMissSideChainId          CodeType = 101
+	CodeInvalidSideChainId       CodeType = 102
 	CodeInvalidCrossChainPackage CodeType = 103
 )
 

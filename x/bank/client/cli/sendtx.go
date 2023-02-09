@@ -1,13 +1,13 @@
 package cli
 
 import (
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
-	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
-	"github.com/cosmos/cosmos-sdk/x/bank/client"
+	"github.com/aximchain/axc-cosmos-sdk/client/context"
+	"github.com/aximchain/axc-cosmos-sdk/client/utils"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	authcmd "github.com/aximchain/axc-cosmos-sdk/x/auth/client/cli"
+	authtxb "github.com/aximchain/axc-cosmos-sdk/x/auth/client/txbuilder"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank/client"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"

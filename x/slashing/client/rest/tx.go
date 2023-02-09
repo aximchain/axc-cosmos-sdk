@@ -8,14 +8,14 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/cosmos/cosmos-sdk/axc"
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/crypto/keys"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
-	"github.com/cosmos/cosmos-sdk/x/slashing"
+	"github.com/aximchain/axc-cosmos-sdk/asc"
+	"github.com/aximchain/axc-cosmos-sdk/client/context"
+	"github.com/aximchain/axc-cosmos-sdk/client/utils"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	authtxb "github.com/aximchain/axc-cosmos-sdk/x/auth/client/txbuilder"
+	"github.com/aximchain/axc-cosmos-sdk/x/slashing"
 )
 
 func registerTxRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, kb keys.Keybase) {
@@ -77,7 +77,7 @@ func unjailRequestHandlerFn(cdc *codec.Codec, kb keys.Keybase, cliCtx context.CL
 type EvidenceSubmitReq struct {
 	BaseReq   utils.BaseReq `json:"base_req"`
 	Submitter string        `json:"submitter"` // in bech 32
-	Headers   []axc.Header  `json:"headers"`
+	Headers   []asc.Header  `json:"headers"`
 }
 
 func axcEvidenceSubmitRequestHandlerFn(cdc *codec.Codec, kb keys.Keybase, cliCtx context.CLIContext) func(http.ResponseWriter, *http.Request) {
@@ -123,7 +123,7 @@ func axcEvidenceSubmitRequestHandlerFn(cdc *codec.Codec, kb keys.Keybase, cliCtx
 			return
 		}
 
-		msg := slashing.NewMsgAxcSubmitEvidence(submitter, req.Headers)
+		msg := slashing.NewMsgAscSubmitEvidence(submitter, req.Headers)
 
 		txBldr := authtxb.TxBuilder{
 			Codec:   cdc,

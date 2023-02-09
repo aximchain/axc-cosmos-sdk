@@ -1,6 +1,6 @@
 package sidechain
 
-import sdk "github.com/cosmos/cosmos-sdk/types"
+import sdk "github.com/aximchain/axc-cosmos-sdk/types"
 
 type crossChainConfig struct {
 	srcChainID sdk.ChainID

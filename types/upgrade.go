@@ -12,7 +12,7 @@ const (
 	BEP12                = "BEP12"                // https://github.com/bnb-chain/BEPs/pull/17
 	BEP3                 = "BEP3"                 // https://github.com/bnb-chain/BEPs/pull/30
 	BEP8                 = "BEP8"                 // https://github.com/bnb-chain/BEPs/pull/69
-	LaunchAxcUpgrade     = "LaunchAxcUpgrade"
+	LaunchAscUpgrade     = "LaunchAscUpgrade"
 	BEP82                = "BEP82" // https://github.com/bnb-chain/BEPs/pull/82
 	FixFailAckPackage    = "FixFailAckPackage"
 	BEP128               = "BEP128"       // https://github.com/bnb-chain/BEPs/pull/128

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/sidechain/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain/types"
 )
 
 const (
@@ -16,7 +16,7 @@ const (
 
 var _, _, _ sdk.Msg = MsgSideChainSubmitProposal{}, MsgSideChainDeposit{}, MsgSideChainVote{}
 
-//-----------------------------------------------------------
+// -----------------------------------------------------------
 // MsgSideChainSubmitProposal
 type MsgSideChainSubmitProposal struct {
 	Title          string         `json:"title"`           //  Title of the proposal
@@ -40,7 +40,7 @@ func NewMsgSideChainSubmitProposal(title string, description string, proposalTyp
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgSideChainSubmitProposal) Route() string { return MsgRoute }
 func (msg MsgSideChainSubmitProposal) Type() string  { return MsgTypeSideSubmitProposal }
 
@@ -103,7 +103,7 @@ func (msg MsgSideChainSubmitProposal) GetInvolvedAddresses() []sdk.AccAddress {
 	return msg.GetSigners()
 }
 
-//-----------------------------------------------------------
+// -----------------------------------------------------------
 // MsgSideChainDeposit
 type MsgSideChainDeposit struct {
 	ProposalID  int64          `json:"proposal_id"` // ID of the proposal

@@ -17,9 +17,9 @@ import (
 	"github.com/tendermint/tendermint/crypto/secp256k1"
 	"github.com/tendermint/tendermint/libs/cli"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	ccrypto "github.com/cosmos/cosmos-sdk/crypto"
-	"github.com/cosmos/cosmos-sdk/crypto/keys"
+	"github.com/aximchain/axc-cosmos-sdk/client"
+	ccrypto "github.com/aximchain/axc-cosmos-sdk/crypto"
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys"
 )
 
 const (

@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
 )
 
 var (
@@ -225,7 +225,7 @@ func (k *Keeper) incrSequence(ctx sdk.Context, destChainID sdk.ChainID, channelI
 }
 
 func EndBlock(ctx sdk.Context, k Keeper) {
-	if sdk.IsUpgrade(sdk.LaunchAxcUpgrade) && k.govKeeper != nil {
+	if sdk.IsUpgrade(sdk.LaunchAscUpgrade) && k.govKeeper != nil {
 		chanPermissions := k.getLastChanPermissionChanges(ctx)
 		// should in reverse order
 		for j := len(chanPermissions) - 1; j >= 0; j-- {

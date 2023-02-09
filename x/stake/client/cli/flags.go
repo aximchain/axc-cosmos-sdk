@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	flag "github.com/spf13/pflag"
 )
 

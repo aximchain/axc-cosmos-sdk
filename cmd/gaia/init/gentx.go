@@ -2,21 +2,22 @@ package init
 
 import (
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/server"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
-	"github.com/cosmos/cosmos-sdk/x/stake/client/cli"
+	"os"
+	"path/filepath"
+
+	"github.com/aximchain/axc-cosmos-sdk/client"
+	"github.com/aximchain/axc-cosmos-sdk/cmd/gaia/app"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/server"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	authcmd "github.com/aximchain/axc-cosmos-sdk/x/auth/client/cli"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/client/cli"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	cfg "github.com/tendermint/tendermint/config"
 	"github.com/tendermint/tendermint/crypto"
 	tmcli "github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/libs/common"
-	"os"
-	"path/filepath"
 )
 
 const (

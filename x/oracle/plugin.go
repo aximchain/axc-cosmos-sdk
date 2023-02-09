@@ -1,12 +1,12 @@
 package oracle
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/oracle/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/oracle/types"
 )
 
 func RegisterUpgradeBeginBlocker(keeper Keeper) {
-	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchAxcUpgrade, func(ctx sdk.Context) {
+	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchAscUpgrade, func(ctx sdk.Context) {
 		keeper.SetParams(ctx, types.Params{ConsensusNeeded: types.DefaultConsensusNeeded})
 	})
 

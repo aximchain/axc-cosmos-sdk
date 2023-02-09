@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 func TestInitCrossChainID(t *testing.T) {
@@ -36,7 +36,7 @@ func TestRegisterCrossChainChannel(t *testing.T) {
 
 func TestRegisterDestChainID(t *testing.T) {
 	_, keeper := CreateTestInput(t, true)
-	require.NoError(t, keeper.RegisterDestChain("axc", sdk.ChainID(1)))
+	require.NoError(t, keeper.RegisterDestChain("asc", sdk.ChainID(1)))
 	require.NoError(t, keeper.RegisterDestChain("ethereum", sdk.ChainID(2)))
 	require.NoError(t, keeper.RegisterDestChain("btc", sdk.ChainID(3)))
 	require.NoError(t, keeper.RegisterDestChain("cosmos", sdk.ChainID(4)))
@@ -44,7 +44,7 @@ func TestRegisterDestChainID(t *testing.T) {
 	require.Error(t, keeper.RegisterDestChain("mock", sdk.ChainID(4)))
 	require.Error(t, keeper.RegisterDestChain("cosmos::", sdk.ChainID(5)))
 
-	destChainID, err := keeper.GetDestChainID("axc")
+	destChainID, err := keeper.GetDestChainID("asc")
 	require.NoError(t, err)
 	require.Equal(t, sdk.ChainID(1), destChainID)
 

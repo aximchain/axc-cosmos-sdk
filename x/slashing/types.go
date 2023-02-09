@@ -1,6 +1,6 @@
 package slashing
 
-import "github.com/cosmos/cosmos-sdk/types"
+import "github.com/aximchain/axc-cosmos-sdk/types"
 
 type SideDowntimeSlashPackage struct {
 	SideConsAddr  []byte        `json:"side_cons_addr"`

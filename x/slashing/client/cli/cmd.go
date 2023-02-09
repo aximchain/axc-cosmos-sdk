@@ -1,8 +1,8 @@
 package cli
 
 import (
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/client"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
 	"github.com/spf13/cobra"
 )
 
@@ -17,7 +17,7 @@ func AddCommands(root *cobra.Command, cdc *codec.Codec) {
 
 	slashingCmd.AddCommand(
 		client.PostCommands(
-			GetCmdAxcSubmitEvidence(cdc),
+			GetCmdAscSubmitEvidence(cdc),
 			GetCmdSideChainUnjail(cdc),
 		)...)
 

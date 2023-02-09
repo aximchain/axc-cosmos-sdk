@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/stake/keeper"
-	"github.com/cosmos/cosmos-sdk/x/stake/tags"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/baseapp"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/keeper"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/tags"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 )
 
 func handleMsgCreateSideChainValidator(ctx sdk.Context, msg MsgCreateSideChainValidator, k keeper.Keeper) sdk.Result {

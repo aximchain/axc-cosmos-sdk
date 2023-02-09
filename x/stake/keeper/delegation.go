@@ -7,12 +7,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/axc"
-	"github.com/cosmos/cosmos-sdk/axc/rlp"
-	"github.com/cosmos/cosmos-sdk/pubsub"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/fees"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/asc"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
+	"github.com/aximchain/axc-cosmos-sdk/pubsub"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/types/fees"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
@@ -828,12 +828,12 @@ func (k Keeper) crossDistributeUndelegated(ctx sdk.Context, delAddr sdk.AccAddre
 	if relayFee.Tokens.AmountOf(denom) >= amount {
 		return sdk.Events{}, sdk.ErrInternal("not enough funds to cover relay fee")
 	}
-	axcRelayFee := axc.ConvertBCAmountToAXCAmount(relayFee.Tokens.AmountOf(denom))
-	axcTransferAmount := new(big.Int).Sub(axc.ConvertBCAmountToAXCAmount(amount), axcRelayFee)
+	axcRelayFee := asc.ConvertFCAmountToASCAmount(relayFee.Tokens.AmountOf(denom))
+	axcTransferAmount := new(big.Int).Sub(asc.ConvertFCAmountToASCAmount(amount), axcRelayFee)
 
-	delAxcAddrAcc := types.GetStakeCAoB(delAddr.Bytes(), types.DelegateCAoBSalt)
-	delAxcAddr := hex.EncodeToString(delAxcAddrAcc.Bytes())
-	recipient, err := sdk.NewSmartChainAddress(delAxcAddr)
+	delAscAddrAcc := types.GetStakeCAoB(delAddr.Bytes(), types.DelegateCAoBSalt)
+	delAscAddr := hex.EncodeToString(delAscAddrAcc.Bytes())
+	recipient, err := sdk.NewSmartChainAddress(delAscAddr)
 	if err != nil {
 		return sdk.Events{}, sdk.ErrInternal(err.Error())
 	}

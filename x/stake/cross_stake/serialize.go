@@ -3,8 +3,8 @@ package cross_stake
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/axc/rlp"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 )
 
 const (

@@ -9,11 +9,11 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/store"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/store"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
 )
 
 func createTestInput(t *testing.T, isCheckTx bool) (sdk.Context, Keeper) {
@@ -46,7 +46,7 @@ func createTestInput(t *testing.T, isCheckTx bool) (sdk.Context, Keeper) {
 func TestKeeper(t *testing.T) {
 	sourceChainID := sdk.ChainID(0x0001)
 
-	destChainName := "axc"
+	destChainName := "asc"
 	destChainID := sdk.ChainID(0x000f)
 
 	channelName := "transfer"
