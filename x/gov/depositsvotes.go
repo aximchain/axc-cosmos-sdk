@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 	"github.com/pkg/errors"
 )
 
@@ -47,7 +47,7 @@ func (depositA Deposit) Empty() bool {
 // Type that represents VoteOption as a byte
 type VoteOption byte
 
-//nolint
+// nolint
 const (
 	OptionEmpty      VoteOption = 0x00
 	OptionYes        VoteOption = 0x01

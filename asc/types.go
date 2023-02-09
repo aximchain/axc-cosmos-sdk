@@ -1,4 +1,4 @@
-package axc
+package asc
 
 import (
 	"bytes"
@@ -12,7 +12,7 @@ import (
 
 	"golang.org/x/crypto/sha3"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // Lengths of hashes and addresses in bytes.

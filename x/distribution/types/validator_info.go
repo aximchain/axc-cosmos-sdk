@@ -1,7 +1,7 @@
 package types
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // distribution info for a particular validator
@@ -39,7 +39,8 @@ func (vi ValidatorDistInfo) UpdateTotalDelAccum(height int64, totalDelShares sdk
 // - called in ValidationDistInfo.WithdrawCommission
 // - called in DelegationDistInfo.WithdrawRewards
 // NOTE: When a delegator unbonds, say, onDelegationSharesModified ->
-//       WithdrawDelegationReward -> WithdrawRewards
+//
+//	WithdrawDelegationReward -> WithdrawRewards
 func (vi ValidatorDistInfo) TakeFeePoolRewards(fp FeePool, height int64, totalBonded, vdTokens,
 	commissionRate sdk.Dec) (ValidatorDistInfo, FeePool) {
 

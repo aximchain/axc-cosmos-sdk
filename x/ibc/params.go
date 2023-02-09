@@ -3,7 +3,7 @@ package ibc
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
 )
 
 const (

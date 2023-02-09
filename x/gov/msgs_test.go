@@ -7,9 +7,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/mock"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
+	"github.com/aximchain/axc-cosmos-sdk/x/mock"
 )
 
 var (
@@ -126,7 +126,7 @@ func TestMsgSideChainSubmitProposal(t *testing.T) {
 		sideChainId        string
 		expectPass         bool
 	}{
-		{"Test Proposal", "the purpose of this proposal is to test", gov.ProposalTypeSCParamsChange, addrs[0], coinsPos, 1000 * time.Second, "axc", true},
+		{"Test Proposal", "the purpose of this proposal is to test", gov.ProposalTypeSCParamsChange, addrs[0], coinsPos, 1000 * time.Second, "asc", true},
 		{"Test Proposal", "the purpose of this proposal is to test", gov.ProposalTypeCSCParamsChange, addrs[0], coinsPos, 1000 * time.Second, "rialto", true},
 		{"Test Proposal", "the purpose of this proposal is to test", gov.ProposalTypeSCParamsChange, addrs[0], coinsPos, 1000 * time.Second, "", false},
 		{"Test Proposal", "the purpose of this proposal is to test", gov.ProposalTypeParameterChange, addrs[0], coinsPos, 1000 * time.Second, "", false},
@@ -151,7 +151,7 @@ func TestMsgSideChainDeposit(t *testing.T) {
 		sideChain     string
 		expectPass    bool
 	}{
-		{0, addrs[0], coinsPos, "axc", true},
+		{0, addrs[0], coinsPos, "asc", true},
 		{0, addrs[0], coinsPos, "", false},
 	}
 
@@ -175,7 +175,7 @@ func TestMsgSideChainVote(t *testing.T) {
 		sideChain  string
 		expectPass bool
 	}{
-		{0, addrs[0], gov.OptionYes, "axc", true},
+		{0, addrs[0], gov.OptionYes, "asc", true},
 		{0, addrs[0], gov.OptionYes, "", false},
 	}
 

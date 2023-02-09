@@ -1,8 +1,8 @@
 package auth
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // Register concrete types on codec codec for default AppAccount

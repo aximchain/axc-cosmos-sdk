@@ -3,12 +3,12 @@ package cross_stake
 import (
 	"math/big"
 
-	"github.com/cosmos/cosmos-sdk/axc"
-	"github.com/cosmos/cosmos-sdk/axc/rlp"
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cosmos/cosmos-sdk/pubsub"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/asc"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
+	"github.com/aximchain/axc-cosmos-sdk/baseapp"
+	"github.com/aximchain/axc-cosmos-sdk/pubsub"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 )
 
 type CrossStakeApp struct {
@@ -112,18 +112,18 @@ func (app *CrossStakeApp) ExecuteFailAckPackage(ctx sdk.Context, payload []byte)
 	var result sdk.ExecuteResult
 	switch p := pack.(type) {
 	case *types.CrossStakeDistributeRewardSynPackage:
-		bcAmount := axc.ConvertAXCAmountToBCAmount(p.Amount)
+		fcAmount := asc.ConvertASCAmountToFCAmount(p.Amount)
 		refundPackage := &types.CrossStakeRefundPackage{
 			EventType: types.CrossStakeTypeDistributeReward,
-			Amount:    big.NewInt(bcAmount),
+			Amount:    big.NewInt(fcAmount),
 			Recipient: p.Recipient,
 		}
 		result, err = app.handleDistributeRewardRefund(ctx, refundPackage)
 	case *types.CrossStakeDistributeUndelegatedSynPackage:
-		bcAmount := axc.ConvertAXCAmountToBCAmount(p.Amount)
+		fcAmount := asc.ConvertASCAmountToFCAmount(p.Amount)
 		refundPackage := &types.CrossStakeRefundPackage{
 			EventType: types.CrossStakeTypeDistributeUndelegated,
-			Amount:    big.NewInt(bcAmount),
+			Amount:    big.NewInt(fcAmount),
 			Recipient: p.Recipient,
 		}
 		result, err = app.handleDistributeUndelegatedRefund(ctx, refundPackage)

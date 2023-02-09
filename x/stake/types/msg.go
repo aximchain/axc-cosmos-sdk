@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/crypto/ed25519"
 )
@@ -81,7 +81,7 @@ func NewMsgCreateValidatorOnBehalfOf(delAddr sdk.AccAddress, valAddr sdk.ValAddr
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgCreateValidator) Route() string { return MsgRoute }
 func (msg MsgCreateValidator) Type() string  { return "create_validator" }
 
@@ -264,7 +264,7 @@ func NewMsgEditValidator(valAddr sdk.ValAddress, description Description, newRat
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgEditValidator) Route() string { return MsgRoute }
 func (msg MsgEditValidator) Type() string  { return "edit_validator" }
 func (msg MsgEditValidator) GetSigners() []sdk.AccAddress {
@@ -317,7 +317,7 @@ func NewMsgDelegate(delAddr sdk.AccAddress, valAddr sdk.ValAddress, delegation s
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgDelegate) Route() string { return MsgRoute }
 func (msg MsgDelegate) Type() string  { return "delegate" }
 func (msg MsgDelegate) GetSigners() []sdk.AccAddress {
@@ -372,7 +372,7 @@ func NewMsgRedelegate(delAddr sdk.AccAddress, valSrcAddr,
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgRedelegate) Route() string { return MsgRoute }
 func (msg MsgRedelegate) Type() string  { return "redelegate" }
 func (msg MsgRedelegate) GetSigners() []sdk.AccAddress {
@@ -420,7 +420,7 @@ func NewMsgUndelegate(delAddr sdk.AccAddress, valAddr sdk.ValAddress, amount sdk
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgUndelegate) Route() string { return MsgRoute }
 func (msg MsgUndelegate) Type() string  { return "undelegate" }
 func (msg MsgUndelegate) GetSigners() []sdk.AccAddress {
@@ -466,7 +466,7 @@ func NewMsgBeginUnbonding(delAddr sdk.AccAddress, valAddr sdk.ValAddress, shares
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgBeginUnbonding) Route() string { return MsgRoute }
 func (msg MsgBeginUnbonding) Type() string  { return "begin_unbonding" }
 func (msg MsgBeginUnbonding) GetSigners() []sdk.AccAddress {
@@ -525,7 +525,7 @@ func NewMsgRemoveValidator(launcherAddr sdk.AccAddress, valAddr sdk.ValAddress,
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgRemoveValidator) Route() string { return MsgRoute }
 func (msg MsgRemoveValidator) Type() string  { return "remove_validator" }
 func (msg MsgRemoveValidator) GetSigners() []sdk.AccAddress {

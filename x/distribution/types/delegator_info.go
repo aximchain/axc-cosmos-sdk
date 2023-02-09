@@ -1,7 +1,7 @@
 package types
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // distribution info for a delegation - used to determine entitled rewards
@@ -25,9 +25,9 @@ func NewDelegationDistInfo(delegatorAddr sdk.AccAddress, valOperatorAddr sdk.Val
 // Among many things, it does:
 // * updates validator info's total del accum
 // * calls vi.TakeFeePoolRewards, which:
-//   * updates validator info's FeePoolWithdrawalHeight, thus setting accum to 0
-//   * updates fee pool to latest height and total val accum w/ given totalBonded
-//   (see comment on TakeFeePoolRewards for more info)
+//   - updates validator info's FeePoolWithdrawalHeight, thus setting accum to 0
+//   - updates fee pool to latest height and total val accum w/ given totalBonded
+//     (see comment on TakeFeePoolRewards for more info)
 func (di DelegationDistInfo) WithdrawRewards(fp FeePool, vi ValidatorDistInfo,
 	height int64, totalBonded, vdTokens, totalDelShares, delegatorShares,
 	commissionRate sdk.Dec) (DelegationDistInfo, ValidatorDistInfo, FeePool, DecCoins) {

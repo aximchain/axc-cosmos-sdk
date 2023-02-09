@@ -4,14 +4,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/axc/rlp"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
 
 	"github.com/stretchr/testify/require"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/fees"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/stake"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/types/fees"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake"
 )
 
 func TestSideChainSlashDowntime(t *testing.T) {
@@ -32,7 +32,7 @@ func TestSideChainSlashDowntime(t *testing.T) {
 	stake.EndBreatheBlock(ctx, stakeKeeper)
 
 	sideHeight := uint64(100)
-	sideChainId := "axc"
+	sideChainId := "asc"
 	sideTimestamp := ctx.BlockHeader().Time.Add(-6 * 60 * 60 * time.Second)
 	claim := SideDowntimeSlashPackage{
 		SideConsAddr:  sideConsAddr,

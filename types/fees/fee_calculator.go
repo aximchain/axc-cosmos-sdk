@@ -1,8 +1,8 @@
 package fees
 
 import (
-	"github.com/cosmos/cosmos-sdk/types"
-	param "github.com/cosmos/cosmos-sdk/x/paramHub/types"
+	"github.com/aximchain/axc-cosmos-sdk/types"
+	param "github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
 )
 
 type FeeCalculator func(msg types.Msg) types.Fee

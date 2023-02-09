@@ -7,7 +7,7 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
 
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
 )
 
 // ABCICodeType - combined codetype / codespace

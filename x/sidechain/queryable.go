@@ -2,7 +2,8 @@ package sidechain
 
 import (
 	"encoding/json"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 

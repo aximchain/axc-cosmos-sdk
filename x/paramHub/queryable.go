@@ -3,9 +3,9 @@ package paramHub
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/paramHub/types"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
@@ -99,7 +99,7 @@ func CreateAbciQueryHandler(paramHub *ParamHub) func(sdk.Context, abci.RequestQu
 				Value: bz,
 			}
 		case "params":
-			params, sdkErr := paramHub.GetBCParams(ctx)
+			params, sdkErr := paramHub.GetFCParams(ctx)
 			if sdkErr != nil {
 				return &abci.ResponseQuery{
 					Code: uint32(sdkErr.ABCICode()),

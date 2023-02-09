@@ -1,8 +1,8 @@
 package oracle
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/x/oracle/types"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/x/oracle/types"
 )
 
 // Register concrete types on codec codec

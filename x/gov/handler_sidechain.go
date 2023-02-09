@@ -1,8 +1,8 @@
 package gov
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/gov/events"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov/events"
 )
 
 func handleMsgSideChainSubmitProposal(ctx sdk.Context, keeper Keeper, msg MsgSideChainSubmitProposal) sdk.Result {

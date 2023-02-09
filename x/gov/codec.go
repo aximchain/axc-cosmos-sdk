@@ -1,7 +1,7 @@
 package gov
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
 )
 
 // Register concrete types on codec codec

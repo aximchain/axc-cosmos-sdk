@@ -4,8 +4,8 @@ package baseapp
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/store"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/store"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 )
 

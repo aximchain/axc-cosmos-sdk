@@ -1,7 +1,7 @@
 package store
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
 )
 
 var cdc = codec.New()

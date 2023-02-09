@@ -1,8 +1,8 @@
 package simulation
 
 import (
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cosmos/cosmos-sdk/x/mock/simulation"
+	"github.com/aximchain/axc-cosmos-sdk/baseapp"
+	"github.com/aximchain/axc-cosmos-sdk/x/mock/simulation"
 )
 
 // AllInvariants tests all slashing invariants

@@ -3,9 +3,9 @@ package keys
 import (
 	"github.com/tendermint/tendermint/crypto"
 
-	ccrypto "github.com/cosmos/cosmos-sdk/crypto"
-	"github.com/cosmos/cosmos-sdk/crypto/keys/hd"
-	"github.com/cosmos/cosmos-sdk/types"
+	ccrypto "github.com/aximchain/axc-cosmos-sdk/crypto"
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys/hd"
+	"github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // Keybase exposes operations on a generic keystore

@@ -3,13 +3,13 @@ package sidechain
 import (
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/sidechain/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain/types"
 	"github.com/tendermint/go-amino"
 )
 
-//---------------------    ChanPermissionSettingHooks  -----------------
+// ---------------------    ChanPermissionSettingHooks  -----------------
 type ChanPermissionSettingHooks struct {
 	cdc *amino.Codec
 	k   *Keeper

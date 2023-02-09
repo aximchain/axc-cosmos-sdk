@@ -5,12 +5,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/stake/keeper"
-	"github.com/cosmos/cosmos-sdk/x/stake/tags"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/baseapp"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/keeper"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/tags"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	"github.com/tendermint/tendermint/crypto/ed25519"
 )
 
@@ -25,7 +25,7 @@ func NewHandler(k keeper.Keeper, govKeeper gov.Keeper) sdk.Handler {
 			return handleMsgCreateValidatorAfterProposal(ctx, msg, k, govKeeper)
 		case types.MsgRemoveValidator:
 			return handleMsgRemoveValidatorAfterProposal(ctx, msg, k, govKeeper)
-		// Beacon Chain New Staking in BEP-159
+		// Flash Chain New Staking in BEP-159
 		case types.MsgCreateValidatorOpen:
 			if !sdk.IsUpgrade(sdk.BEP159Phase2) {
 				return sdk.ErrMsgNotSupported("BEP-159 Phase 2 not activated yet").Result()

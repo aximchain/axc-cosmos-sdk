@@ -1,10 +1,10 @@
 package paramHub
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/fees"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	param "github.com/cosmos/cosmos-sdk/x/paramHub/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/types/fees"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank"
+	param "github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
 )
 
 const AbciQueryPrefix = "param"
@@ -33,7 +33,7 @@ func RegisterUpgradeBeginBlocker(paramHub *ParamHub) {
 		}
 		paramHub.UpdateFeeParams(ctx, swapFeeParams)
 	})
-	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchAxcUpgrade, func(ctx sdk.Context) {
+	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchAscUpgrade, func(ctx sdk.Context) {
 		updateFeeParams := []param.FeeParam{
 			&param.FixedFeeParams{MsgType: "side_create_validator", Fee: CreateSideChainValidatorFee, FeeFor: sdk.FeeForProposer},
 			&param.FixedFeeParams{MsgType: "side_edit_validator", Fee: EditSideChainValidatorFee, FeeFor: sdk.FeeForProposer},
@@ -41,7 +41,7 @@ func RegisterUpgradeBeginBlocker(paramHub *ParamHub) {
 			&param.FixedFeeParams{MsgType: "side_redelegate", Fee: SideChainRedelegateFee, FeeFor: sdk.FeeForProposer},
 			&param.FixedFeeParams{MsgType: "side_undelegate", Fee: SideChainUndelegateFee, FeeFor: sdk.FeeForProposer},
 
-			&param.FixedFeeParams{MsgType: "axc_submit_evidence", Fee: AxcSubmitEvidenceFee, FeeFor: sdk.FeeForProposer},
+			&param.FixedFeeParams{MsgType: "asc_submit_evidence", Fee: AscSubmitEvidenceFee, FeeFor: sdk.FeeForProposer},
 			&param.FixedFeeParams{MsgType: "side_chain_unjail", Fee: SideChainUnjail, FeeFor: sdk.FeeForProposer},
 
 			&param.FixedFeeParams{MsgType: "side_submit_proposal", Fee: SideProposeFee, FeeFor: sdk.FeeForProposer},
@@ -53,7 +53,7 @@ func RegisterUpgradeBeginBlocker(paramHub *ParamHub) {
 			&param.FixedFeeParams{MsgType: "crossTransferOut", Fee: CrossTransferOutFee, FeeFor: sdk.FeeForProposer},
 			&param.FixedFeeParams{MsgType: "oracleClaim", Fee: sdk.ZeroFee, FeeFor: sdk.FeeFree},
 
-			// Following fees are charged on BC, and received at AXC, they are still fees in a broad sense, so still
+			// Following fees are charged on FC, and received at ASC, they are still fees in a broad sense, so still
 			// decide to put it here, rather than in paramset.
 			&param.FixedFeeParams{MsgType: "crossBindRelayFee", Fee: CrossBindRelayFee, FeeFor: sdk.FeeForProposer},
 			&param.FixedFeeParams{MsgType: "crossUnbindRelayFee", Fee: CrossUnbindRelayFee, FeeFor: sdk.FeeForProposer},
@@ -123,7 +123,7 @@ func init() {
 		"side_delegate":                      fees.FixedFeeCalculatorGen,
 		"side_redelegate":                    fees.FixedFeeCalculatorGen,
 		"side_undelegate":                    fees.FixedFeeCalculatorGen,
-		"axc_submit_evidence":                fees.FixedFeeCalculatorGen,
+		"asc_submit_evidence":                fees.FixedFeeCalculatorGen,
 		"side_chain_unjail":                  fees.FixedFeeCalculatorGen,
 		"dexList":                            fees.FixedFeeCalculatorGen,
 		"orderNew":                           fees.FixedFeeCalculatorGen,

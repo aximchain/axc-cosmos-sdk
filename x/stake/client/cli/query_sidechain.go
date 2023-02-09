@@ -11,12 +11,12 @@ import (
 
 	"github.com/tendermint/tendermint/libs/cli"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
-	"github.com/cosmos/cosmos-sdk/x/stake"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/client/context"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 )
 
 func GetCmdQuerySideValidator(storeName string, cdc *codec.Codec) *cobra.Command {
@@ -789,14 +789,14 @@ func GetCmdQuerySideParams(storeName string, cdc *codec.Codec) *cobra.Command {
 	return cmd
 }
 
-// GetCmdQueryCrossStakeInfoByAxcAddress implements the cross stake reward query command.
-func GetCmdQueryCrossStakeInfoByAxcAddress(cdc *codec.Codec) *cobra.Command {
+// GetCmdQueryCrossStakeInfoByAscAddress implements the cross stake reward query command.
+func GetCmdQueryCrossStakeInfoByAscAddress(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "cross-stake-info",
 		Short: "Query the cross stake info by AXC address",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			axcAddress, err := sdk.NewSmartChainAddress(args[0])
+			ascAddress, err := sdk.NewSmartChainAddress(args[0])
 			if err != nil {
 				return err
 			}
@@ -809,7 +809,7 @@ func GetCmdQueryCrossStakeInfoByAxcAddress(cdc *codec.Codec) *cobra.Command {
 
 			params := stake.QueryCrossStakeInfoParams{
 				BaseParams: stake.NewBaseParams(sideChainId),
-				AxcAddress: axcAddress,
+				AscAddress: ascAddress,
 			}
 
 			bz, err := json.Marshal(params)
