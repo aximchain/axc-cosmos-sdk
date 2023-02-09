@@ -5,17 +5,17 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/aximchain/axc-cosmos-sdk/client"
+	"github.com/aximchain/axc-cosmos-sdk/client/context"
 
-	"github.com/cosmos/cosmos-sdk/client/utils"
+	"github.com/aximchain/axc-cosmos-sdk/client/utils"
 	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	tmliteProxy "github.com/tendermint/tendermint/lite/proxy"
 )
 
-//BlockCommand returns the verified block data for a given heights
+// BlockCommand returns the verified block data for a given heights
 func BlockCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "block [height]",

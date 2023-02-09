@@ -1,7 +1,7 @@
 package paramHub
 
 import (
-	"github.com/cosmos/cosmos-sdk/x/paramHub/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
 	"github.com/tendermint/go-amino"
 )
 
@@ -13,5 +13,5 @@ func RegisterWire(cdc *amino.Codec) {
 	cdc.RegisterConcrete(&types.TransferFeeParam{}, "params/TransferFeeParams", nil)
 	cdc.RegisterConcrete(&types.DexFeeParam{}, "params/DexFeeParam", nil)
 	cdc.RegisterInterface((*types.SCParam)(nil), nil)
-	cdc.RegisterInterface((*types.BCParam)(nil), nil)
+	cdc.RegisterInterface((*types.FCParam)(nil), nil)
 }

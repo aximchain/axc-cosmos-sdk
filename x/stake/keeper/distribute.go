@@ -6,19 +6,19 @@ import (
 	"math/big"
 	"strconv"
 
-	"github.com/cosmos/cosmos-sdk/axc"
-	"github.com/cosmos/cosmos-sdk/axc/rlp"
-	"github.com/cosmos/cosmos-sdk/pubsub"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/fees"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/asc"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
+	"github.com/aximchain/axc-cosmos-sdk/pubsub"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/types/fees"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 )
 
 const (
 	// for getting the snapshot of validators in the specific days ago
 	daysBackwardForValidatorSnapshot = 3
-	// there is no cross-chain in Beacon Chain, only backward to validator snapshot of yesterday
-	daysBackwardForValidatorSnapshotBeaconChain = 2
+	// there is no cross-chain in Flash Chain, only backward to validator snapshot of yesterday
+	daysBackwardForValidatorSnapshotFlashChain = 2
 	// the count of blocks to distribute a day's rewards should be smaller than this value
 	boundOfRewardDistributionBlockCount = int64(10000)
 )
@@ -130,10 +130,10 @@ func (k Keeper) DistributeInBreathBlock(ctx sdk.Context, sideChainId string) sdk
 	}
 
 	var daysBackward int
-	if sideChainId != types.ChainIDForBeaconChain {
+	if sideChainId != types.ChainIDForFlashChain {
 		daysBackward = daysBackwardForValidatorSnapshot
 	} else {
-		daysBackward = daysBackwardForValidatorSnapshotBeaconChain
+		daysBackward = daysBackwardForValidatorSnapshotFlashChain
 	}
 	validators, height, found := k.GetHeightValidatorsByIndex(ctx, daysBackward)
 	if !found {
@@ -146,14 +146,14 @@ func (k Keeper) DistributeInBreathBlock(ctx sdk.Context, sideChainId string) sdk
 	var rewardSum int64
 
 	bondDenom := k.BondDenom(ctx)
-	// force getting FeeFromAxcToBcRatio from bc context
-	feeFromAxcToBcRatio := k.FeeFromAxcToBcRatio(ctx.WithSideChainKeyPrefix(nil))
-	avgFeeForBcVals := sdk.ZeroDec()
-	if sdk.IsUpgrade(sdk.BEP159) && sideChainId == types.ChainIDForBeaconChain {
-		feeForAllBcValsCoins := k.BankKeeper.GetCoins(ctx, FeeForAllBcValsAccAddr)
-		feeForAllBcVals := feeForAllBcValsCoins.AmountOf(bondDenom)
-		avgFeeForBcVals = sdk.NewDec(feeForAllBcVals / int64(len(validators)))
-		ctx.Logger().Info("FeeCalculation", "avgFeeForBcVals", avgFeeForBcVals, "feeForAllBcVals", feeForAllBcVals, "len(validators)", len(validators))
+	// force getting FeeFromAscToFcRatio from bc context
+	feeFromAscToFcRatio := k.FeeFromAscToFcRatio(ctx.WithSideChainKeyPrefix(nil))
+	avgFeeForFcVals := sdk.ZeroDec()
+	if sdk.IsUpgrade(sdk.BEP159) && sideChainId == types.ChainIDForFlashChain {
+		feeForAllFcValsCoins := k.BankKeeper.GetCoins(ctx, FeeForAllFcValsAccAddr)
+		feeForAllFcVals := feeForAllFcValsCoins.AmountOf(bondDenom)
+		avgFeeForFcVals = sdk.NewDec(feeForAllFcVals / int64(len(validators)))
+		ctx.Logger().Info("FeeCalculation", "avgFeeForFcVals", avgFeeForFcVals, "feeForAllFcVals", feeForAllFcVals, "len(validators)", len(validators))
 	}
 
 	for _, validator := range validators {
@@ -162,28 +162,28 @@ func (k Keeper) DistributeInBreathBlock(ctx sdk.Context, sideChainId string) sdk
 		totalRewardDec := sdk.NewDec(totalReward)
 		ctx.Logger().Info("FeeCalculation validator", "DistributionAddr", validator.DistributionAddr, "totalReward", totalReward, "height", height, "validator", validator)
 		if sdk.IsUpgrade(sdk.BEP159) {
-			if sideChainId != types.ChainIDForBeaconChain {
-				// split a portion of fees to BC validators
-				feeToBC := totalRewardDec.Mul(feeFromAxcToBcRatio)
-				if feeToBC.RawInt() > 0 {
-					_, err := k.BankKeeper.SendCoins(ctx, validator.DistributionAddr, FeeForAllBcValsAccAddr, sdk.Coins{sdk.NewCoin(bondDenom, feeToBC.RawInt())})
+			if sideChainId != types.ChainIDForFlashChain {
+				// split a portion of fees to FC validators
+				feeToFC := totalRewardDec.Mul(feeFromAscToFcRatio)
+				if feeToFC.RawInt() > 0 {
+					_, err := k.BankKeeper.SendCoins(ctx, validator.DistributionAddr, FeeForAllFcValsAccAddr, sdk.Coins{sdk.NewCoin(bondDenom, feeToFC.RawInt())})
 					if err != nil {
 						panic(err)
 					}
-					totalRewardDec = totalRewardDec.Sub(feeToBC)
+					totalRewardDec = totalRewardDec.Sub(feeToFC)
 					totalReward = totalRewardDec.RawInt()
-					ctx.Logger().Info("FeeCalculation send to FeeForAllBcValsAccAddr", "feeToBC", feeToBC.RawInt(), "new totalReward", totalReward)
+					ctx.Logger().Info("FeeCalculation send to FeeForAllFcValsAccAddr", "feeToFC", feeToFC.RawInt(), "new totalReward", totalReward)
 				}
 			} else {
-				// for beacon chain, split the fees accumulated in FeeForAllBcValsAccAddr
-				if avgFeeForBcVals.RawInt() > 0 {
-					_, err := k.BankKeeper.SendCoins(ctx, FeeForAllBcValsAccAddr, validator.DistributionAddr, sdk.Coins{sdk.NewCoin(bondDenom, avgFeeForBcVals.RawInt())})
+				// for flash chain, split the fees accumulated in FeeForAllFcValsAccAddr
+				if avgFeeForFcVals.RawInt() > 0 {
+					_, err := k.BankKeeper.SendCoins(ctx, FeeForAllFcValsAccAddr, validator.DistributionAddr, sdk.Coins{sdk.NewCoin(bondDenom, avgFeeForFcVals.RawInt())})
 					if err != nil {
 						panic(err)
 					}
-					totalRewardDec = totalRewardDec.Add(avgFeeForBcVals)
+					totalRewardDec = totalRewardDec.Add(avgFeeForFcVals)
 					totalReward = totalRewardDec.RawInt()
-					ctx.Logger().Info("FeeCalculation receive avgFeeForBcVals", "avgFeeForBcVals", avgFeeForBcVals.RawInt(), "new totalReward", totalReward)
+					ctx.Logger().Info("FeeCalculation receive avgFeeForFcVals", "avgFeeForFcVals", avgFeeForFcVals.RawInt(), "new totalReward", totalReward)
 				}
 			}
 		}
@@ -446,13 +446,13 @@ func crossDistributeReward(k Keeper, ctx sdk.Context, rewardCAoB sdk.AccAddress,
 	if relayFee.Tokens.AmountOf(denom) >= amount {
 		return sdk.Events{}, sdk.ErrInternal("not enough funds to cover relay fee")
 	}
-	axcRelayFee := axc.ConvertBCAmountToAXCAmount(relayFee.Tokens.AmountOf(denom))
+	axcRelayFee := asc.ConvertFCAmountToASCAmount(relayFee.Tokens.AmountOf(denom))
 
-	axcTransferAmount := new(big.Int).Sub(axc.ConvertBCAmountToAXCAmount(amount), axcRelayFee)
+	axcTransferAmount := new(big.Int).Sub(asc.ConvertFCAmountToASCAmount(amount), axcRelayFee)
 	delAddr := types.GetStakeCAoB(rewardCAoB.Bytes(), types.RewardCAoBSalt)
-	delAxcAddrAcc := types.GetStakeCAoB(delAddr.Bytes(), types.DelegateCAoBSalt)
-	delAxcAddr := hex.EncodeToString(delAxcAddrAcc.Bytes())
-	recipient, err := sdk.NewSmartChainAddress(delAxcAddr)
+	delAscAddrAcc := types.GetStakeCAoB(delAddr.Bytes(), types.DelegateCAoBSalt)
+	delAscAddr := hex.EncodeToString(delAscAddrAcc.Bytes())
+	recipient, err := sdk.NewSmartChainAddress(delAscAddr)
 	if err != nil {
 		return sdk.Events{}, err
 	}

@@ -1,7 +1,7 @@
 package cross_stake
 
 import (
-	"github.com/cosmos/cosmos-sdk/x/stake/keeper"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/keeper"
 )
 
 type (

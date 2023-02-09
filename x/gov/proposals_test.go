@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/cosmos/cosmos-sdk/x/gov"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
 )
 
 func TestProposalKind_Format(t *testing.T) {

@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/gov/events"
-	"github.com/cosmos/cosmos-sdk/x/gov/tags"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov/events"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov/tags"
 )
 
 // Handle all "gov" type messages.
@@ -129,7 +129,7 @@ func EndBlocker(baseCtx sdk.Context, keeper Keeper) (refundProposals, notRefundP
 	notRefundProposals = make([]SimpleProposal, 0)
 	chainIDs := []string{NativeChainID}
 	contexts := []sdk.Context{baseCtx}
-	if sdk.IsUpgrade(sdk.LaunchAxcUpgrade) && keeper.ScKeeper != nil {
+	if sdk.IsUpgrade(sdk.LaunchAscUpgrade) && keeper.ScKeeper != nil {
 		tmpSideIDs, storePrefixes := keeper.ScKeeper.GetAllSideChainPrefixes(baseCtx)
 		chainIDs = append(chainIDs, tmpSideIDs...)
 		for i := range storePrefixes {

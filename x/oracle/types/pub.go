@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/cosmos/cosmos-sdk/pubsub"
+	"github.com/aximchain/axc-cosmos-sdk/pubsub"
 )
 
 const (

@@ -3,13 +3,13 @@ package paramHub
 import (
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/paramHub/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
+	"github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
 	"github.com/tendermint/go-amino"
 )
 
-//---------------------    FeeChangeHooks -----------------
+// ---------------------    FeeChangeHooks -----------------
 type FeeChangeHooks struct {
 	cdc *amino.Codec
 }
@@ -34,7 +34,7 @@ func (hooks FeeChangeHooks) OnProposalSubmitted(ctx sdk.Context, proposal gov.Pr
 	return feeParams.Check()
 }
 
-//---------------------    CSCParamsChangeHook  -----------------
+// ---------------------    CSCParamsChangeHook  -----------------
 type CSCParamsChangeHooks struct {
 	cdc *amino.Codec
 }
@@ -59,7 +59,7 @@ func (hooks CSCParamsChangeHooks) OnProposalSubmitted(ctx sdk.Context, proposal 
 	return changeParam.Check()
 }
 
-//---------------------    SCParamsChangeHook  -----------------
+// ---------------------    SCParamsChangeHook  -----------------
 type SCParamsChangeHooks struct {
 	cdc *amino.Codec
 }
@@ -84,18 +84,18 @@ func (hooks SCParamsChangeHooks) OnProposalSubmitted(ctx sdk.Context, proposal g
 	return changeParam.Check()
 }
 
-//---------------------    BCParamsChangeHook  -----------------
-type BCParamsChangeHooks struct {
+// ---------------------    FCParamsChangeHook  -----------------
+type FCParamsChangeHooks struct {
 	cdc *amino.Codec
 }
 
-func NewBCParamsChangeHook(cdc *amino.Codec) BCParamsChangeHooks {
-	return BCParamsChangeHooks{cdc}
+func NewFCParamsChangeHook(cdc *amino.Codec) FCParamsChangeHooks {
+	return FCParamsChangeHooks{cdc}
 }
 
-var _ gov.GovHooks = BCParamsChangeHooks{}
+var _ gov.GovHooks = FCParamsChangeHooks{}
 
-func (hooks BCParamsChangeHooks) OnProposalSubmitted(ctx sdk.Context, proposal gov.Proposal) error {
+func (hooks FCParamsChangeHooks) OnProposalSubmitted(ctx sdk.Context, proposal gov.Proposal) error {
 	// enable after BEP159
 	if !sdk.IsUpgrade(sdk.BEP159) {
 		return nil
@@ -104,11 +104,11 @@ func (hooks BCParamsChangeHooks) OnProposalSubmitted(ctx sdk.Context, proposal g
 		panic(fmt.Sprintf("received wrong type of proposal %x", proposal.GetProposalType()))
 	}
 
-	var changeParam types.BCChangeParams
+	var changeParam types.FCChangeParams
 	strProposal := proposal.GetDescription()
 	err := hooks.cdc.UnmarshalJSON([]byte(strProposal), &changeParam)
 	if err != nil {
-		return fmt.Errorf("get broken data when unmarshal BCParamsChange msg. proposalId %d, err %v", proposal.GetProposalID(), err)
+		return fmt.Errorf("get broken data when unmarshal FCParamsChange msg. proposalId %d, err %v", proposal.GetProposalID(), err)
 	}
 	return changeParam.Check()
 }

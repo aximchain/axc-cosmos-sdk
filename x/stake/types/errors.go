@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 type CodeType = sdk.CodeType
@@ -30,7 +30,7 @@ const (
 	CodeUnknownRequest               CodeType = sdk.CodeUnknownRequest
 )
 
-//validator
+// validator
 func ErrNilValidatorAddr(codespace sdk.CodespaceType) sdk.Error {
 	return sdk.NewError(codespace, CodeInvalidInput, "validator address is nil")
 }

@@ -3,8 +3,8 @@ package keeper
 import (
 	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -17,7 +17,7 @@ func TestParams(t *testing.T) {
 	expParams.BaseProposerRewardRatio = sdk.ZeroDec()
 	expParams.BonusProposerRewardRatio = sdk.ZeroDec()
 	expParams.MaxStakeSnapshots = uint16(0)
-	expParams.FeeFromAxcToBcRatio = sdk.ZeroDec()
+	expParams.FeeFromAscToFcRatio = sdk.ZeroDec()
 
 	//check that the empty keeper loads the default
 	resParams := keeper.GetParams(ctx)

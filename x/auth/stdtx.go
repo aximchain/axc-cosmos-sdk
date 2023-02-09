@@ -5,8 +5,8 @@ import (
 
 	"github.com/tendermint/tendermint/crypto"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 const (
@@ -34,7 +34,7 @@ func NewStdTx(msgs []sdk.Msg, sigs []StdSignature, memo string, source int64, da
 	}
 }
 
-//nolint
+// nolint
 func (tx StdTx) GetMsgs() []sdk.Msg { return tx.Msgs }
 
 // GetSigners returns the addresses that must sign the transaction.
@@ -57,13 +57,13 @@ func (tx StdTx) GetSigners() []sdk.AccAddress {
 	return signers
 }
 
-//nolint
+// nolint
 func (tx StdTx) GetMemo() string { return tx.Memo }
 
-//nolint
+// nolint
 func (tx StdTx) GetSource() int64 { return tx.Source }
 
-//nolint
+// nolint
 func (tx StdTx) GetData() []byte { return tx.Data }
 
 // Signatures returns the signature of signers who signed the Msg.

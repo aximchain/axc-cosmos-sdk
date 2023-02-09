@@ -4,7 +4,7 @@ import (
 	"crypto/sha256"
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/aximchain/axc-cosmos-sdk/client"
 	"github.com/spf13/cobra"
 
 	bip39 "github.com/bartekn/go-bip39"

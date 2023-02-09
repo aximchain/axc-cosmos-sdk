@@ -9,17 +9,17 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/client"
+	"github.com/aximchain/axc-cosmos-sdk/client/context"
+	"github.com/aximchain/axc-cosmos-sdk/client/utils"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 	"github.com/spf13/viper"
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
 // TODO these next two functions feel kinda hacky based on their placement
 
-//ValidatorCommand returns the validator set for a given height
+// ValidatorCommand returns the validator set for a given height
 func ValidatorCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "tendermint-validator-set [height]",

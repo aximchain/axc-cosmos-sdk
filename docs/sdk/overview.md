@@ -119,8 +119,8 @@ basecoin examples folder.
 package app
 
 import (
-    "github.com/cosmos/cosmos-sdk/x/bank"
-    "github.com/cosmos/cosmos-sdk/x/sketchy"
+    "github.com/aximchain/axc-cosmos-sdk/x/bank"
+    "github.com/aximchain/axc-cosmos-sdk/x/sketchy"
 )
 
 func (app *BasecoinApp) initRouterHandlers() {

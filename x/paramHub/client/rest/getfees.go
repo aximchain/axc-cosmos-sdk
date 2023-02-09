@@ -8,9 +8,9 @@ import (
 
 	"github.com/tendermint/go-amino"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/x/paramHub"
-	"github.com/cosmos/cosmos-sdk/x/paramHub/types"
+	"github.com/aximchain/axc-cosmos-sdk/client/context"
+	"github.com/aximchain/axc-cosmos-sdk/x/paramHub"
+	"github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
 )
 
 func GetFeesParamHandler(cdc *amino.Codec, ctx context.CLIContext) http.HandlerFunc {

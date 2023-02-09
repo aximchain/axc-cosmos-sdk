@@ -1,7 +1,7 @@
 package ibc
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
 )
 
 func RegisterWire(cdc *codec.Codec) {

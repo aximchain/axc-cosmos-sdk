@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"math"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/params/subspace"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/params/subspace"
 )
 
 const (
@@ -58,7 +58,7 @@ var (
 		"side_redelegate":       {},
 		"side_undelegate":       {},
 
-		"axc_submit_evidence": {},
+		"asx_submit_evidence": {},
 		"side_chain_unjail":   {},
 
 		"side_submit_proposal": {},
@@ -89,8 +89,8 @@ type ParamChangePublisher interface {
 	SubscribeParamChange(updateCb func(sdk.Context, interface{}), spaceProto *ParamSpaceProto, genesisCb func(sdk.Context, interface{}), loadCb func(sdk.Context, interface{}))
 }
 
-type BCParamChangePublisher interface {
-	SubscribeBCParamChange(updateCb func(sdk.Context, interface{}), spaceProto *BCParamSpaceProto)
+type FCParamChangePublisher interface {
+	SubscribeFCParamChange(updateCb func(sdk.Context, interface{}), spaceProto *FCParamSpaceProto)
 }
 
 type LastProposalID struct {
@@ -330,29 +330,29 @@ func (s *SCChangeParams) Check() error {
 	return nil
 }
 
-// ---------   Definition beacon chain prams change ------------------- //
-type BCParamSpaceProto struct {
+// ---------   Definition flash chain prams change ------------------- //
+type FCParamSpaceProto struct {
 	ParamSpace subspace.Subspace
-	Proto      func() BCParam
+	Proto      func() FCParam
 }
 
-type BCParam interface {
+type FCParam interface {
 	subspace.ParamSet
 	UpdateCheck() error
-	GetBCParamAttribute() string
+	GetFCParamAttribute() string
 }
 
-type BCChangeParams struct {
-	BCParams    []BCParam `json:"bc_params"`
+type FCChangeParams struct {
+	FCParams    []FCParam `json:"fc_params"`
 	Description string    `json:"description"`
 }
 
-func (s *BCChangeParams) Check() error {
+func (s *FCChangeParams) Check() error {
 	// use literal string to avoid import cycle
 	supportParams := []string{"staking"}
 
-	if len(s.BCParams) != len(supportParams) {
-		return fmt.Errorf("the bc_params length mismatch, suppose %d", len(supportParams))
+	if len(s.FCParams) != len(supportParams) {
+		return fmt.Errorf("the fc_params length mismatch, suppose %d", len(supportParams))
 	}
 
 	paramSet := make(map[string]bool)
@@ -360,15 +360,15 @@ func (s *BCChangeParams) Check() error {
 		paramSet[s] = true
 	}
 
-	for _, bc := range s.BCParams {
+	for _, bc := range s.FCParams {
 		if bc == nil {
-			return fmt.Errorf("bc_params contains empty element")
+			return fmt.Errorf("fc_params contains empty element")
 		}
 		err := bc.UpdateCheck()
 		if err != nil {
 			return err
 		}
-		paramType := bc.GetBCParamAttribute()
+		paramType := bc.GetFCParamAttribute()
 		if exist := paramSet[paramType]; exist {
 			delete(paramSet, paramType)
 		} else {

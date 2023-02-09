@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/x/ibc"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
+	"github.com/aximchain/axc-cosmos-sdk/x/ibc"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
 	"github.com/stretchr/testify/require"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/crypto"
@@ -16,13 +16,13 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/store"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/stake"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/store"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/auth"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake"
 )
 
 // TODO remove dependencies on staking (should only refer to validator set type from sdk)
@@ -158,7 +158,7 @@ func createSideTestInput(t *testing.T, defaults Params) (sdk.Context, sdk.Contex
 	scKeeper.SetParams(ctx, sidechain.DefaultParams())
 
 	ibcKeeper := ibc.NewKeeper(keyIbc, paramsKeeper.Subspace(ibc.DefaultParamspace), ibc.DefaultCodespace, scKeeper)
-	// set up IBC chainID for BBC
+	// set up IBC chainID for AFC
 	scKeeper.SetSrcChainID(sdk.ChainID(1))
 	err = scKeeper.RegisterDestChain("axc", sdk.ChainID(1))
 	require.Nil(t, err)
@@ -197,7 +197,7 @@ func createSideTestInput(t *testing.T, defaults Params) (sdk.Context, sdk.Contex
 	})
 
 	sdk.UpgradeMgr.Height = 1
-	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchAxcUpgrade, 1)
+	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchAscUpgrade, 1)
 
 	return ctx, sideCtx, ck, sk, paramstore, keeper
 }
