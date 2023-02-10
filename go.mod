@@ -26,7 +26,7 @@ require (
 	github.com/tendermint/iavl v0.12.4
 	github.com/tendermint/tendermint v0.32.3
 	github.com/zondax/ledger-cosmos-go v0.9.9
-	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
+	golang.org/x/crypto v0.5.0
 )
 
 require (
