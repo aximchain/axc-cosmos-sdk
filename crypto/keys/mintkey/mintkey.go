@@ -4,13 +4,12 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"golang.org/x/crypto/bcrypt"
-
 	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/crypto/armor"
 	cryptoAmino "github.com/tendermint/tendermint/crypto/encoding/amino"
 	"github.com/tendermint/tendermint/crypto/xsalsa20symmetric"
 
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys/bcrypt"
 	"github.com/aximchain/axc-cosmos-sdk/crypto/keys/keyerror"
 	cmn "github.com/tendermint/tendermint/libs/common"
 )
