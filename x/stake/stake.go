@@ -164,7 +164,7 @@ const (
 	CodeUnauthorized      = types.CodeUnauthorized
 	CodeInternal          = types.CodeInternal
 	CodeUnknownRequest    = types.CodeUnknownRequest
-	ChainIDForBeaconChain = types.ChainIDForBeaconChain
+	ChainIDForFlashChain  = types.ChainIDForFlashChain
 )
 
 var (

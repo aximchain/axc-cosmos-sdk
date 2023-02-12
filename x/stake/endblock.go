@@ -16,7 +16,7 @@ func EndBlocker(ctx sdk.Context, k keeper.Keeper) (validatorUpdates []abci.Valid
 	if !sdk.IsUpgrade(sdk.BEP159) {
 		_, validatorUpdates, completedUbds, _, events = handleValidatorAndDelegations(ctx, k)
 	} else {
-		k.DistributeInBlock(ctx, types.ChainIDForBeaconChain)
+		k.DistributeInBlock(ctx, types.ChainIDForFlashChain)
 		validatorUpdates = k.PopPendingABCIValidatorUpdate(ctx)
 	}
 	if sdk.IsUpgrade(sdk.BEP128) {
@@ -43,12 +43,12 @@ func EndBreatheBlock(ctx sdk.Context, k keeper.Keeper) (validatorUpdates []abci.
 	var completedREDs []types.DVVTriplet
 	newVals, validatorUpdates, completedUbds, completedREDs, events = handleValidatorAndDelegations(ctx, k)
 	ctx.Logger().Debug("EndBreatheBlock", "newValsLen", len(newVals), "newVals", newVals)
-	publishCompletedUBD(k, completedUbds, ChainIDForBeaconChain, ctx.BlockHeight())
-	publishCompletedRED(k, completedREDs, ChainIDForBeaconChain)
+	publishCompletedUBD(k, completedUbds, ChainIDForFlashChain, ctx.BlockHeight())
+	publishCompletedRED(k, completedREDs, ChainIDForFlashChain)
 	if k.PbsbServer != nil {
 		sideValidatorsEvent := types.ElectedValidatorsEvent{
 			Validators: newVals,
-			ChainId:    ChainIDForBeaconChain,
+			ChainId:    ChainIDForFlashChain,
 		}
 		k.PbsbServer.Publish(sideValidatorsEvent)
 	}
@@ -88,7 +88,7 @@ func EndBreatheBlock(ctx sdk.Context, k keeper.Keeper) (validatorUpdates []abci.
 		}
 		if sdk.IsUpgrade(sdk.BEP159) {
 			// distribute Flash Chain rewards
-			k.DistributeInBreathBlock(ctx, types.ChainIDForBeaconChain)
+			k.DistributeInBreathBlock(ctx, types.ChainIDForFlashChain)
 		}
 	}
 	ctx.EventManager().EmitEvents(events)

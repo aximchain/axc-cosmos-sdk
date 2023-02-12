@@ -393,7 +393,7 @@ func handleMsgDelegate(ctx sdk.Context, msg types.MsgDelegate, k keeper.Keeper) 
 				Denom:     msg.Delegation.Denom,
 				TxHash:    ctx.Value(baseapp.TxHashKey).(string),
 			},
-			ChainId: ChainIDForBeaconChain,
+			ChainId: ChainIDForFlashChain,
 		}
 		k.PbsbServer.Publish(event)
 	}
@@ -433,7 +433,7 @@ func handleMsgUndelegate(ctx sdk.Context, msg types.MsgUndelegate, k keeper.Keep
 				Denom:     msg.Amount.Denom,
 				TxHash:    ctx.Value(baseapp.TxHashKey).(string),
 			},
-			ChainId: ChainIDForBeaconChain,
+			ChainId: ChainIDForFlashChain,
 		}
 		k.PbsbServer.Publish(event)
 	}
@@ -501,7 +501,7 @@ func handleMsgRedelegate(ctx sdk.Context, msg types.MsgRedelegate, k keeper.Keep
 				Denom:        msg.Amount.Denom,
 				TxHash:       ctx.Value(baseapp.TxHashKey).(string),
 			},
-			ChainId: ChainIDForBeaconChain,
+			ChainId: ChainIDForFlashChain,
 		}
 		k.PbsbServer.Publish(event)
 	}

@@ -13,7 +13,7 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
-const ChainIDForBeaconChain string = "abc" // short for AXC Flash Chain
+const ChainIDForFlashChain string = "afc" // short for AXC Flash Chain
 
 // Validator defines the total amount of bond shares and their exchange rate to
 // coins. Accumulation of interest is modelled as an in increase in the
@@ -73,7 +73,7 @@ func NewValidatorWithFeeAddr(feeAddr sdk.AccAddress, operator sdk.ValAddress, pu
 		Commission:         NewCommission(sdk.ZeroDec(), sdk.ZeroDec(), sdk.ZeroDec()),
 	}
 	if sdk.IsUpgrade(sdk.BEP159) {
-		val.DistributionAddr = GenerateDistributionAddr(operator, ChainIDForBeaconChain)
+		val.DistributionAddr = GenerateDistributionAddr(operator, ChainIDForFlashChain)
 	}
 	return val
 }

@@ -18,7 +18,7 @@ const (
 	// for getting the snapshot of validators in the specific days ago
 	daysBackwardForValidatorSnapshot = 3
 	// there is no cross-chain in Flash Chain, only backward to validator snapshot of yesterday
-	daysBackwardForValidatorSnapshotBeaconChain = 2
+	daysBackwardForValidatorSnapshotFlashChain = 2
 	// the count of blocks to distribute a day's rewards should be smaller than this value
 	boundOfRewardDistributionBlockCount = int64(10000)
 )
@@ -130,10 +130,10 @@ func (k Keeper) DistributeInBreathBlock(ctx sdk.Context, sideChainId string) sdk
 	}
 
 	var daysBackward int
-	if sideChainId != types.ChainIDForBeaconChain {
+	if sideChainId != types.ChainIDForFlashChain {
 		daysBackward = daysBackwardForValidatorSnapshot
 	} else {
-		daysBackward = daysBackwardForValidatorSnapshotBeaconChain
+		daysBackward = daysBackwardForValidatorSnapshotFlashChain
 	}
 	validators, height, found := k.GetHeightValidatorsByIndex(ctx, daysBackward)
 	if !found {
@@ -149,7 +149,7 @@ func (k Keeper) DistributeInBreathBlock(ctx sdk.Context, sideChainId string) sdk
 	// force getting FeeFromAscToFcRatio from bc context
 	feeFromAscToFcRatio := k.FeeFromAscToFcRatio(ctx.WithSideChainKeyPrefix(nil))
 	avgFeeForFcVals := sdk.ZeroDec()
-	if sdk.IsUpgrade(sdk.BEP159) && sideChainId == types.ChainIDForBeaconChain {
+	if sdk.IsUpgrade(sdk.BEP159) && sideChainId == types.ChainIDForFlashChain {
 		feeForAllFcValsCoins := k.BankKeeper.GetCoins(ctx, FeeForAllFcValsAccAddr)
 		feeForAllFcVals := feeForAllFcValsCoins.AmountOf(bondDenom)
 		avgFeeForFcVals = sdk.NewDec(feeForAllFcVals / int64(len(validators)))
@@ -162,7 +162,7 @@ func (k Keeper) DistributeInBreathBlock(ctx sdk.Context, sideChainId string) sdk
 		totalRewardDec := sdk.NewDec(totalReward)
 		ctx.Logger().Info("FeeCalculation validator", "DistributionAddr", validator.DistributionAddr, "totalReward", totalReward, "height", height, "validator", validator)
 		if sdk.IsUpgrade(sdk.BEP159) {
-			if sideChainId != types.ChainIDForBeaconChain {
+			if sideChainId != types.ChainIDForFlashChain {
 				// split a portion of fees to BC validators
 				feeToFC := totalRewardDec.Mul(feeFromAscToFcRatio)
 				if feeToFC.RawInt() > 0 {

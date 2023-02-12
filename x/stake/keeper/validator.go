@@ -288,7 +288,7 @@ func (k Keeper) RemoveValidator(ctx sdk.Context, address sdk.ValAddress) {
 	if k.PbsbServer != nil && ctx.IsDeliverTx() {
 		chainId := validator.SideChainId
 		if chainId == "" {
-			chainId = types.ChainIDForBeaconChain
+			chainId = types.ChainIDForFlashChain
 		}
 		k.PbsbServer.Publish(types.ValidatorRemovedEvent{
 			StakeEvent: types.StakeEvent{
