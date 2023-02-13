@@ -1,4 +1,4 @@
-package bsc
+package asc
 
 import (
 	"encoding/hex"
@@ -9,7 +9,7 @@ import (
 	"reflect"
 	"strconv"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 var (

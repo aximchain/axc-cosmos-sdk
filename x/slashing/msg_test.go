@@ -3,7 +3,7 @@ package slashing
 import (
 	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
 

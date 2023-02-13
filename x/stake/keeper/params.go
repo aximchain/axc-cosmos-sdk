@@ -3,11 +3,10 @@ package keeper
 import (
 	"time"
 
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	"github.com/tendermint/tendermint/crypto"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
 )
 
 // Default parameter namespace
@@ -17,8 +16,8 @@ const (
 
 var (
 	FeeCollectorAddr       = sdk.AccAddress(crypto.AddressHash([]byte("FeeCollector")))
-	DelegationAccAddr      = sdk.AccAddress(crypto.AddressHash([]byte("BinanceChainStakeDelegation")))
-	FeeForAllBcValsAccAddr = sdk.AccAddress(crypto.AddressHash([]byte("BinanceChainStakeFeeForAllBcVals")))
+	DelegationAccAddr      = sdk.AccAddress(crypto.AddressHash([]byte("AximchainStakeDelegation")))
+	FeeForAllFcValsAccAddr = sdk.AccAddress(crypto.AddressHash([]byte("AximchainStakeFeeForAllFcVals")))
 )
 
 // ParamTable for stake module
@@ -74,8 +73,8 @@ func (k Keeper) BonusProposerRewardRatio(ctx sdk.Context) (res sdk.Dec) {
 	return
 }
 
-func (k Keeper) FeeFromBscToBcRatio(ctx sdk.Context) (res sdk.Dec) {
-	k.paramstore.GetIfExists(ctx, types.KeyFeeFromBscToBcRatio, &res)
+func (k Keeper) FeeFromAscToFcRatio(ctx sdk.Context) (res sdk.Dec) {
+	k.paramstore.GetIfExists(ctx, types.KeyFeeFromAscToFcRatio, &res)
 	return
 }
 
@@ -90,12 +89,12 @@ func (k Keeper) GetParams(ctx sdk.Context) (res types.Params) {
 	res.BaseProposerRewardRatio = k.BaseProposerRewardRatio(ctx)
 	res.BonusProposerRewardRatio = k.BonusProposerRewardRatio(ctx)
 	res.MaxStakeSnapshots = k.MaxStakeSnapshots(ctx)
-	res.FeeFromBscToBcRatio = k.FeeFromBscToBcRatio(ctx)
+	res.FeeFromAscToFcRatio = k.FeeFromAscToFcRatio(ctx)
 	return
 }
 
 // in order to be compatible with before
-type paramBeforeBscUpgrade struct {
+type paramBeforeAscUpgrade struct {
 	UnbondingTime time.Duration `json:"unbonding_time"`
 
 	MaxValidators uint16 `json:"max_validators"` // maximum number of validators
@@ -103,7 +102,7 @@ type paramBeforeBscUpgrade struct {
 }
 
 // Implements params.ParamSet
-func (p *paramBeforeBscUpgrade) KeyValuePairs() params.KeyValuePairs {
+func (p *paramBeforeAscUpgrade) KeyValuePairs() params.KeyValuePairs {
 	return params.KeyValuePairs{
 		{types.KeyUnbondingTime, &p.UnbondingTime},
 		{types.KeyMaxValidators, &p.MaxValidators},
@@ -161,15 +160,9 @@ func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
 	k.paramstore.Set(ctx, types.KeyUnbondingTime, params.UnbondingTime)
 	k.paramstore.Set(ctx, types.KeyMaxValidators, params.MaxValidators)
 	k.paramstore.Set(ctx, types.KeyBondDenom, params.BondDenom)
-	if sdk.IsUpgrade(sdk.LaunchBscUpgrade) {
-		if ctx.ChainID() == sdk.ChainIdGanges {
-			k.paramstore.Set(ctx, types.KeyMaxValidators, uint16(11))
-			k.paramstore.Set(ctx, types.KeyMinSelfDelegation, int64(5000000000000))
-			k.paramstore.Set(ctx, types.KeyMinDelegationChange, params.MinDelegationChange)
-		} else {
-			k.paramstore.Set(ctx, types.KeyMinSelfDelegation, params.MinSelfDelegation)
-			k.paramstore.Set(ctx, types.KeyMinDelegationChange, params.MinDelegationChange)
-		}
+	if sdk.IsUpgrade(sdk.LaunchAscUpgrade) {
+		k.paramstore.Set(ctx, types.KeyMinSelfDelegation, params.MinSelfDelegation)
+		k.paramstore.Set(ctx, types.KeyMinDelegationChange, params.MinDelegationChange)
 	}
 	if sdk.IsUpgrade(sdk.BEP128) {
 		k.paramstore.Set(ctx, types.KeyRewardDistributionBatchSize, params.RewardDistributionBatchSize)
@@ -178,6 +171,6 @@ func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
 		k.paramstore.Set(ctx, types.KeyMaxStakeSnapshots, params.MaxStakeSnapshots)
 		k.paramstore.Set(ctx, types.KeyBaseProposerRewardRatio, params.BaseProposerRewardRatio)
 		k.paramstore.Set(ctx, types.KeyBonusProposerRewardRatio, params.BonusProposerRewardRatio)
-		k.paramstore.Set(ctx, types.KeyFeeFromBscToBcRatio, params.FeeFromBscToBcRatio)
+		k.paramstore.Set(ctx, types.KeyFeeFromAscToFcRatio, params.FeeFromAscToFcRatio)
 	}
 }

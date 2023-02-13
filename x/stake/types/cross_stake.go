@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math/big"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
@@ -83,7 +83,7 @@ type RefundError uint32
 
 const (
 	DecodeFailed      RefundError = 100
-	WithdrawBNBFailed RefundError = 101
+	WithdrawAXCFailed RefundError = 101
 )
 
 type CrossStakeRefundPackage struct {

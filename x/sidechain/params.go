@@ -1,15 +1,15 @@
 package sidechain
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/params"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
 )
 
 // Default parameter namespace
 const DefaultParamspace = "sidechain"
 
 var (
-	KeyBscSideChainId = []byte("BscSideChainId")
+	KeyAscSideChainId = []byte("AscSideChainId")
 )
 
 // ParamTypeTable for sidechain module
@@ -18,25 +18,25 @@ func ParamTypeTable() params.TypeTable {
 }
 
 type Params struct {
-	BscSideChainId string `json:"bsc_side_chain_id"`
+	AscSideChainId string `json:"asc_side_chain_id"`
 }
 
 // Implements params.ParamStruct
 func (p *Params) KeyValuePairs() params.KeyValuePairs {
 	return params.KeyValuePairs{
-		{KeyBscSideChainId, &p.BscSideChainId},
+		{KeyAscSideChainId, &p.AscSideChainId},
 	}
 }
 
 // Default parameters used by Cosmos Hub
 func DefaultParams() Params {
 	return Params{
-		BscSideChainId: "bsc",
+		AscSideChainId: "asc",
 	}
 }
 
-func (k Keeper) BscSideChainId(ctx sdk.Context) (sideChainId string) {
-	k.paramspace.Get(ctx, KeyBscSideChainId, &sideChainId)
+func (k Keeper) AscSideChainId(ctx sdk.Context) (sideChainId string) {
+	k.paramspace.Get(ctx, KeyAscSideChainId, &sideChainId)
 	return
 }
 

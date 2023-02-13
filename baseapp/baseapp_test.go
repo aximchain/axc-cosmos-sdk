@@ -15,8 +15,8 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 var (
@@ -591,7 +591,7 @@ func TestMultiMsgDeliverTx(t *testing.T) {
 		tx := newTxCounter(0, 0, 1, 2)
 		txBytes, err := codec.MarshalBinaryLengthPrefixed(tx)
 		require.NoError(t, err)
-		res := app.DeliverTx(abci.RequestDeliverTx{Tx:txBytes})
+		res := app.DeliverTx(abci.RequestDeliverTx{Tx: txBytes})
 		require.True(t, res.IsErr(), fmt.Sprintf("%v", res))
 	}
 }

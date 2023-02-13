@@ -3,21 +3,21 @@ package cli
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
-	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
-	"github.com/cosmos/cosmos-sdk/x/stake"
+	"github.com/aximchain/axc-cosmos-sdk/client"
+	"github.com/aximchain/axc-cosmos-sdk/client/context"
+	"github.com/aximchain/axc-cosmos-sdk/client/utils"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	authcmd "github.com/aximchain/axc-cosmos-sdk/x/auth/client/cli"
+	authtxb "github.com/aximchain/axc-cosmos-sdk/x/auth/client/txbuilder"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
 func GetCmdCreateSideChainValidator(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "bsc-create-validator",
+		Use:   "axc-create-validator",
 		Short: "create new validator for side chain initialized with a self-delegation to it",
 	}
 	cmd.RunE = func(cmd *cobra.Command, args []string) error {
@@ -93,7 +93,7 @@ func GetCmdCreateSideChainValidator(cdc *codec.Codec) *cobra.Command {
 
 func GetCmdEditSideChainValidator(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "bsc-edit-validator",
+		Use:   "axc-edit-validator",
 		Short: "edit an existing side chain validator",
 	}
 
@@ -142,7 +142,7 @@ func GetCmdEditSideChainValidator(cdc *codec.Codec) *cobra.Command {
 
 func GetCmdSideChainDelegate(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "bsc-delegate",
+		Use:   "axc-delegate",
 		Short: "delegate liquid tokens to a side chain validator",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			txBldr := authtxb.NewTxBuilderFromCLI().WithCodec(cdc)
@@ -183,7 +183,7 @@ func GetCmdSideChainDelegate(cdc *codec.Codec) *cobra.Command {
 
 func GetCmdSideChainRedelegate(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "bsc-redelegate",
+		Use:   "axc-redelegate",
 		Short: "Redelegate illiquid tokens from one validator to another",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -230,7 +230,7 @@ func GetCmdSideChainRedelegate(cdc *codec.Codec) *cobra.Command {
 
 func GetCmdSideChainUnbond(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "bsc-unbond",
+		Use:   "axc-unbond",
 		Short: "",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			txBldr := authtxb.NewTxBuilderFromCLI().WithCodec(cdc)

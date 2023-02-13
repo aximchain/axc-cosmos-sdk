@@ -1,7 +1,7 @@
 package params
 
 import (
-	"github.com/cosmos/cosmos-sdk/x/params/subspace"
+	"github.com/aximchain/axc-cosmos-sdk/x/params/subspace"
 )
 
 // re-export types from subspace

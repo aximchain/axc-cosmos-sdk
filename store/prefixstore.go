@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"io"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 var _ KVStore = prefixStore{}

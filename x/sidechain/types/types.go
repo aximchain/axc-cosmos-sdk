@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/cosmos/cosmos-sdk/bsc/rlp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 const (

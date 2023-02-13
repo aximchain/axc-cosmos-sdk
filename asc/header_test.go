@@ -1,4 +1,4 @@
-package bsc
+package asc
 
 import (
 	"encoding/hex"

@@ -3,7 +3,7 @@ package fees
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // block level pool

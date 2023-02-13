@@ -2,16 +2,17 @@ package init
 
 import (
 	"bytes"
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	"github.com/tendermint/tendermint/libs/cli"
 	"io"
 	"os"
 	"testing"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/cosmos/cosmos-sdk/server/mock"
+	"github.com/aximchain/axc-cosmos-sdk/client"
+	"github.com/aximchain/axc-cosmos-sdk/cmd/gaia/app"
+	"github.com/tendermint/tendermint/libs/cli"
+
+	"github.com/aximchain/axc-cosmos-sdk/server"
+	"github.com/aximchain/axc-cosmos-sdk/server/mock"
 	"github.com/stretchr/testify/require"
 	abciServer "github.com/tendermint/tendermint/abci/server"
 	tcmd "github.com/tendermint/tendermint/cmd/tendermint/commands"

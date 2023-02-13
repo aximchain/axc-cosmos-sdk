@@ -7,13 +7,13 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/cosmos/cosmos-sdk/crypto/keys/hd"
-	"github.com/cosmos/cosmos-sdk/crypto/keys/mintkey"
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys/hd"
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys/mintkey"
 
 	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/crypto/ed25519"
 
-	"github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 )
 
@@ -227,7 +227,6 @@ func TestExportImport(t *testing.T) {
 	require.Equal(t, john, john2)
 }
 
-//
 func TestExportImportPubKey(t *testing.T) {
 	// make the storage with reasonable defaults
 	db := dbm.NewMemDB()

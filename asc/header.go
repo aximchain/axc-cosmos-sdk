@@ -1,4 +1,4 @@
-package bsc
+package asc
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/cosmos/cosmos-sdk/bsc/rlp"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
 	"github.com/tendermint/tendermint/crypto/secp256k1"
 	"golang.org/x/crypto/sha3"
 )

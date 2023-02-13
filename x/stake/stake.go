@@ -2,9 +2,9 @@
 package stake
 
 import (
-	"github.com/cosmos/cosmos-sdk/x/stake/keeper"
-	"github.com/cosmos/cosmos-sdk/x/stake/querier"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/keeper"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/querier"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 )
 
 type (
@@ -133,7 +133,7 @@ var (
 
 	FeeCollectorAddr  = keeper.FeeCollectorAddr
 	DelegationAccAddr = keeper.DelegationAccAddr
-	FeeForAllAccAddr  = keeper.FeeForAllBcValsAccAddr
+	FeeForAllAccAddr  = keeper.FeeForAllFcValsAccAddr
 )
 
 const (
@@ -150,7 +150,7 @@ const (
 	QueryDelegatorValidator            = querier.QueryDelegatorValidator
 	QueryPool                          = querier.QueryPool
 	QueryParameters                    = querier.QueryParameters
-	QueryCrossStakeInfo                = querier.QueryCrossStakeInfoByBscAddress
+	QueryCrossStakeInfo                = querier.QueryCrossStakeInfoByAscAddress
 
 	Topic = types.Topic
 )
@@ -164,7 +164,7 @@ const (
 	CodeUnauthorized      = types.CodeUnauthorized
 	CodeInternal          = types.CodeInternal
 	CodeUnknownRequest    = types.CodeUnknownRequest
-	ChainIDForBeaconChain = types.ChainIDForBeaconChain
+	ChainIDForFlashChain  = types.ChainIDForFlashChain
 )
 
 var (

@@ -10,12 +10,12 @@ import (
 
 	"github.com/cosmos/go-bip39"
 
-	"github.com/cosmos/cosmos-sdk/crypto"
-	"github.com/cosmos/cosmos-sdk/crypto/keys/hd"
-	"github.com/cosmos/cosmos-sdk/crypto/keys/mintkey"
-	"github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/crypto"
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys/hd"
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys/mintkey"
+	"github.com/aximchain/axc-cosmos-sdk/types"
 
-	"github.com/cosmos/cosmos-sdk/crypto/keys/keyerror"
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys/keyerror"
 	tmcrypto "github.com/tendermint/tendermint/crypto"
 	cryptoAmino "github.com/tendermint/tendermint/crypto/encoding/amino"
 	"github.com/tendermint/tendermint/crypto/secp256k1"
@@ -193,9 +193,9 @@ func (kb *dbKeybase) persistDerivedKey(seed []byte, passwd, name, fullHdPath str
 	// if we have a password, use it to encrypt the private key and store it
 	// else store the public key only
 	if passwd != "" {
-		info = kb.writeLocalKey(secp256k1.PrivKeySecp256k1(derivedPriv[:]), name, passwd)
+		info = kb.writeLocalKey(secp256k1.PrivKeySecp256k1(derivedPriv), name, passwd)
 	} else {
-		pubk := secp256k1.PrivKeySecp256k1(derivedPriv[:]).PubKey()
+		pubk := secp256k1.PrivKeySecp256k1(derivedPriv).PubKey()
 		info = kb.writeOfflineKey(pubk, name)
 	}
 	return
@@ -214,7 +214,7 @@ func (kb dbKeybase) List() ([]Info, error) {
 			info, err := readInfo(iter.Value())
 			if err != nil {
 				name := nameFromInfoKey(key)
-				return nil, fmt.Errorf("cannot read %s, please use a compatible bnbcli", name)
+				return nil, fmt.Errorf("cannot read %s, please use a compatible axccli", name)
 			}
 			res = append(res, info)
 		}

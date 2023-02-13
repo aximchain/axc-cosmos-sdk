@@ -5,19 +5,19 @@ import (
 	"math/big"
 	"strings"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 var (
-	SideChainIdBsc    = big.NewInt(56)
+	SideChainIdAsc    = big.NewInt(56)
 	SideChainIdChapel = big.NewInt(97)
 	SideChainIdRialto = big.NewInt(714)
 )
 
 func SideChainIdFromText(str string) (*big.Int, error) {
 	switch strings.ToLower(str) {
-	case "bsc":
-		return SideChainIdBsc, nil
+	case "asc":
+		return SideChainIdAsc, nil
 	case "chapel":
 		return SideChainIdChapel, nil
 	case "rialto":
@@ -33,8 +33,8 @@ func NewHandler(k Keeper) sdk.Handler {
 		switch msg := msg.(type) {
 		case MsgSideChainUnjail:
 			return handleMsgSideChainUnjail(ctx, msg, k)
-		case MsgBscSubmitEvidence:
-			return handleMsgBscSubmitEvidence(ctx, msg, k)
+		case MsgAscSubmitEvidence:
+			return handleMsgAscSubmitEvidence(ctx, msg, k)
 		case MsgUnjail:
 			return handleMsgUnjail(ctx, msg, k)
 		default:

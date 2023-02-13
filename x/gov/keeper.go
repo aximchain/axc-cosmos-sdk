@@ -6,10 +6,10 @@ import (
 
 	"github.com/tendermint/tendermint/crypto"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
 )
 
 // Parameter store default namestore
@@ -23,7 +23,7 @@ var (
 	ParamStoreKeyTallyParams   = []byte("tallyparams")
 
 	// Will hold deposit of both BC chain and side chain.
-	DepositedCoinsAccAddr = sdk.AccAddress(crypto.AddressHash([]byte("BinanceChainDepositedCoins")))
+	DepositedCoinsAccAddr = sdk.AccAddress(crypto.AddressHash([]byte("AximchainDepositedCoins")))
 )
 
 // Type declaration for parameters

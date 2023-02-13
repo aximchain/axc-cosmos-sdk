@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/x/ibc"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
+	"github.com/aximchain/axc-cosmos-sdk/x/ibc"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
 	"github.com/stretchr/testify/require"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/crypto"
@@ -16,13 +16,13 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/store"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/stake"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/store"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/auth"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake"
 )
 
 // TODO remove dependencies on staking (should only refer to validator set type from sdk)
@@ -153,22 +153,22 @@ func createSideTestInput(t *testing.T, defaults Params) (sdk.Context, sdk.Contex
 	paramsKeeper := params.NewKeeper(cdc, keyParams, tkeyParams)
 
 	scKeeper := sidechain.NewKeeper(keySideChain, paramsKeeper.Subspace(sidechain.DefaultParamspace), cdc)
-	bscStorePrefix := []byte{0x99}
-	scKeeper.SetSideChainIdAndStorePrefix(ctx, "bsc", bscStorePrefix)
+	axcStorePrefix := []byte{0x99}
+	scKeeper.SetSideChainIdAndStorePrefix(ctx, "asc", axcStorePrefix)
 	scKeeper.SetParams(ctx, sidechain.DefaultParams())
 
 	ibcKeeper := ibc.NewKeeper(keyIbc, paramsKeeper.Subspace(ibc.DefaultParamspace), ibc.DefaultCodespace, scKeeper)
 	// set up IBC chainID for BBC
 	scKeeper.SetSrcChainID(sdk.ChainID(1))
-	err = scKeeper.RegisterDestChain("bsc", sdk.ChainID(1))
+	err = scKeeper.RegisterDestChain("asc", sdk.ChainID(1))
 	require.Nil(t, err)
-	storePrefix := scKeeper.GetSideChainStorePrefix(ctx, "bsc")
+	storePrefix := scKeeper.GetSideChainStorePrefix(ctx, "asc")
 	ibcKeeper.SetParams(ctx.WithSideChainKeyPrefix(storePrefix), ibc.Params{RelayerFee: ibc.DefaultRelayerFeeParam})
 
 	sk := stake.NewKeeper(cdc, keyStake, keyStakeReward, tkeyStake, ck, nil, paramsKeeper.Subspace(stake.DefaultParamspace), stake.DefaultCodespace, sdk.ChainID(0), "")
 	sk.SetupForSideChain(&scKeeper, &ibcKeeper)
 	genesis := stake.DefaultGenesisState()
-	sideCtx := ctx.WithSideChainKeyPrefix(bscStorePrefix)
+	sideCtx := ctx.WithSideChainKeyPrefix(axcStorePrefix)
 	sk.SetParams(sideCtx, stake.DefaultParams())
 	sk.SetPool(sideCtx, stake.Pool{
 		LooseTokens: sdk.NewDec(5e15),
@@ -197,7 +197,7 @@ func createSideTestInput(t *testing.T, defaults Params) (sdk.Context, sdk.Contex
 	})
 
 	sdk.UpgradeMgr.Height = 1
-	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchBscUpgrade, 1)
+	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchAscUpgrade, 1)
 
 	return ctx, sideCtx, ck, sk, paramstore, keeper
 }
@@ -245,7 +245,7 @@ func newTestMsgCreateSideValidator(address sdk.ValAddress, sideConsAddr, sideFee
 		DelegatorAddr: sdk.AccAddress(address),
 		ValidatorAddr: address,
 		Delegation:    sdk.NewCoin("steak", amt),
-		SideChainId:   "bsc",
+		SideChainId:   "asc",
 		SideConsAddr:  sideConsAddr,
 		SideFeeAddr:   sideFeeAddr,
 	}
@@ -256,7 +256,7 @@ func newTestMsgSideUnDelegate(delAddr sdk.AccAddress, valAddr sdk.ValAddress, am
 		DelegatorAddr: delAddr,
 		ValidatorAddr: valAddr,
 		Amount:        sdk.NewCoin("steak", amount),
-		SideChainId:   "bsc",
+		SideChainId:   "asc",
 	}
 }
 

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 type CodeType = sdk.CodeType
@@ -24,7 +24,6 @@ const (
 	CodeExpiredCrossStakeSyncPackage CodeType = 109
 	CodeCrossStakingNoBalance        CodeType = 110
 	CodeCrossStakingNotEnoughBalance CodeType = 111
-	CodeInvalidConsAddrUpdateTime    CodeType = 112
 	CodeInvalidAddress               CodeType = sdk.CodeInvalidAddress
 	CodeUnauthorized                 CodeType = sdk.CodeUnauthorized
 	CodeInternal                     CodeType = sdk.CodeInternal
@@ -259,8 +258,4 @@ func ErrNotEnoughBalance(msg string) sdk.Error {
 
 func ErrNotSelfDelegate(codespace sdk.CodespaceType) sdk.Error {
 	return sdk.NewError(codespace, CodeInvalidValidator, "only self delegate is allowed")
-}
-
-func ErrConsAddrUpdateTime() sdk.Error {
-	return sdk.NewError(DefaultCodespace, CodeInvalidConsAddrUpdateTime, "ConsAddr cannot be changed more than once in 30 days")
 }

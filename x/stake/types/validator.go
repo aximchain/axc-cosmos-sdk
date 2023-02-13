@@ -5,15 +5,15 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
-const ChainIDForBeaconChain string = "bbc" // short for BNB Beacon Chain
+const ChainIDForFlashChain string = "afc" // short for AXC Flash Chain
 
 // Validator defines the total amount of bond shares and their exchange rate to
 // coins. Accumulation of interest is modelled as an in increase in the
@@ -73,7 +73,7 @@ func NewValidatorWithFeeAddr(feeAddr sdk.AccAddress, operator sdk.ValAddress, pu
 		Commission:         NewCommission(sdk.ZeroDec(), sdk.ZeroDec(), sdk.ZeroDec()),
 	}
 	if sdk.IsUpgrade(sdk.BEP159) {
-		val.DistributionAddr = GenerateDistributionAddr(operator, ChainIDForBeaconChain)
+		val.DistributionAddr = GenerateDistributionAddr(operator, ChainIDForFlashChain)
 	}
 	return val
 }

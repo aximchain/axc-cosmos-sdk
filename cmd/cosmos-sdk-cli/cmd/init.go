@@ -8,12 +8,12 @@ import (
 
 	"path/filepath"
 
-	"github.com/cosmos/cosmos-sdk/version"
+	"github.com/aximchain/axc-cosmos-sdk/version"
 	"github.com/spf13/cobra"
 	tmversion "github.com/tendermint/tendermint/version"
 )
 
-var remoteBasecoinPath = "github.com/cosmos/cosmos-sdk/examples/basecoin"
+var remoteBasecoinPath = "github.com/aximchain/axc-cosmos-sdk/examples/basecoin"
 
 // Replacer to replace all instances of basecoin/basecli/BasecoinApp to project specific names
 // Gets initialized when initCmd is executing after getting the project name from user
@@ -92,10 +92,10 @@ func copyBasecoinTemplate(projectName string, projectPath string, remoteProjectP
 func createGopkg(projectPath string) {
 	// Create gopkg.toml file
 	dependencies := map[string]string{
-		"github.com/cosmos/cosmos-sdk": "=" + version.Version,
-		"github.com/stretchr/testify":  "=1.2.1",
-		"github.com/spf13/cobra":       "=0.0.1",
-		"github.com/spf13/viper":       "=1.0.0",
+		"github.com/aximchain/axc-cosmos-sdk": "=" + version.Version,
+		"github.com/stretchr/testify":         "=1.2.1",
+		"github.com/spf13/cobra":              "=0.0.1",
+		"github.com/spf13/viper":              "=1.0.0",
 	}
 	overrides := map[string]string{
 		"github.com/golang/protobuf":       "1.1.0",

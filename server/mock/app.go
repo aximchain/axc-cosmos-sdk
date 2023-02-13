@@ -3,18 +3,19 @@ package mock
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/server/config"
-	"github.com/tendermint/tendermint/crypto"
 	"path/filepath"
+
+	"github.com/aximchain/axc-cosmos-sdk/server/config"
+	"github.com/tendermint/tendermint/crypto"
 
 	abci "github.com/tendermint/tendermint/abci/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	bam "github.com/cosmos/cosmos-sdk/baseapp"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	bam "github.com/aximchain/axc-cosmos-sdk/baseapp"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // NewApp creates a simple mock kvstore app for testing. It should work

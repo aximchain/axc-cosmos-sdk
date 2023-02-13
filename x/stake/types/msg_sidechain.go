@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/sidechain/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain/types"
 )
 
 const (
@@ -50,7 +50,7 @@ func NewMsgCreateSideChainValidatorOnBehalfOf(delegatorAddr sdk.AccAddress, valA
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgCreateSideChainValidator) Route() string { return MsgRoute }
 func (msg MsgCreateSideChainValidator) Type() string  { return MsgTypeCreateSideChainValidator }
 
@@ -114,7 +114,7 @@ func (msg MsgCreateSideChainValidator) GetSideChainId() string {
 	return msg.SideChainId
 }
 
-//______________________________________________________________________
+// ______________________________________________________________________
 type MsgEditSideChainValidator struct {
 	Description   Description    `json:"description"`
 	ValidatorAddr sdk.ValAddress `json:"address"`
@@ -144,7 +144,7 @@ func NewMsgEditSideChainValidator(sideChainId string, validatorAddr sdk.ValAddre
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgEditSideChainValidator) Route() string { return MsgRoute }
 func (msg MsgEditSideChainValidator) Type() string  { return MsgTypeEditSideChainValidator }
 func (msg MsgEditSideChainValidator) GetSigners() []sdk.AccAddress {
@@ -214,7 +214,7 @@ func checkSideChainAddr(addrName string, addr []byte) sdk.Error {
 	return nil
 }
 
-//______________________________________________________________________
+// ______________________________________________________________________
 type MsgSideChainDelegate struct {
 	DelegatorAddr sdk.AccAddress `json:"delegator_addr"`
 	ValidatorAddr sdk.ValAddress `json:"validator_addr"`
@@ -232,7 +232,7 @@ func NewMsgSideChainDelegate(sideChainId string, delAddr sdk.AccAddress, valAddr
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgSideChainDelegate) Route() string { return MsgRoute }
 func (msg MsgSideChainDelegate) Type() string  { return MsgTypeSideChainDelegate }
 func (msg MsgSideChainDelegate) GetSigners() []sdk.AccAddress {
@@ -267,7 +267,7 @@ func (msg MsgSideChainDelegate) GetSideChainId() string {
 	return msg.SideChainId
 }
 
-//______________________________________________________________________
+// ______________________________________________________________________
 type MsgSideChainRedelegate struct {
 	DelegatorAddr    sdk.AccAddress `json:"delegator_addr"`
 	ValidatorSrcAddr sdk.ValAddress `json:"validator_src_addr"`
@@ -286,7 +286,7 @@ func NewMsgSideChainRedelegate(sideChainId string, delegatorAddr sdk.AccAddress,
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgSideChainRedelegate) Route() string { return MsgRoute }
 func (msg MsgSideChainRedelegate) Type() string  { return MsgTypeSideChainRedelegate }
 func (msg MsgSideChainRedelegate) GetSigners() []sdk.AccAddress {
@@ -326,7 +326,7 @@ func (msg MsgSideChainRedelegate) GetSideChainId() string {
 	return msg.SideChainId
 }
 
-//______________________________________________________________________
+// ______________________________________________________________________
 type MsgSideChainUndelegate struct {
 	DelegatorAddr sdk.AccAddress `json:"delegator_addr"`
 	ValidatorAddr sdk.ValAddress `json:"validator_addr"`
@@ -343,7 +343,7 @@ func NewMsgSideChainUndelegate(sideChainId string, delegatorAddr sdk.AccAddress,
 	}
 }
 
-//nolint
+// nolint
 func (msg MsgSideChainUndelegate) Route() string { return MsgRoute }
 func (msg MsgSideChainUndelegate) Type() string  { return MsgTypeSideChainUndelegate }
 func (msg MsgSideChainUndelegate) GetSigners() []sdk.AccAddress {

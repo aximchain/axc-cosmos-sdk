@@ -1,8 +1,8 @@
-//nolint
+// nolint
 package types
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // name to identify transaction types

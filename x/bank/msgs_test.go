@@ -8,7 +8,7 @@ import (
 
 	"github.com/tendermint/tendermint/crypto/secp256k1"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 func TestNewMsgSend(t *testing.T) {}

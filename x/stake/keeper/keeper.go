@@ -3,17 +3,17 @@ package keeper
 import (
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/bsc/rlp"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/pubsub"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/ibc"
-	pTypes "github.com/cosmos/cosmos-sdk/x/paramHub/types"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
-	sTypes "github.com/cosmos/cosmos-sdk/x/sidechain/types"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/asc/rlp"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/pubsub"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank"
+	"github.com/aximchain/axc-cosmos-sdk/x/ibc"
+	pTypes "github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
+	sTypes "github.com/aximchain/axc-cosmos-sdk/x/sidechain/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	"github.com/tendermint/tendermint/libs/log"
 )
 
@@ -219,8 +219,8 @@ func (k *Keeper) SubscribeParamChange(hub pTypes.ParamChangePublisher) {
 	)
 }
 
-func (k *Keeper) SubscribeBCParamChange(hub pTypes.BCParamChangePublisher) {
-	hub.SubscribeBCParamChange(
+func (k *Keeper) SubscribeFCParamChange(hub pTypes.FCParamChangePublisher) {
+	hub.SubscribeFCParamChange(
 		func(context sdk.Context, iChange interface{}) {
 			switch change := iChange.(type) {
 			case *types.Params:
@@ -235,7 +235,7 @@ func (k *Keeper) SubscribeBCParamChange(hub pTypes.BCParamChangePublisher) {
 				context.Logger().Debug("[bc] skip unknown bc param change")
 			}
 		},
-		&pTypes.BCParamSpaceProto{ParamSpace: k.paramstore, Proto: func() pTypes.BCParam {
+		&pTypes.FCParamSpaceProto{ParamSpace: k.paramstore, Proto: func() pTypes.FCParam {
 			return new(types.Params)
 		}},
 	)

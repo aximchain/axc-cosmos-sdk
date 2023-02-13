@@ -7,8 +7,8 @@ import (
 	"sort"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/crypto"
 	tmtypes "github.com/tendermint/tendermint/types"
@@ -288,7 +288,7 @@ func (k Keeper) RemoveValidator(ctx sdk.Context, address sdk.ValAddress) {
 	if k.PbsbServer != nil && ctx.IsDeliverTx() {
 		chainId := validator.SideChainId
 		if chainId == "" {
-			chainId = types.ChainIDForBeaconChain
+			chainId = types.ChainIDForFlashChain
 		}
 		k.PbsbServer.Publish(types.ValidatorRemovedEvent{
 			StakeEvent: types.StakeEvent{
@@ -485,20 +485,4 @@ func (k Keeper) UnbondAllMatureValidatorQueue(ctx sdk.Context) {
 		}
 		store.Delete(validatorTimesliceIterator.Key())
 	}
-}
-
-func (k Keeper) GetValLatestUpdateConsAddrTime(ctx sdk.Context, addr sdk.ValAddress) (t time.Time, err error) {
-	store := ctx.KVStore(k.storeKey)
-	value := store.Get(GetValLatestUpdateConsAddrTimeKey(addr))
-	if value == nil {
-		return
-	}
-	t, err = sdk.ParseTimeBytes(value)
-	return
-}
-
-func (k Keeper) SetValLatestUpdateConsAddrTime(ctx sdk.Context, addr sdk.ValAddress, t time.Time) {
-	store := ctx.KVStore(k.storeKey)
-	bz := sdk.FormatTimeBytes(t)
-	store.Set(GetValLatestUpdateConsAddrTimeKey(addr), bz)
 }

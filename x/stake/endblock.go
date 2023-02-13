@@ -3,9 +3,9 @@ package stake
 import (
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/stake/keeper"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/keeper"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
@@ -16,7 +16,7 @@ func EndBlocker(ctx sdk.Context, k keeper.Keeper) (validatorUpdates []abci.Valid
 	if !sdk.IsUpgrade(sdk.BEP159) {
 		_, validatorUpdates, completedUbds, _, events = handleValidatorAndDelegations(ctx, k)
 	} else {
-		k.DistributeInBlock(ctx, types.ChainIDForBeaconChain)
+		k.DistributeInBlock(ctx, types.ChainIDForFlashChain)
 		validatorUpdates = k.PopPendingABCIValidatorUpdate(ctx)
 	}
 	if sdk.IsUpgrade(sdk.BEP128) {
@@ -43,12 +43,12 @@ func EndBreatheBlock(ctx sdk.Context, k keeper.Keeper) (validatorUpdates []abci.
 	var completedREDs []types.DVVTriplet
 	newVals, validatorUpdates, completedUbds, completedREDs, events = handleValidatorAndDelegations(ctx, k)
 	ctx.Logger().Debug("EndBreatheBlock", "newValsLen", len(newVals), "newVals", newVals)
-	publishCompletedUBD(k, completedUbds, ChainIDForBeaconChain, ctx.BlockHeight())
-	publishCompletedRED(k, completedREDs, ChainIDForBeaconChain)
+	publishCompletedUBD(k, completedUbds, ChainIDForFlashChain, ctx.BlockHeight())
+	publishCompletedRED(k, completedREDs, ChainIDForFlashChain)
 	if k.PbsbServer != nil {
 		sideValidatorsEvent := types.ElectedValidatorsEvent{
 			Validators: newVals,
-			ChainId:    ChainIDForBeaconChain,
+			ChainId:    ChainIDForFlashChain,
 		}
 		k.PbsbServer.Publish(sideValidatorsEvent)
 	}
@@ -56,7 +56,7 @@ func EndBreatheBlock(ctx sdk.Context, k keeper.Keeper) (validatorUpdates []abci.
 		storeValidatorsWithHeight(ctx, newVals, k)
 	}
 
-	if sdk.IsUpgrade(sdk.LaunchBscUpgrade) && k.ScKeeper != nil {
+	if sdk.IsUpgrade(sdk.LaunchAscUpgrade) && k.ScKeeper != nil {
 		// distribute sidechain rewards
 		sideChainIds, storePrefixes := k.ScKeeper.GetAllSideChainPrefixes(ctx)
 		for i := range storePrefixes {
@@ -87,8 +87,8 @@ func EndBreatheBlock(ctx sdk.Context, k keeper.Keeper) (validatorUpdates []abci.
 			publishCompletedRED(k, completedREDs, sideChainIds[i])
 		}
 		if sdk.IsUpgrade(sdk.BEP159) {
-			// distribute beacon chain rewards
-			k.DistributeInBreathBlock(ctx, types.ChainIDForBeaconChain)
+			// distribute Flash Chain rewards
+			k.DistributeInBreathBlock(ctx, types.ChainIDForFlashChain)
 		}
 	}
 	ctx.EventManager().EmitEvents(events)

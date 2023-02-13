@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/stake/keeper"
-	"github.com/cosmos/cosmos-sdk/x/stake/tags"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/baseapp"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/keeper"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/tags"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 )
 
 func handleMsgCreateSideChainValidator(ctx sdk.Context, msg MsgCreateSideChainValidator, k keeper.Keeper) sdk.Result {
@@ -109,17 +109,6 @@ func handleMsgEditSideChainValidator(ctx sdk.Context, msg MsgEditSideChainValida
 		_, found = k.GetValidatorBySideConsAddr(ctx, msg.SideConsAddr)
 		if found {
 			return ErrValidatorSideConsAddrExist(k.Codespace()).Result()
-		}
-		if sdk.IsUpgrade(sdk.LimitConsAddrUpdateInterval) {
-			// check update sideConsAddr interval
-			latestUpdateConsAddrTime, err := k.GetValLatestUpdateConsAddrTime(ctx, validator.OperatorAddr)
-			if err != nil {
-				return sdk.ErrInternal(fmt.Sprintf("failed to get latest update cons addr time: %s", err)).Result()
-			}
-			if ctx.BlockHeader().Time.Sub(latestUpdateConsAddrTime).Hours() < types.ConsAddrUpdateIntervalInHours {
-				return types.ErrConsAddrUpdateTime().Result()
-			}
-			k.SetValLatestUpdateConsAddrTime(ctx, validator.OperatorAddr, ctx.BlockHeader().Time)
 		}
 		// here consAddr is the sideConsAddr
 		k.UpdateSideValidatorConsAddr(ctx, validator, msg.SideConsAddr)

@@ -3,7 +3,7 @@ package store
 import (
 	"io"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 )
 

@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/cosmos/cosmos-sdk/bsc"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/paramHub/types"
-	param "github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
-	sTypes "github.com/cosmos/cosmos-sdk/x/sidechain/types"
+	"github.com/aximchain/axc-cosmos-sdk/asc"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/paramHub/types"
+	param "github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
+	sTypes "github.com/aximchain/axc-cosmos-sdk/x/sidechain/types"
 )
 
 // IBC Keeper
@@ -159,7 +159,7 @@ func (k Keeper) GetRelayerFeeParam(ctx sdk.Context, destChainName string) (relat
 	sideChainCtx := ctx.WithSideChainKeyPrefix(storePrefix)
 	var relayerFeeParam int64
 	k.paramSpace.Get(sideChainCtx, ParamRelayerFee, &relayerFeeParam)
-	relaterFee = bsc.ConvertBCAmountToBSCAmount(relayerFeeParam)
+	relaterFee = asc.ConvertFCAmountToASCAmount(relayerFeeParam)
 	return
 }
 

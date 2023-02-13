@@ -5,10 +5,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/cosmos/cosmos-sdk/store"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/stake/types"
+	"github.com/aximchain/axc-cosmos-sdk/store"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 
 	abci "github.com/tendermint/tendermint/abci/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
@@ -36,7 +36,7 @@ func TestSetParams(t *testing.T) {
 	ctx := sdk.NewContext(ms, abci.Header{ChainID: "foochainid"}, mode, log.NewNopLogger())
 	pk := params.NewKeeper(cdc, keyParams, tkeyParams)
 	k := NewKeeper(cdc, keyStake, keyStakeReward, tkeyStake, nil, nil, pk.Subspace(DefaultParamspace), types.DefaultCodespace, sdk.ChainID(0), "")
-	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchBscUpgrade, 10)
+	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchAscUpgrade, 10)
 	sdk.UpgradeMgr.AddUpgradeHeight(sdk.BEP128, 100)
 
 	sdk.UpgradeMgr.SetHeight(1)

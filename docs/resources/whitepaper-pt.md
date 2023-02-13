@@ -369,10 +369,10 @@ distribuída.
 
 O que a comunidade de criptomoedas chama hoje de intercâmbio descentralizado
 baseado em algo chamado transações "atomic cross-chain" (AXC). Com uma transação
-AXC, dois usuários em duas diferentes cadeias podem fazer duas transações
+ASC, dois usuários em duas diferentes cadeias podem fazer duas transações
 de transferências que serão feitas juntas nas duas ledgers, ou nenhuma (isto é,
 Atomicamente). Por exemplo, dois usuários podem trocar bitcoins por ether (ou qualquer dois
-Tokens em dois ledgers diferentes) usando transações AXC, mesmo que o Bitcoin
+Tokens em dois ledgers diferentes) usando transações ASC, mesmo que o Bitcoin
 e o Ethereum não estão conectados entre si. O benefício de executar um
 troca em transações AXC é que nenhum dos usuários precisam confiar um no outro ou
 no serviço de correspondência comercial. A desvantagem é que ambas as partes precisam estar
@@ -1313,7 +1313,7 @@ se "Hub" não tivesse recebido um status `AckSent` de "Zone2" pelo bloco 350, el
 definido o status automaticamente para `Timeout`. Essa evidência de um tempo limite pode
 ser postada novamente na "Zone1", e quaisquer tokens podem ser retornados.
 
-![Figura da Zone1, Zone2, e Hub IBC com reconhecimento e 
+![Figura da Zone1, Zone2, e Hub IBC com reconhecimento e
 timeout](https://raw.githubusercontent.com/gnuclear/atom-whitepaper/master/msc/ibc_with_ack_timeout.png)
 
 ### Árvore Merkle e Especificação de Prova

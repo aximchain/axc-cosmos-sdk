@@ -1,8 +1,8 @@
 package client
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	bank "github.com/cosmos/cosmos-sdk/x/bank"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	bank "github.com/aximchain/axc-cosmos-sdk/x/bank"
 )
 
 // create the sendTx msg

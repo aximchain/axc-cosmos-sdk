@@ -7,15 +7,15 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/aximchain/axc-cosmos-sdk/client"
+	"github.com/aximchain/axc-cosmos-sdk/codec"
+	"github.com/aximchain/axc-cosmos-sdk/x/auth"
 
 	"github.com/spf13/viper"
 
-	"github.com/cosmos/cosmos-sdk/client/keys"
-	cskeys "github.com/cosmos/cosmos-sdk/crypto/keys"
-	"github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/client/keys"
+	cskeys "github.com/aximchain/axc-cosmos-sdk/crypto/keys"
+	"github.com/aximchain/axc-cosmos-sdk/types"
 	"github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/libs/log"
 	tmlite "github.com/tendermint/tendermint/lite"
@@ -131,7 +131,7 @@ func createVerifier() tmlite.Verifier {
 	node := rpcclient.NewHTTP(nodeURI, "/websocket")
 	cacheSize := 10 // TODO: determine appropriate cache size
 	verifier, err := tmliteProxy.NewVerifier(
-		chainID, filepath.Join(home, ".bnblite"),
+		chainID, filepath.Join(home, ".axclite"),
 		node, log.NewNopLogger(), cacheSize,
 	)
 

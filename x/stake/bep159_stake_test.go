@@ -6,15 +6,15 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/ibc"
-	"github.com/cosmos/cosmos-sdk/x/mock"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/sidechain"
-	stake "github.com/cosmos/cosmos-sdk/x/stake/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/auth"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank"
+	"github.com/aximchain/axc-cosmos-sdk/x/gov"
+	"github.com/aximchain/axc-cosmos-sdk/x/ibc"
+	"github.com/aximchain/axc-cosmos-sdk/x/mock"
+	"github.com/aximchain/axc-cosmos-sdk/x/params"
+	"github.com/aximchain/axc-cosmos-sdk/x/sidechain"
+	stake "github.com/aximchain/axc-cosmos-sdk/x/stake/types"
 	"github.com/stretchr/testify/require"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/crypto"
@@ -33,7 +33,7 @@ func getNewInitChainer(mapp *mock.App, keeper Keeper) sdk.InitChainer {
 		mapp.InitChainer(ctx, req)
 
 		stakeGenesis := DefaultGenesisState()
-		stakeGenesis.Params.BondDenom = "BNB"
+		stakeGenesis.Params.BondDenom = "AXC"
 		stakeGenesis.Pool.LooseTokens = sdk.NewDecWithoutFra(100000)
 
 		validators, err := InitGenesis(ctx, keeper, stakeGenesis)
@@ -84,19 +84,19 @@ func getNewStakeMockApp(t *testing.T) (*mock.App, Keeper, []Account) {
 	govKeeper := gov.NewKeeper(mApp.Cdc, keyGov, paramsKeeper, paramsKeeper.Subspace(gov.DefaultParamSpace), bankKeeper, keeper, mApp.RegisterCodespace(DefaultCodespace), nil)
 	keeper.SetupForSideChain(&scKeeper, &ibcKeeper)
 
-	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchBscUpgrade, 6)
+	sdk.UpgradeMgr.AddUpgradeHeight(sdk.LaunchAscUpgrade, 6)
 	sdk.UpgradeMgr.AddUpgradeHeight(sdk.BEP128, 7)
 	sdk.UpgradeMgr.AddUpgradeHeight(sdk.BEP159, 8)
 	sdk.UpgradeMgr.AddUpgradeHeight(sdk.BEP159Phase2, 8)
-	BscChainId := "bsc"
-	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchBscUpgrade, func(ctx sdk.Context) {
+	AscChainId := "asc"
+	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.LaunchAscUpgrade, func(ctx sdk.Context) {
 		MigratePowerRankKey(ctx, keeper)
-		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, BscChainId)
+		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, AscChainId)
 		newCtx := ctx.WithSideChainKeyPrefix(storePrefix)
 		keeper.SetParams(newCtx, stake.Params{
 			UnbondingTime:       60 * 60 * 24 * 7 * time.Second, // 7 days
 			MaxValidators:       21,
-			BondDenom:           "BNB",
+			BondDenom:           "AXC",
 			MinSelfDelegation:   20000e8,
 			MinDelegationChange: 1e8,
 		})
@@ -105,7 +105,7 @@ func getNewStakeMockApp(t *testing.T) (*mock.App, Keeper, []Account) {
 		})
 	})
 	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.BEP128, func(ctx sdk.Context) {
-		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, BscChainId)
+		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, AscChainId)
 		// init new param RewardDistributionBatchSize
 		newCtx := ctx.WithSideChainKeyPrefix(storePrefix)
 		params := keeper.GetParams(newCtx)
@@ -113,7 +113,7 @@ func getNewStakeMockApp(t *testing.T) (*mock.App, Keeper, []Account) {
 		keeper.SetParams(newCtx, params)
 	})
 	sdk.UpgradeMgr.RegisterBeginBlocker(sdk.BEP159, func(ctx sdk.Context) {
-		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, BscChainId)
+		storePrefix := scKeeper.GetSideChainStorePrefix(ctx, AscChainId)
 		newCtx := ctx.WithSideChainKeyPrefix(storePrefix)
 		params := keeper.GetParams(newCtx)
 		params.MaxStakeSnapshots = 30
@@ -135,7 +135,7 @@ func getNewStakeMockApp(t *testing.T) (*mock.App, Keeper, []Account) {
 	mock.SetGenesis(mApp, accs)
 	// create validator
 	description := NewDescription("foo_moniker", "", "", "")
-	bondCoin := sdk.NewCoin("BNB", sdk.NewDecWithoutFra(10).RawInt())
+	bondCoin := sdk.NewCoin("AXC", sdk.NewDecWithoutFra(10).RawInt())
 	createValidatorMsg0 := NewMsgCreateValidator(
 		sdk.ValAddress(accounts[0].Address), accounts[0].Priv.PubKey(), bondCoin, description, commissionMsg,
 	)
@@ -164,7 +164,7 @@ func GenAccounts(n int) (accounts []Account) {
 	for i := 0; i < n; i++ {
 		priv := ed25519.GenPrivKey()
 		address := sdk.AccAddress(priv.PubKey().Address())
-		genCoin := sdk.NewCoin("BNB", sdk.NewDecWithoutFra(12345678).RawInt())
+		genCoin := sdk.NewCoin("AXC", sdk.NewDecWithoutFra(12345678).RawInt())
 		baseAccount := auth.BaseAccount{
 			Address: address,
 			Coins:   sdk.Coins{genCoin},
@@ -197,7 +197,7 @@ func TestNewStake(t *testing.T) {
 	// fail to create validator after hardfork, self delegation not enough
 	acc := accounts[0]
 	description3 := NewDescription("validator3", "", "", "")
-	bondCoin := sdk.NewCoin("BNB", sdk.NewDecWithoutFra(10).RawInt())
+	bondCoin := sdk.NewCoin("AXC", sdk.NewDecWithoutFra(10).RawInt())
 	createValidatorMsg3 := NewMsgCreateValidator(
 		sdk.ValAddress(acc.Address), acc.Priv.PubKey(), bondCoin, description3, commissionMsg,
 	)
@@ -207,7 +207,7 @@ func TestNewStake(t *testing.T) {
 	var msgs []sdk.Msg
 	var privs []crypto.PrivKey
 	for i := 2; i < 12; i++ {
-		newBondCoin := sdk.NewCoin("BNB", sdk.NewDecWithoutFra(20000+int64(i)).RawInt())
+		newBondCoin := sdk.NewCoin("AXC", sdk.NewDecWithoutFra(20000+int64(i)).RawInt())
 		description := NewDescription(fmt.Sprintf("account%d", i), "", "", "")
 		createValidatorOpenMsg := MsgCreateValidatorOpen{
 			DelegatorAddr: accounts[i].Address,

@@ -3,9 +3,9 @@ package keys
 import (
 	"github.com/tendermint/tendermint/crypto"
 
-	ccrypto "github.com/cosmos/cosmos-sdk/crypto"
-	"github.com/cosmos/cosmos-sdk/crypto/keys/hd"
-	"github.com/cosmos/cosmos-sdk/types"
+	ccrypto "github.com/aximchain/axc-cosmos-sdk/crypto"
+	"github.com/aximchain/axc-cosmos-sdk/crypto/keys/hd"
+	"github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // Keybase exposes operations on a generic keystore
@@ -185,7 +185,7 @@ func (i offlineInfo) GetAddress() types.AccAddress {
 
 // tssInfo is the public information about a tss key
 type tssInfo struct {
-	Name   string        `json:"name"` // alias of this tss vault registered in bnbcli
+	Name   string        `json:"name"` // alias of this tss vault registered in axccli
 	PubKey crypto.PubKey `json:"pubkey"`
 	Home   string        `json:"home"`  // path to home of tss client
 	Vault  string        `json:"vault"` // vault name of tss client

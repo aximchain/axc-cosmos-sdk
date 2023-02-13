@@ -2,7 +2,8 @@ package bank
 
 import (
 	"encoding/json"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // MsgSend - high level transaction of the coin module

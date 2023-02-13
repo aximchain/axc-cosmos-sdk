@@ -3,8 +3,8 @@ package utils
 import (
 	"testing"
 
-	"github.com/cosmos/cosmos-sdk/cmd/gaia/app"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/cmd/gaia/app"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 	"github.com/stretchr/testify/assert"
 )
 

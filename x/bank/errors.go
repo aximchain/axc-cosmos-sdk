@@ -1,8 +1,8 @@
-//nolint
+// nolint
 package bank
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
 )
 
 // Bank errors reserve 100 ~ 199.

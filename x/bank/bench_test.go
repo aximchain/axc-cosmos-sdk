@@ -1,12 +1,13 @@
 package bank_test
 
 import (
-	"github.com/cosmos/cosmos-sdk/x/bank"
 	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/mock"
+	"github.com/aximchain/axc-cosmos-sdk/x/bank"
+
+	sdk "github.com/aximchain/axc-cosmos-sdk/types"
+	"github.com/aximchain/axc-cosmos-sdk/x/auth"
+	"github.com/aximchain/axc-cosmos-sdk/x/mock"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
