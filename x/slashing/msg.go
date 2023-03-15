@@ -1,7 +1,6 @@
 package slashing
 
 import (
-	"bytes"
 	"fmt"
 
 	"github.com/aximchain/axc-cosmos-sdk/asc"
@@ -152,17 +151,17 @@ func (msg MsgAscSubmitEvidence) ValidateBasic() sdk.Error {
 	if msg.Headers[0].ParentHash.Cmp(msg.Headers[1].ParentHash) != 0 {
 		return ErrInvalidEvidence(DefaultCodespace, "The parent hash of two block headers are not the same")
 	}
-	signature1, err := msg.Headers[0].GetSignature()
-	if err != nil {
-		return ErrInvalidEvidence(DefaultCodespace, fmt.Sprintf("Failed to get signature from block header, %s", err.Error()))
-	}
-	signature2, err := msg.Headers[1].GetSignature()
-	if err != nil {
-		return ErrInvalidEvidence(DefaultCodespace, fmt.Sprintf("Failed to get signature from block header, %s", err.Error()))
-	}
-	if bytes.Compare(signature1, signature2) == 0 {
-		return ErrInvalidEvidence(DefaultCodespace, "The two blocks are the same")
-	}
+	// signature1, err := msg.Headers[0].GetSignature()
+	// if err != nil {
+	// 	return ErrInvalidEvidence(DefaultCodespace, fmt.Sprintf("Failed to get signature from block header, %s", err.Error()))
+	// }
+	// signature2, err := msg.Headers[1].GetSignature()
+	// if err != nil {
+	// 	return ErrInvalidEvidence(DefaultCodespace, fmt.Sprintf("Failed to get signature from block header, %s", err.Error()))
+	// }
+	// if bytes.Compare(signature1, signature2) == 0 {
+	// 	return ErrInvalidEvidence(DefaultCodespace, "The two blocks are the same")
+	// }
 	return nil
 }
 
