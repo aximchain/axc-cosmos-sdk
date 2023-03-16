@@ -9,9 +9,9 @@ import (
 )
 
 var (
-	SideChainIdAsc    = big.NewInt(56)
+	SideChainIdAsc    = big.NewInt(3388)
 	SideChainIdChapel = big.NewInt(97)
-	SideChainIdRialto = big.NewInt(714)
+	SideChainIdAtc = big.NewInt(714)
 )
 
 func SideChainIdFromText(str string) (*big.Int, error) {
@@ -20,8 +20,8 @@ func SideChainIdFromText(str string) (*big.Int, error) {
 		return SideChainIdAsc, nil
 	case "chapel":
 		return SideChainIdChapel, nil
-	case "rialto":
-		return SideChainIdRialto, nil
+	case "atc":
+		return SideChainIdAtc, nil
 	default:
 		return nil, fmt.Errorf("Provided sidechain name is not supported.")
 	}
